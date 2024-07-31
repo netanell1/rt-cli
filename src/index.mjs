@@ -62,8 +62,8 @@ program
   .option('--function', 'Set default component type to function')
   .option('--const', 'Set default component type to const')
   .option('--modelSuffix', 'Set suffix for the type file name as type')
-  .option('--componentFileName <name>', 'Set default name for the component file')
-  .option('--styleFileName <name>', 'Set default name for the style file')
+  .option('--defaultComponentName <name>', 'Set default name for the component file')
+  .option('--defaultstyleName <name>', 'Set default name for the style file')
   .option('--appTemplate <name>', 'Set default app template for new app')
   .action((options) => {
     handleInit(options);
@@ -83,8 +83,8 @@ program
   .option('--function', 'Create a function component')
   .option('--const', 'Create a constant component')
   .option('--modelSuffix', 'Set suffix for the type file name as type')
-  .option('--componentFileName <name>', 'Set the name for the component file')
-  .option('--styleFileName <name>', 'Set the name for the style file')
+  .option('--defaultComponentName <name>', 'Set the name for the component file')
+  .option('--defaultstyleName <name>', 'Set the name for the style file')
   .action((type, name, options) => {
     if (type === 'component' || type === 'c') {
       createComponent(name, options);
@@ -121,8 +121,8 @@ program
   .option('--function', 'Create a function component')
   .option('--const', 'Create a constant component')
   .option('--modelSuffix', 'Set suffix for the type file name as type')
-  .option('--componentFileName <name>', 'Set the name for the component file')
-  .option('--styleFileName <name>', 'Set the name for the style file')
+  .option('--defaultComponentName <name>', 'Set the name for the component file')
+  .option('--defaultstyleName <name>', 'Set the name for the style file')
   .action((type, name, options) => {
     if (type === 'component' || type === 'c') {
       createComponent(name, options);
