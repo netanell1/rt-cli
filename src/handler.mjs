@@ -3,7 +3,28 @@ import path from 'path';
 import chalk from 'chalk';
 import { fileURLToPath } from 'url';
 import figlet from 'figlet';
+import PromptSync from 'prompt-sync';
+import { initConfig } from './init.mjs';
 
+export function handleInit(options) {
+    const prompt = PromptSync();
+    const configFilePath = findConfigFile(process.cwd());
+
+    if (configFilePath) {
+        const answer = prompt('rt.json already exists. Overwrite? (y/n): ').trim().toLowerCase();
+
+        if (answer === 'y' || answer === 'yes') {
+            fs.unlinkSync(configFilePath);
+            initConfig(options); // Create new rt.json file
+        } else {
+            console.log(chalk.yellow('No changes made to rt.json.'));
+        }
+    } else {
+        initConfig(options); // Create new rt.json file if it does not exist
+    }
+};
+
+// print warning if ts not defined
 export function checkTypeScriptConfigured() {
     const configPath = findConfigFile(process.cwd())
     if (fs.existsSync(configPath)) {
@@ -39,5 +60,4 @@ export function printVersion() {
     const version = packageJson.version;
     console.log(chalk.cyan(figlet.textSync('React CLI', { font: 'Star Wars' })));
     console.log(chalk.cyan(`Version: ${version}`));
-
 }

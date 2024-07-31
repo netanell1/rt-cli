@@ -24,7 +24,7 @@ export function createComponent(componentFullName, options) {
     let styleModule = options.moduleStyle ? '.module' : ''; // Determine if style should be a module
     let componentFileFormat = options.const ? 'const' : 'function'; // Determine component type
     let defaultComponentName = options.defaultComponentName || componentName; // Default component file name
-    let defaultstyleName = options.defaultstyleName || componentName; // Default style file name
+    let defaultStyleName = options.defaultStyleName || componentName; // Default style file name
 
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
@@ -33,7 +33,7 @@ export function createComponent(componentFullName, options) {
         styleModule = config.moduleStyle ? '.module' : ''; // Determine if style should be a module
         componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
         defaultComponentName = config.defaultComponentName || componentName; // Check config for component file name
-        defaultstyleName = config.defaultstyleName || componentName; // Check config for style file name
+        defaultStyleName = config.defaultStyleName || componentName; // Check config for style file name
     }
 
     // Override with command line options if provided
@@ -43,14 +43,8 @@ export function createComponent(componentFullName, options) {
         fileExtension = 'tsx';
     }
 
-    if (options.css) {
-        styleExtension = 'css';
-    } else if (options.scss) {
-        styleExtension = 'scss';
-    } else if (options.less) {
-        styleExtension = 'less';
-    } else if (options.stylus) {
-        styleExtension = 'stylus';
+    if (options.style) {
+        styleExtension = options.style;
     }
 
     if (options.moduleStyle) {
@@ -67,12 +61,12 @@ export function createComponent(componentFullName, options) {
         defaultComponentName = options.defaultComponentName;
     }
 
-    if (options.defaultstyleName) {
-        defaultstyleName = options.defaultstyleName;
+    if (options.defaultStyleName) {
+        defaultStyleName = options.defaultStyleName;
     }
 
     const indexPath = path.join(componentDir, `${defaultComponentName}.${fileExtension}`);
-    const stylePath = path.join(componentDir, `${defaultstyleName}${styleModule}.${styleExtension}`);
+    const stylePath = path.join(componentDir, `${defaultStyleName}${styleModule}.${styleExtension}`);
 
     const functionName = componentName[0].toUpperCase() + componentName.slice(1, componentName.length)
 

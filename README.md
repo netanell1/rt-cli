@@ -1,6 +1,6 @@
 # React CLI RT
 
-![rt_image](./rt-image.png)
+![rt_image](https://res.cloudinary.com/dao8x5rkh/image/upload/v1722446672/react-cli-rt/tm1alrrzrgjbpbdhwz67.png)
 
 **React CLI RT** is a simple and easy-to-use command-line tool designed to streamline the creation of React components and interfaces. It provides a set of commands to generate components and interfaces quickly and efficiently, offering both full command names and abbreviations for convenience.
 

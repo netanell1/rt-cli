@@ -8,13 +8,12 @@ export function initConfig(options) {
     // Default configuration
     const defaultConfig = {
         language: options.ts ? 'ts' : 'js',    // Set default language based on options
-        style: options.scss ? 'scss' : options.less ? 'less' : options.stylus ? 'styl' : 'css', // Default to CSS
+        style: options.style || 'css', // Default to CSS
         moduleStyle: options.moduleStyle || false, // Default to false if not specified
         componentFileFormat: options.const ? 'const' : 'function', // Default to 'function'
         defaultComponentName: options.defaultComponentName || '', // Default component file name
-        defaultstyleName: options.defaultstyleName || '', // Default style file name
+        defaultStyleName: options.defaultStyleName || '', // Default style file name
         modelSuffix: options.modelSuffix ? true : false,
-        appTemplate: options.appTemplate || "react"
     };
 
     // Check if configuration file already exists

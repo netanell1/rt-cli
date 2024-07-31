@@ -1,6 +1,6 @@
 {
   "name": "react-cli-rt",
-  "version": "2.0.2",
+  "version": "2.0.5",
   "description": "A CLI tool for React app creation.",
   "main": "index.mjs",
   "bin": {

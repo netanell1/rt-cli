@@ -7,38 +7,24 @@ import { createInterface } from './interface.mjs';
 import chalk from 'chalk';
 import fs from 'fs';
 import { createClass } from './class.mjs';
-import { checkTypeScriptConfigured, findConfigFile, printVersion } from './handler.mjs';
+import { checkTypeScriptConfigured, findConfigFile, handleInit, printVersion } from './handler.mjs';
 import PromptSync from 'prompt-sync';
 import { createEnum } from './enum.mjs';
 import { createReactApp } from './new.mjs';
+import updateCLI from './update.mjs';
+import { dev, build, lint, preview } from './viteCommand.mjs';
+import { createModel } from './model.mjs';
 
 const program = new Command();
-const prompt = PromptSync();
-
-function handleInit(options) {
-  const configFilePath = findConfigFile(process.cwd());
-
-  if (configFilePath) {
-    const answer = prompt('rt.json already exists. Overwrite? (y/n): ').trim().toLowerCase();
-
-    if (answer === 'y' || answer === 'yes') {
-      fs.unlinkSync(configFilePath);
-      initConfig(options); // Create new rt.json file
-    } else {
-      console.log(chalk.yellow('No changes made to rt.json.'));
-    }
-  } else {
-    initConfig(options); // Create new rt.json file if it does not exist
-  }
-};
 
 
+
+/********************************* */
 
 // Command to create a new React application
 program
   .command('new <appName>')
   .option('--ts', 'Create a TS app explicitly')
-  .option('--appTemplate <name>', 'Set default app template for new app')
   .description('Create a new React application using create-react-app')
   .action((appName, options) => {
     try {
@@ -50,55 +36,113 @@ program
     }
   });
 
+/********************************* */
+
 // Command to initialize the configuration file
 program
   .command('init')
   .description('Initialize configuration file for the CLI')
   .option('--ts', 'Set TypeScript as the default language')
-  .option('--scss', 'Set SCSS as the default style language')
-  .option('--less', 'Set Less as the default style language')
-  .option('--stylus', 'Set Stylus as the default style language')
+  .option('--style <styleType>', 'Create a CSS file explicitly')
   .option('--moduleStyle', 'Set default style files to use .module')
   .option('--function', 'Set default component type to function')
   .option('--const', 'Set default component type to const')
   .option('--modelSuffix', 'Set suffix for the type file name as type')
   .option('--defaultComponentName <name>', 'Set default name for the component file')
-  .option('--defaultstyleName <name>', 'Set default name for the style file')
-  .option('--appTemplate <name>', 'Set default app template for new app')
+  .option('--defaultStyleName <name>', 'Set default name for the style file')
   .action((options) => {
     handleInit(options);
   });
 
-// Command to generate a new component
+/********************************* */
+
+// Command to update rt-cli
+program
+  .command('update')
+  .description('Update the react-cli-rt to the latest version')
+  .action(() => {
+    updateCLI();
+  });
+
+//short
+program
+  .command('u')
+  .description('Update the react-cli-rt to the latest version')
+  .action(() => {
+    updateCLI();
+  });
+
+
+/********************************* */
+
+// Command to run dev
+program
+  .command('dev')
+  .description('Run npm run dev')
+  .action(() => {
+    dev();
+  });
+
+
+/********************************* */
+
+// Command to run build
+program
+  .command('build')
+  .description('Run npm run build')
+  .action(() => {
+    build();
+  });
+
+/********************************* */
+
+// Command to run lint
+program
+  .command('lint')
+  .description('Run npm run lint')
+  .action(() => {
+    lint();
+  });
+
+/********************************* */
+
+// Command to run preview
+program
+  .command('preview')
+  .description('Run npm run preview')
+  .action(() => {
+    preview();
+  });
+
+/********************************* */
+
+// Command to generate a new file
 program
   .command('generate <type> <name>')
   .description('Generate a new file of a specified type')
   .option('--js', 'Create a JS file explicitly')
   .option('--ts', 'Create a TS file explicitly')
-  .option('--css', 'Create a CSS file explicitly')
-  .option('--scss', 'Create an SCSS file explicitly')
-  .option('--less', 'Create a Less file explicitly')
-  .option('--stylus', 'Create a Stylus file explicitly')
+  .option('--style <styleType>', 'Create a CSS file explicitly')
   .option('--moduleStyle', 'Create a style file with .module extension')
   .option('--function', 'Create a function component')
   .option('--const', 'Create a constant component')
   .option('--modelSuffix', 'Set suffix for the type file name as type')
   .option('--defaultComponentName <name>', 'Set the name for the component file')
-  .option('--defaultstyleName <name>', 'Set the name for the style file')
+  .option('--defaultStyleName <name>', 'Set the name for the style file')
   .action((type, name, options) => {
     if (type === 'component' || type === 'c') {
       createComponent(name, options);
 
     }
     else if (type === 'class' || type === 'cl') {
-      createClass(name, options);
+      createModel('class', name, options);
     }
     else if (type === 'enum' || type === 'e') {
-      createEnum(name, options);
+      createModel('enum', name, options);
       checkTypeScriptConfigured();
     }
     else if (type === 'interface' || type === "i") {
-      createInterface(name, options)
+      createModel('interface', name, options);
       checkTypeScriptConfigured();
     }
     else {
@@ -107,22 +151,19 @@ program
     }
   });
 
-// Short form: rt g <type> <name>
+//short
 program
   .command('g <type> <name>')
   .description('Generate a new file of a specified type')
   .option('--js', 'Create a JS file explicitly')
   .option('--ts', 'Create a TS file explicitly')
-  .option('--css', 'Create a CSS file explicitly')
-  .option('--scss', 'Create an SCSS file explicitly')
-  .option('--less', 'Create a Less file explicitly')
-  .option('--stylus', 'Create a Stylus file explicitly')
+  .option('--style <styleType>', 'Create a CSS file explicitly')
   .option('--moduleStyle', 'Create a style file with .module extension')
   .option('--function', 'Create a function component')
   .option('--const', 'Create a constant component')
   .option('--modelSuffix', 'Set suffix for the type file name as type')
   .option('--defaultComponentName <name>', 'Set the name for the component file')
-  .option('--defaultstyleName <name>', 'Set the name for the style file')
+  .option('--defaultStyleName <name>', 'Set the name for the style file')
   .action((type, name, options) => {
     if (type === 'component' || type === 'c') {
       createComponent(name, options);
@@ -145,6 +186,8 @@ program
     }
   });
 
+/********************************* */
+// Command to check version
 program
   .command('version')
   .description('Show version of the CLI tool')
@@ -153,6 +196,7 @@ program
 
   });
 
+//short
 program
   .command('v')
   .description('Show version of the CLI tool')
