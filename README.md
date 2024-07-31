@@ -88,22 +88,6 @@ rt init
 
 This command prompts you to confirm the creation of a new **`rt.json`** file if one already exists.
 
-## Version
-
-Display the current version of the CLI tool with a stylized header.
-
-### Command
-
-```bash
-rt version
-```
-
-**or**
-
-```bash
-rt v
-```
-
 ## Create New App
 
 Create a new React application using **Vite**, and automatic change of the type of style in the files, based on your configuration in **`rt.json`**.
@@ -134,6 +118,22 @@ or
 
 ```bash
 rt u
+```
+
+## Version
+
+Display the current version of the CLI tool with a stylized header.
+
+### Command
+
+```bash
+rt version
+```
+
+**or**
+
+```bash
+rt v
 ```
 
 ## Vite Commands
