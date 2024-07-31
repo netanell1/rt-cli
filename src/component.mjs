@@ -75,12 +75,12 @@ ${styleModule ? `import styles from './${componentName}.module.${styleExtension}
             : `import './${componentName}.${styleExtension}'`
         };
 ${fileExtension == "tsx" ? `
-interface ${componentName}Props {
+interface ${functionName}Props {
     
 } 
     `: ''}
     ${componentFileFormat == 'const' ? `
-const ${functionName} = ({}${fileExtension == "tsx" ? `:${componentName}Props` : ''})=> {
+const ${functionName} = ({}${fileExtension == "tsx" ? `:${functionName}Props` : ''})=> {
   return (
     <p> ${componentName} works!</p>
   )
@@ -88,7 +88,7 @@ const ${functionName} = ({}${fileExtension == "tsx" ? `:${componentName}Props` :
 
 export default ${functionName};
 `: `
-export default function ${functionName} ({}${fileExtension == "tsx" ? `:${componentName}Props` : ''}) {
+export default function ${functionName} ({}${fileExtension == "tsx" ? `:${functionName}Props` : ''}) {
   return (
     <p> ${componentName} works!</p>
   )

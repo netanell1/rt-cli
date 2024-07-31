@@ -2,14 +2,8 @@
 
 import { Command } from 'commander';
 import { createComponent } from './component.mjs';
-import { initConfig } from './init.mjs';
-import { createInterface } from './interface.mjs';
 import chalk from 'chalk';
-import fs from 'fs';
-import { createClass } from './class.mjs';
-import { checkTypeScriptConfigured, findConfigFile, handleInit, printVersion } from './handler.mjs';
-import PromptSync from 'prompt-sync';
-import { createEnum } from './enum.mjs';
+import { checkTypeScriptConfigured, handleInit, printVersion } from './handler.mjs';;
 import { createReactApp } from './new.mjs';
 import updateCLI from './update.mjs';
 import { dev, build, lint, preview } from './viteCommand.mjs';
