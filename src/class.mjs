@@ -3,6 +3,7 @@ import path from 'path';
 import chalk from 'chalk';
 import { findConfigFile } from './handler.mjs';
 
+
 export function createClass(classFullName, options) {
     const folderArr = classFullName.split('/');
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
