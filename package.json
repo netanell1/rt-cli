@@ -1,0 +1,20 @@
+{
+  "name": "rt-cli",
+  "version": "1.0.0",
+  "bin": {
+    "rt": "src/index.mjs"
+  },
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "figlet": "^1.7.0",
+    "inquirer": "^10.1.5",
+    "prompt-sync": "^4.2.0"
+  }
+}
