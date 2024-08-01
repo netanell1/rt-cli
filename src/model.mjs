@@ -51,5 +51,5 @@ export ${modelType} ${modelCurrentName} {
 
     fs.writeFileSync(modelPath, modelContent.trim());
 
-    console.log(chalk.green(`${modelType} ${modelName} created successfully at ${classPath}.`));
+    console.log(chalk.green(`${modelType} ${modelName} created successfully at ${modelPath}.`));
 }

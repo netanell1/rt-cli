@@ -149,6 +149,7 @@ program
 program
   .command('g <type> <name>')
   .description('Generate a new file of a specified type')
+  .description('Generate a new file of a specified type')
   .option('--js', 'Create a JS file explicitly')
   .option('--ts', 'Create a TS file explicitly')
   .option('--style <styleType>', 'Create a CSS file explicitly')
@@ -164,14 +165,14 @@ program
 
     }
     else if (type === 'class' || type === 'cl') {
-      createClass(name, options);
+      createModel('class', name, options);
     }
     else if (type === 'enum' || type === 'e') {
-      createEnum(name, options);
+      createModel('enum', name, options);
       checkTypeScriptConfigured();
     }
     else if (type === 'interface' || type === "i") {
-      createInterface(name, options)
+      createModel('interface', name, options);
       checkTypeScriptConfigured();
     }
     else {

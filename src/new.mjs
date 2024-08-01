@@ -67,6 +67,10 @@ export function createReactApp(appName, options) {
         }
 
         console.log(chalk.green(`Renamed index.css to index.${styleExtension}`));
+        if (styleExtension === 'scss') {
+            console.log(chalk.bgWhite(`your style is scss`));
+            console.log(chalk.bgWhite(`run 'npm i sass'`));
+        }
 
     }
 

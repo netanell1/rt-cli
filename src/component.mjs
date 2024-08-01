@@ -71,8 +71,8 @@ export function createComponent(componentFullName, options) {
     const functionName = componentName[0].toUpperCase() + componentName.slice(1, componentName.length)
 
     const indexContent = `
-${styleModule ? `import styles from './${componentName}.module.${styleExtension}'`
-            : `import './${componentName}.${styleExtension}'`
+${styleModule ? `import styles from './${defaultStyleName}.module.${styleExtension}'`
+            : `import './${defaultStyleName}.${styleExtension}'`
         };
 ${fileExtension == "tsx" ? `
 interface ${functionName}Props {
