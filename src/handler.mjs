@@ -11,7 +11,7 @@ export function handleInit(options) {
     const configFilePath = findConfigFile(process.cwd());
 
     if (configFilePath) {
-        const answer = prompt('rt.json already exists. Overwrite? (y/n): ').trim().toLowerCase();
+        const answer = prompt('rt.json already exists. Overwrite? (y/n): ')?.trim()?.toLowerCase();
 
         if (answer === 'y' || answer === 'yes') {
             fs.unlinkSync(configFilePath);

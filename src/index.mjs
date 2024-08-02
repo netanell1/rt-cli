@@ -19,6 +19,7 @@ const program = new Command();
 program
   .command('new <appName>')
   .option('--ts', 'Create a TS app explicitly')
+  .option('--style <styleType>', 'Create a CSS file explicitly')
   .description('Create a new React application using create-react-app')
   .action((appName, options) => {
     try {
