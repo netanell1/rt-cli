@@ -53,6 +53,30 @@ export function findConfigFile(startPath) {
 };
 
 
+// Helper function to find .gitignore in current or parent directories
+export function appendToGitignore(startPath, entry) {
+    let currentPath = startPath;
+    let pathFolder = ''
+    while (currentPath !== path.parse(currentPath).root) {
+        const gitignorePath = path.join(currentPath, '.gitignore');
+        if (fs.existsSync(gitignorePath)) {
+            const gitignoreContent = fs.readFileSync(gitignorePath, 'utf-8');
+            if (!gitignoreContent.includes(entry)) {
+                fs.appendFileSync(gitignorePath, `${pathFolder}${entry}\n`);
+                console.log(chalk.green(`Added ${entry} to ${gitignorePath}`));
+            }
+            return
+        }
+        const foldersArr = currentPath.split('\\')
+        pathFolder += `${foldersArr[foldersArr.length - 1]}/`
+        currentPath = path.dirname(currentPath); // Move up one directory level
+    }
+
+    return null; // Return null if not found
+};
+
+
+
 export function printVersion() {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);

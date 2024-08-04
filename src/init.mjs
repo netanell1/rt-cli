@@ -1,6 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
+import { appendToGitignore } from './handler.mjs';
 
 export function initConfig(options) {
     const configPath = path.join(process.cwd(), 'rt.json');
@@ -21,6 +22,7 @@ export function initConfig(options) {
         console.log(chalk.yellow('Configuration file rt.json already exists.'));
         return;
     }
+    appendToGitignore(process.cwd(), 'rt.json')
 
     // Write the default configuration to rt.json
     fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 2));

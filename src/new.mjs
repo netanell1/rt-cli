@@ -3,13 +3,15 @@ import path from 'path';
 import { execSync } from 'child_process';
 import { findConfigFile } from './handler.mjs';
 import chalk from 'chalk';
+
 export function createReactApp(appName, options) {
-    const configPath = findConfigFile(process.cwd());;
+    const configPath = findConfigFile(process.cwd());
     let language = "ts";
     let styleExtension = 'css';
+
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-        language = config.language == "ts" ? "ts" : "js";
+        language = config.language === "ts" ? "ts" : "js";
         styleExtension = config.style || 'css';
     }
 
@@ -21,11 +23,9 @@ export function createReactApp(appName, options) {
         styleExtension = options.style;
     }
 
-    const command = `npm create vite@latest ${appName} -- --template react${language == "ts" ? "-ts" : ""}`
-
+    const command = `npm create vite@latest ${appName} -- --template react${language === "ts" ? "-ts" : ""}`;
 
     execSync(command, { stdio: 'inherit' });
-
 
     // Rename app.css to the desired style extension if necessary
     const appPath = path.join(process.cwd(), appName, 'src');
@@ -48,9 +48,11 @@ export function createReactApp(appName, options) {
         }
         console.log(chalk.green(`Renamed App.css to App.${styleExtension}`));
     }
+
     // Rename index.css to the desired style extension if necessary
     const oldIndexStyleFile = path.join(appPath, `index.css`);
     const newIndexStyleFile = path.join(appPath, `index.${styleExtension}`);
+
     if (fs.existsSync(oldIndexStyleFile) && styleExtension !== 'css') {
         fs.renameSync(oldIndexStyleFile, newIndexStyleFile);
 
@@ -68,10 +70,26 @@ export function createReactApp(appName, options) {
 
         console.log(chalk.green(`Renamed index.css to index.${styleExtension}`));
         if (styleExtension === 'scss') {
-            console.log(chalk.bgWhite(`your style is scss`));
-            console.log(chalk.bgWhite(`run 'npm i sass'`));
+            console.log(chalk.bgWhite(`Your style is scss`));
+            console.log(chalk.bgWhite(`Run 'npm i sass'`));
         }
+    }
 
+
+
+    // Construct the rt init command with options
+    const rtOptions = Object.entries(options)
+        .map(([key, value]) => (typeof value === 'boolean' && value ? `--${key}` : `--${key}=${value}`))
+        .join(' ');
+
+    const initCommand = `rt init ${rtOptions}`;
+    // Run 'rt init' command in the appName directory
+    const appDir = path.join(process.cwd(), appName);
+    try {
+        execSync(initCommand, { stdio: 'inherit', cwd: appDir });
+
+    } catch (error) {
+        console.error(chalk.red('Error running rt init'), error);
     }
 
 }
