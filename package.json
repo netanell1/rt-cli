@@ -1,6 +1,6 @@
 {
   "name": "react-cli-rt",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "A CLI tool for React app creation with vite.",
   "main": "index.mjs",
   "bin": {
