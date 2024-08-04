@@ -186,8 +186,8 @@ The **`rt.json`** file allows you to customize default behavior:
 - **style**: Choose between **css**, **scss**, or other styling languages.
 - **moduleStyle**: Boolean to determine if style files should be module-based.
 - **componentFileFormat**: Choose between **function** or **const**.
-- **defaultComponentName**: Default name for component files (e.g., index), If the field is empty, the file name will be determined by the component name.
-- **defaultStyleName**: Default name for style files (e.g., style), If the field is empty, the file name will be determined by the component name.
+- **componentFileName**: Default name for component files (e.g., index), If the field is empty, the file name will be determined by the component name.
+- **styleFileName**: Default name for style files (e.g., style), If the field is empty, the file name will be determined by the component name.
 - **modelSuffix**: Boolean to add _.modelName_ to the model file name (e.g., **.interface** to interfaces file).
 
 ### Example Configuration:
@@ -200,8 +200,8 @@ Here is an example `rt.json` configuration:
   "style": "css",
   "moduleStyle": false,
   "componentFileFormat": "function",
-  "defaultComponentName": "",
-  "defaultStyleName": "",
+  "componentFileName": "",
+  "styleFileName": "",
   "modelSuffix": false
 }
 ```

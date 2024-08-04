@@ -11,8 +11,8 @@ export function initConfig(options) {
         style: options.style || 'css', // Default to CSS
         moduleStyle: options.moduleStyle || false, // Default to false if not specified
         componentFileFormat: options.const ? 'const' : 'function', // Default to 'function'
-        defaultComponentName: options.defaultComponentName || '', // Default component file name
-        defaultStyleName: options.defaultStyleName || '', // Default style file name
+        componentFileName: options.componentFileName || '', // Default component file name
+        styleFileName: options.styleFileName || '', // Default style file name
         modelSuffix: options.modelSuffix ? true : false,
     };
 

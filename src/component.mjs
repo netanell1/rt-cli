@@ -23,8 +23,8 @@ export function createComponent(componentFullName, options) {
     let styleExtension = 'css'; // Default to CSS if no options are specified
     let styleModule = options.moduleStyle ? '.module' : ''; // Determine if style should be a module
     let componentFileFormat = options.const ? 'const' : 'function'; // Determine component type
-    let defaultComponentName = options.defaultComponentName || componentName; // Default component file name
-    let defaultStyleName = options.defaultStyleName || componentName; // Default style file name
+    let componentFileName = options.componentFileName || componentName; // Default component file name
+    let styleFileName = options.styleFileName || componentName; // Default style file name
 
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
@@ -32,8 +32,8 @@ export function createComponent(componentFullName, options) {
         styleExtension = config.style || 'css'; // Default to CSS
         styleModule = config.moduleStyle ? '.module' : ''; // Determine if style should be a module
         componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
-        defaultComponentName = config.defaultComponentName || componentName; // Check config for component file name
-        defaultStyleName = config.defaultStyleName || componentName; // Check config for style file name
+        componentFileName = config.componentFileName || componentName; // Check config for component file name
+        styleFileName = config.styleFileName || componentName; // Check config for style file name
     }
 
     // Override with command line options if provided
@@ -57,22 +57,22 @@ export function createComponent(componentFullName, options) {
         componentFileFormat = 'const';
     }
 
-    if (options.defaultComponentName) {
-        defaultComponentName = options.defaultComponentName;
+    if (options.componentFileName) {
+        componentFileName = options.componentFileName;
     }
 
-    if (options.defaultStyleName) {
-        defaultStyleName = options.defaultStyleName;
+    if (options.styleFileName) {
+        styleFileName = options.styleFileName;
     }
 
-    const indexPath = path.join(componentDir, `${defaultComponentName}.${fileExtension}`);
-    const stylePath = path.join(componentDir, `${defaultStyleName}${styleModule}.${styleExtension}`);
+    const indexPath = path.join(componentDir, `${componentFileName}.${fileExtension}`);
+    const stylePath = path.join(componentDir, `${styleFileName}${styleModule}.${styleExtension}`);
 
     const functionName = componentName[0].toUpperCase() + componentName.slice(1, componentName.length)
 
     const indexContent = `
-${styleModule ? `import styles from './${defaultStyleName}.module.${styleExtension}'`
-            : `import './${defaultStyleName}.${styleExtension}'`
+${styleModule ? `import styles from './${styleFileName}.module.${styleExtension}'`
+            : `import './${styleFileName}.${styleExtension}'`
         };
 ${fileExtension == "tsx" ? `
 interface ${functionName}Props {
