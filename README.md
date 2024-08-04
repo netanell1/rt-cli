@@ -202,13 +202,17 @@ Here is an example `rt.json` configuration:
   "componentFileFormat": "function",
   "defaultComponentName": "",
   "defaultStyleName": "",
-  "modelSuffix": true
+  "modelSuffix": false
 }
 ```
 
 ## Examples
 
 **1. Generate a TypeScript Component with SCSS Modules:**
+
+**_This can be achieved in two ways:_**
+
+A. With `rt.json` set to keep the default configuration:
 
 Configure `rt.json`:
 
@@ -224,8 +228,25 @@ Then run:
 
 ```bash
 rt generate component myComponent
-
 ```
+
+B. With a command that will change the component configuration once:
+
+run:
+
+```bash
+rt generate component myComponent --ts --style scss --moduleStyle
+```
+
+**2. Generate a Component inside a new or existing folder:**
+
+run:
+
+```bash
+rt generate component components/myComponent
+```
+
+If the **components** folder does not exist, the program will create it. If it does exist, the program will insert the component into it. In either case, the component will be inserted into the folder.
 
 ---
 
