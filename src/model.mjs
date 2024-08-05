@@ -51,5 +51,7 @@ export ${modelType} ${modelCurrentName} {
 
     fs.writeFileSync(modelPath, modelContent.trim());
 
-    console.log(chalk.green(`${modelType} ${modelName} created successfully at ${modelPath}.`));
+    const modelSize = fs.statSync(modelPath).size;
+
+    console.log(chalk.green(`CREATE`), `${path.relative(process.cwd(), modelPath)} (${modelSize} bytes)`);
 }

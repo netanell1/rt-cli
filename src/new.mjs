@@ -46,7 +46,7 @@ export function createReactApp(appName, options) {
             appFileContent = appFileContent.replace(/\.\/App\.css/g, `./App.${styleExtension}`);
             fs.writeFileSync(appFilePath, appFileContent);
         }
-        console.log(chalk.green(`Renamed App.css to App.${styleExtension}`));
+        console.log(chalk.green(`RENAMED`), `App.css to App.${styleExtension}`);
     }
 
     // Rename index.css to the desired style extension if necessary
@@ -68,7 +68,7 @@ export function createReactApp(appName, options) {
             fs.writeFileSync(mainFilePath, mainFileContent);
         }
 
-        console.log(chalk.green(`Renamed index.css to index.${styleExtension}`));
+        console.log(chalk.green(`RENAMED`), `index.css to index.${styleExtension}`);
         if (styleExtension === 'scss') {
             console.log(chalk.bgWhite(`Your style is scss`));
             console.log(chalk.bgWhite(`Run 'npm i sass'`));

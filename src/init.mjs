@@ -22,9 +22,15 @@ export function initConfig(options) {
         console.log(chalk.yellow('Configuration file rt.json already exists.'));
         return;
     }
-    appendToGitignore(process.cwd(), 'rt.json')
+
 
     // Write the default configuration to rt.json
     fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 2));
-    console.log(chalk.green('Configuration file rt.json created with default settings.'));
+
+    const configSize = fs.statSync(configPath).size;
+
+    console.log(chalk.green(`CREATE CONFIGURATION`), `${path.relative(process.cwd(), configPath)} (${configSize} bytes)`);
+    appendToGitignore(process.cwd(), 'rt.json')
+
+    // console.log(chalk.green('Configuration file rt.json created with default settings.'));
 }

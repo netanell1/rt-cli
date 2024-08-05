@@ -63,7 +63,7 @@ export function appendToGitignore(startPath, entry) {
             const gitignoreContent = fs.readFileSync(gitignorePath, 'utf-8');
             if (!gitignoreContent.includes(entry)) {
                 fs.appendFileSync(gitignorePath, `${pathFolder}${entry}\n`);
-                console.log(chalk.green(`Added ${entry} to ${gitignorePath}`));
+                console.log(chalk.green(`ADDED`), `'${entry}' to ${path.relative(process.cwd(), gitignorePath)}`);
             }
             return
         }

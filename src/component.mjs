@@ -104,5 +104,9 @@ export default function ${functionName} ({}${fileExtension == "tsx" ? `:${functi
     fs.writeFileSync(indexPath, indexContent.trim());
     fs.writeFileSync(stylePath, '');
 
-    console.log(chalk.green(`Component ${componentName} created successfully at ${componentDir}.`));
+    const indexSize = fs.statSync(indexPath).size;
+    const styleSize = fs.statSync(stylePath).size;
+
+    console.log(chalk.green(`CREATE`), `${path.relative(process.cwd(), indexPath)} (${indexSize} bytes)`);
+    console.log(chalk.green(`CREATE`), `${path.relative(process.cwd(), stylePath)} (${styleSize} bytes)`);
 }
