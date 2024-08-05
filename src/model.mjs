@@ -1,13 +1,21 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { checkTypeScriptConfigured, findConfigFile } from './handler.mjs';
+import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } from './handler.mjs';
 
 
 export function createModel(modelType, modelFullName, options, checkTypeScript) {
     const folderArr = modelFullName.split('/');
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
     const modelName = folderArr[folderArr.length - 1];
+
+
+    const modelNameCorrect = replaceSpecialCharacters(modelName, true)
+    if (modelNameCorrect != modelName) {
+        console.log(chalk.red(`Error: Invalid ${modelType} name, try '${modelNameCorrect}' instead.`));
+        process.exit(1);
+    }
+
     const modelDir = path.join(process.cwd(), folderPath);
 
     if (!fs.existsSync(modelDir)) {

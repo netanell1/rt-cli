@@ -75,8 +75,16 @@ export function appendToGitignore(startPath, entry) {
     return null; // Return null if not found
 };
 
+export function replaceSpecialCharacters(srt, toLower) {
+    const regex = /[^a-zA-Z0-9]/g;
+    let strReplace = srt.replace(regex, '')
+    if (toLower)
+        strReplace = strReplace.toLowerCase()
+    return strReplace;
+}
 
 
+// for rt version command
 export function printVersion() {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);

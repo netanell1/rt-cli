@@ -1,10 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
-import { findConfigFile } from './handler.mjs';
+import { findConfigFile, replaceSpecialCharacters } from './handler.mjs';
 import chalk from 'chalk';
 
 export function createReactApp(appName, options) {
+    const appNameCorrect = replaceSpecialCharacters(appName, true)
+    if (appNameCorrect != appName) {
+        console.log(chalk.red(`Error: App name is incorrect, try '${appNameCorrect}' instead.`));
+        process.exit(1);
+    }
+
+    console.log(chalk.blue(`Creating a new React app: ${appName}`));
+
     const configPath = findConfigFile(process.cwd());
     let language = "ts";
     let styleExtension = 'css';

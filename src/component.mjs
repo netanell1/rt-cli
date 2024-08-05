@@ -1,13 +1,22 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile } from './handler.mjs';
+import { findConfigFile, replaceSpecialCharacters } from './handler.mjs';
 
 export function createComponent(componentFullName, options) {
+
     const folderArr = componentFullName.split('/');
     const folderPath = folderArr.join('/')
     const componentName = folderArr[folderArr.length - 1]
     const componentDir = path.join(process.cwd(), folderPath);
+
+
+    const componentNameCorrect = replaceSpecialCharacters(componentName, true)
+    if (componentNameCorrect != componentName) {
+        console.log(chalk.red(`Error: Invalid component name, try '${componentNameCorrect}' instead.`));
+        process.exit(1);
+    }
+
 
     if (!fs.existsSync(componentDir)) {
         fs.mkdirSync(componentDir, { recursive: true });

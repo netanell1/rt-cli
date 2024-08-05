@@ -23,7 +23,6 @@ program
   .description('Create a new React application using create-react-app')
   .action((appName, options) => {
     try {
-      console.log(chalk.blue(`Creating a new React app: ${appName}`));
       createReactApp(appName, options);
       console.log(chalk.green(`React app ${appName} created successfully.`));
     } catch (error) {
