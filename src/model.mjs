@@ -1,10 +1,10 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile } from './handler.mjs';
+import { checkTypeScriptConfigured, findConfigFile } from './handler.mjs';
 
 
-export function createModel(modelType, modelFullName, options) {
+export function createModel(modelType, modelFullName, options, checkTypeScript) {
     const folderArr = modelFullName.split('/');
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
     const modelName = folderArr[folderArr.length - 1];
@@ -15,7 +15,7 @@ export function createModel(modelType, modelFullName, options) {
     }
 
 
-    const configPath = findConfigFile(process.cwd());
+    const configPath = findConfigFile(modelDir);
     let fileExtension = 'js';
     let modelSuffix = "";
     if (fs.existsSync(configPath)) {
@@ -54,4 +54,6 @@ export ${modelType} ${modelCurrentName} {
     const modelSize = fs.statSync(modelPath).size;
 
     console.log(chalk.green(`CREATE`), `${path.relative(process.cwd(), modelPath)} (${modelSize} bytes)`);
+    if (checkTypeScript) checkTypeScriptConfigured(modelDir);
+
 }

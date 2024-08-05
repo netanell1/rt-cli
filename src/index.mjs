@@ -125,12 +125,11 @@ program
       createModel('class', name, options);
     }
     else if (type === 'enum' || type === 'e') {
-      createModel('enum', name, options);
-      checkTypeScriptConfigured();
+      createModel('enum', name, options, true);
+
     }
     else if (type === 'interface' || type === "i") {
-      createModel('interface', name, options);
-      checkTypeScriptConfigured();
+      createModel('interface', name, options, true);
     }
     else {
       console.log(chalk.red('Error: Invalid type specified.'));

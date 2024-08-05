@@ -18,7 +18,7 @@ export function createComponent(componentFullName, options) {
     }
 
     // Determine file extensions based on options or config
-    const configPath = findConfigFile(process.cwd());
+    const configPath = findConfigFile(componentDir);
     let fileExtension = 'jsx';  // Default to JS if no options are specified
     let styleExtension = 'css'; // Default to CSS if no options are specified
     let styleModule = options.moduleStyle ? '.module' : ''; // Determine if style should be a module

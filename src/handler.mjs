@@ -26,8 +26,8 @@ export function handleInit(options) {
 };
 
 // print warning if ts not defined
-export function checkTypeScriptConfigured() {
-    const configPath = findConfigFile(process.cwd())
+export function checkTypeScriptConfigured(startPath) {
+    const configPath = findConfigFile(startPath)
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
         if (config.language !== 'ts') {
