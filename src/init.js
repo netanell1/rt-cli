@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { appendToGitignore } from './handler.mjs';
+import { appendToGitignore } from './handler.js';
 
 export function initConfig(options) {
     const configPath = path.join(process.cwd(), 'rt.json');

@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
-import { findConfigFile, replaceSpecialCharacters } from './handler.mjs';
+import { findConfigFile, replaceSpecialCharacters } from './handler.js';
 import chalk from 'chalk';
 
 export function createReactApp(appName, options) {

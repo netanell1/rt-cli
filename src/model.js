@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } from './handler.mjs';
+import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } from './handler.js';
 
 
 export function createModel(modelType, modelFullName, options, checkTypeScript) {

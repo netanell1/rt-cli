@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import { createComponent } from './component.mjs';
+import { createComponent } from './component.js';
 import chalk from 'chalk';
-import { checkTypeScriptConfigured, handleInit, printVersion } from './handler.mjs';;
-import { createReactApp } from './new.mjs';
-import updateCLI from './update.mjs';
-import { dev, build, lint, preview } from './viteCommand.mjs';
-import { createModel } from './model.mjs';
+import { checkTypeScriptConfigured, handleInit, printVersion } from './handler.js';;
+import { createReactApp } from './new.js';
+import updateCLI from './update.js';
+import { dev, build, lint, preview } from './viteCommand.js';
+import { createModel } from './model.js';
 
 const program = new Command();
 

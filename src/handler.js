@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import { fileURLToPath } from 'url';
 import figlet from 'figlet';
 import PromptSync from 'prompt-sync';
-import { initConfig } from './init.mjs';
+import { initConfig } from './init.js';
 import { execSync } from 'child_process';
 
 export function handleInit(options) {

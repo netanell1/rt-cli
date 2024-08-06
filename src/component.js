@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile, replaceSpecialCharacters } from './handler.mjs';
+import { findConfigFile, replaceSpecialCharacters } from './handler.js';
 
 export function createComponent(componentFullName, options) {
 
