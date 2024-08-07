@@ -14,7 +14,7 @@ export function createReactApp(appName, options) {
     console.log(chalk.blue(`Creating a new React app: ${appName}`));
 
     const configPath = findConfigFile(process.cwd());
-    let language = "ts";
+    let language = "js";
     let styleExtension = 'css';
 
     if (fs.existsSync(configPath)) {
