@@ -10,7 +10,7 @@ export function createModel(modelType, modelFullName, options, checkTypeScript) 
     const modelName = folderArr[folderArr.length - 1];
 
 
-    const modelNameCorrect = replaceSpecialCharacters(modelName, true)
+    const modelNameCorrect = replaceSpecialCharacters(modelName, false)
     if (modelNameCorrect != modelName) {
         console.log(chalk.red(`Error: Invalid ${modelType} name, try '${modelNameCorrect}' instead.`));
         process.exit(1);

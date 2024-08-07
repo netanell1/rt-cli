@@ -75,8 +75,11 @@ export function appendToGitignore(startPath, entry) {
     return null; // Return null if not found
 };
 
-export function replaceSpecialCharacters(srt, toLower) {
-    const regex = /[^a-zA-Z0-9]/g;
+export function replaceSpecialCharacters(srt, toLower, allowedChars = []) {
+    // Escape any special regex characters in the allowed characters array
+    const escapedAllowedChars = allowedChars.map(char => `\\${char}`).join('');
+    // Build a regex pattern that excludes allowed characters
+    const regex = new RegExp(`[^a-zA-Z0-9${escapedAllowedChars}]`, 'g');
     let strReplace = srt.replace(regex, '')
     if (toLower)
         strReplace = strReplace.toLowerCase()

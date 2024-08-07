@@ -11,7 +11,7 @@ export function createComponent(componentFullName, options) {
     const componentDir = path.join(process.cwd(), folderPath);
 
 
-    const componentNameCorrect = replaceSpecialCharacters(componentName, true)
+    const componentNameCorrect = replaceSpecialCharacters(componentName, false)
     if (componentNameCorrect != componentName) {
         console.log(chalk.red(`Error: Invalid component name, try '${componentNameCorrect}' instead.`));
         process.exit(1);

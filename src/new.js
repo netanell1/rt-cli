@@ -5,7 +5,7 @@ import { findConfigFile, replaceSpecialCharacters } from './handler.js';
 import chalk from 'chalk';
 
 export function createReactApp(appName, options) {
-    const appNameCorrect = replaceSpecialCharacters(appName, true)
+    const appNameCorrect = replaceSpecialCharacters(appName, true, ["-"])
     if (appNameCorrect != appName) {
         console.log(chalk.red(`Error: App name is incorrect, try '${appNameCorrect}' instead.`));
         process.exit(1);
