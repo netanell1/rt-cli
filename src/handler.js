@@ -6,6 +6,7 @@ import figlet from 'figlet';
 import PromptSync from 'prompt-sync';
 import { initConfig } from './init.js';
 import { execSync } from 'child_process';
+import { createComponentTemplate, createStyleTemplate } from './template.js';
 
 export function handleInit(options) {
     const prompt = PromptSync();
@@ -24,6 +25,41 @@ export function handleInit(options) {
         initConfig(options); // Create new rt.json file if it does not exist
     }
 };
+
+
+export function handleTemplate(fileType, options) {
+    fileType = fileType == "c" ? 'component' : fileType == 's' ? 'style' : fileType;
+
+    const prompt = PromptSync();
+    const templateFilePath = findTemplateFile(fileType, process.cwd());
+
+    if (templateFilePath) {
+        const answer = prompt(`${fileType}-rt.template already exists. Overwrite? (y/n): `)?.trim()?.toLowerCase();
+        if (answer === 'y' || answer === 'yes') {
+            fs.unlinkSync(templateFilePath);
+            if (fileType == 'component' || fileType == 'c') {
+                createComponentTemplate(options);
+            }
+            else if (fileType == 'style' || fileType == 's') {
+                createStyleTemplate()
+            }
+
+        } else {
+            console.log(chalk.yellow(`No changes made to ${fileType}-rt.template.`));
+        }
+    } else {
+        // Create new template file if it does not exist
+        if (fileType == 'component' || fileType == 'c') {
+            createComponentTemplate(options);
+        }
+        else if (fileType == 'style' || fileType == 's') {
+            createStyleTemplate()
+        }
+
+    }
+};
+
+
 
 // print warning if ts not defined
 export function checkTypeScriptConfigured(startPath) {
@@ -53,6 +89,20 @@ export function findConfigFile(startPath) {
 };
 
 
+export function findTemplateFile(fileType, startPath) {
+    let currentPath = startPath;
+
+    while (currentPath !== path.parse(currentPath).root) {
+        const templateFilePath = path.join(currentPath, `${fileType}-rt.template`);
+        if (fs.existsSync(templateFilePath)) {
+            return templateFilePath;
+        }
+        currentPath = path.dirname(currentPath); // Move up one directory level
+    }
+
+    return null; // Return null if not found
+};
+
 // Helper function to find .gitignore in current or parent directories
 export function appendToGitignore(startPath, entry) {
     let currentPath = startPath;
@@ -62,7 +112,7 @@ export function appendToGitignore(startPath, entry) {
         if (fs.existsSync(gitignorePath)) {
             const gitignoreContent = fs.readFileSync(gitignorePath, 'utf-8');
             if (!gitignoreContent.includes(entry)) {
-                fs.appendFileSync(gitignorePath, `${pathFolder}${entry}\n`);
+                fs.appendFileSync(gitignorePath, `\n${pathFolder}${entry}`);
                 console.log(chalk.green(`ADDED`), `'${entry}' to ${path.relative(process.cwd(), gitignorePath)}`);
             }
             return
@@ -75,12 +125,12 @@ export function appendToGitignore(startPath, entry) {
     return null; // Return null if not found
 };
 
-export function replaceSpecialCharacters(srt, toLower, allowedChars = []) {
+export function replaceSpecialCharacters(str, toLower, allowedChars = []) {
     // Escape any special regex characters in the allowed characters array
     const escapedAllowedChars = allowedChars.map(char => `\\${char}`).join('');
     // Build a regex pattern that excludes allowed characters
     const regex = new RegExp(`[^a-zA-Z0-9${escapedAllowedChars}]`, 'g');
-    let strReplace = srt.replace(regex, '')
+    let strReplace = str.replace(regex, '')
     if (toLower)
         strReplace = strReplace.toLowerCase()
     return strReplace;

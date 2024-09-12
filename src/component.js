@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile, replaceSpecialCharacters } from './handler.js';
+import { findConfigFile, findTemplateFile, replaceSpecialCharacters } from './handler.js';
 
 export function createComponent(componentFullName, options) {
 
@@ -79,7 +79,30 @@ export function createComponent(componentFullName, options) {
 
     const functionName = componentName[0].toUpperCase() + componentName.slice(1, componentName.length)
 
-    const indexContent = `
+    const templateComponentPath = findTemplateFile('component', process.cwd())
+    let templateComponentFile = '';
+    if (templateComponentPath) {
+        templateComponentFile = fs.readFileSync(templateComponentPath, 'utf-8');
+        templateComponentFile = templateComponentFile
+            .replace(/{{functionName}}/g, functionName)
+            .replace(/{{styleFileName}}/g, styleFileName)
+            .replace(/{{componentName}}/g, componentName);
+    }
+
+    const templateStylePath = findTemplateFile('style', process.cwd())
+    let templateStyleFile = '';
+    if (templateStylePath) {
+        templateStyleFile = fs.readFileSync(templateStylePath, 'utf-8');
+        templateStyleFile = templateStyleFile
+            .replace(/{{functionName}}/g, functionName)
+            .replace(/{{styleFileName}}/g, styleFileName)
+            .replace(/{{componentName}}/g, componentName);
+    }
+
+
+    const indexContent = templateComponentFile ? templateComponentFile
+        :
+        `
 ${styleModule ? `import styles from './${styleFileName}.module.${styleExtension}'`
             : `import './${styleFileName}.${styleExtension}'`
         };
@@ -111,7 +134,7 @@ export default function ${functionName} ({}${fileExtension == "tsx" ? `:${functi
     //   `;
 
     fs.writeFileSync(indexPath, indexContent.trim());
-    fs.writeFileSync(stylePath, '');
+    fs.writeFileSync(stylePath, templateStyleFile);
 
     const indexSize = fs.statSync(indexPath).size;
     const styleSize = fs.statSync(stylePath).size;

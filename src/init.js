@@ -19,7 +19,7 @@ export function initConfig(options) {
 
     // Check if configuration file already exists
     if (fs.existsSync(configPath)) {
-        console.log(chalk.yellow('Configuration file rt.json already exists.'));
+        console.log(chalk.red('Error: Configuration file rt.json already exists.'));
         return;
     }
 

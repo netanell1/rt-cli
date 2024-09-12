@@ -3,7 +3,7 @@
 import { Command } from 'commander';
 import { createComponent } from './component.js';
 import chalk from 'chalk';
-import { checkTypeScriptConfigured, handleInit, printVersion } from './handler.js';;
+import { checkTypeScriptConfigured, findTemplateFile, handleInit, handleTemplate, printVersion } from './handler.js';;
 import { createReactApp } from './new.js';
 import updateCLI from './update.js';
 import { dev, build, lint, preview } from './viteCommand.js';
@@ -136,6 +136,8 @@ program
     }
   });
 
+
+/********************************* */
 // Command to check version
 program
   .command('version').aliases(['v'])
@@ -144,6 +146,22 @@ program
     printVersion()
 
   });
+
+
+/********************************* */
+// Command to create template file
+program
+  .command('template <type>').aliases(['t'])
+  .description('Generate a new file of a template type')
+  .option('--js', 'Create a JS file explicitly')
+  .option('--ts', 'Create a TS file explicitly')
+  .option('--style <styleType>', 'Create a styleType file explicitly')
+  .option('--moduleStyle', 'Create a style file with .module extension')
+  .option('--function', 'Create a function component')
+  .option('--const', 'Create a constant component')
+  .action((type, options) => {
+    handleTemplate(type, options);
+  })
 
 
 
