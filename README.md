@@ -210,17 +210,19 @@ Here is an example `rt.json` configuration:
 
 For those who like full control, there are two template files that can be edited:
 
-- `component-rt.template`: Content of the component file,
+- `component-rt.template`: content of the component file
+
+command to create:
 
 ```bash
-// create component-rt.template
 rt template component
 ```
 
-- `style-rt.template`: Content of the style file
+- `style-rt.template`: content of the style file
+
+command to create:
 
 ```bash
-// // create style-rt.template
 rt template style
 ```
 
