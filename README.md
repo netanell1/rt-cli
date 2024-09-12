@@ -216,6 +216,8 @@ command to create:
 
 ```bash
 rt template component
+//or
+rt t c
 ```
 
 - `style-rt.template`: content of the style file
@@ -224,6 +226,8 @@ command to create:
 
 ```bash
 rt template style
+//or
+rt t s
 ```
 
 The detailed content of the template files will be created according to the settings in the `rt.json` file
