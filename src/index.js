@@ -52,7 +52,7 @@ program
 
 // Command to update rt-cli
 program
-  .command('update').alias(['u'])
+  .command('update').aliases(['u'])
   .description('Update the react-cli-rt to the latest version')
   .action(() => {
     updateCLI();
