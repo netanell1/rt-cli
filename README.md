@@ -206,6 +206,36 @@ Here is an example `rt.json` configuration:
 }
 ```
 
+## Template files
+
+For those who like full control, there are two template files that can be edited:
+
+- `component-rt.template`: Content of the component file,
+
+```bash
+// create component-rt.template
+rt template component
+```
+
+- `style-rt.template`: Content of the style file
+
+```bash
+// // create style-rt.template
+rt template style
+```
+
+The detailed content of the template files will be created according to the settings in the `rt.json` file
+
+There are three variables to be aware of when editing such files:
+
+- **{{styleFileName}}** - the name of the style file
+- **{{functionName}}** - the name of the component with a capital letter at the beginning
+- **{{componentName}}** - the name of the component
+
+The variables in the template file are identified by double curly brackets
+
+By editing the template files you can define a custom template for the component file and for the style file
+
 ## Examples
 
 **1. Generate a TypeScript Component with SCSS Modules:**
@@ -247,6 +277,62 @@ rt generate component components/myComponent
 ```
 
 If the **components** folder does not exist, the program will create it. If it does exist, the program will insert the component into it. In either case, the component will be inserted into the folder.
+
+**3. Editing template files using variables:**
+
+in `component-rt.template` file:
+
+```bash
+import './{{styleFileName}}.css';
+
+
+
+export default function  {{functionName}} ({}) {
+  return (
+    <p className='{{componentName}}'> {{componentName}} works!</p>
+  )
+};
+```
+
+added in the p tag a className of the component name
+
+in `style-rt.template` file:
+
+```bash
+.{{componentName}}{
+    font-size: 20px;
+}
+```
+
+added to the style file a class of the component name - with a font size of 20 pixels
+
+now create a new component:
+
+```bash
+rt generate component myComponent
+```
+
+in the component file you can see that a className named **_myComponent_** was added to the p tag, and in the style file you can see that a class called **_myComponent_** has been added
+
+<!-- now look at the file `myComponent.jsx`:
+```bash
+import './myComponent.css';
+
+
+
+export default function  MyComponent ({}) {
+  return (
+    <p className='myComponent'> myComponent works!</p>
+  )
+};
+```
+
+look at the file `MyComponent.css`:
+```bash
+.myComponent{
+    font-size: 20px;
+}
+``` -->
 
 ---
 
