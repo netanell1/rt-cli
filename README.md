@@ -308,7 +308,7 @@ Now create a new component:
 rt generate component myComponent
 ```
 
-In the component files you can see that a className named **_myComponent_** was added to the p tag, and in the style file you can see that a class called **_myComponent_** has been added
+In the component files you can see that a className named **_myComponent_** was added to the p tag, and in the style file you can see that a class called **_myComponent_** has been added.
 
 <!-- now look at the file `myComponent.jsx`:
 ```bash
