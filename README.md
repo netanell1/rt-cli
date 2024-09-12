@@ -280,7 +280,7 @@ If the **components** folder does not exist, the program will create it. If it d
 
 **3. Editing template files using variables:**
 
-in `component-rt.template` file:
+In `component-rt.template` file add in the _p_ tag a className of the component name:
 
 ```bash
 import './{{styleFileName}}.css';
@@ -294,9 +294,7 @@ export default function  {{functionName}} ({}) {
 };
 ```
 
-added in the p tag a className of the component name
-
-in `style-rt.template` file:
+In `style-rt.template` file add a class of the component name - with a font size of 20 pixels:
 
 ```bash
 .{{componentName}}{
@@ -304,15 +302,13 @@ in `style-rt.template` file:
 }
 ```
 
-added to the style file a class of the component name - with a font size of 20 pixels
-
-now create a new component:
+Now create a new component:
 
 ```bash
 rt generate component myComponent
 ```
 
-in the component file you can see that a className named **_myComponent_** was added to the p tag, and in the style file you can see that a class called **_myComponent_** has been added
+In the component files you can see that a className named **_myComponent_** was added to the p tag, and in the style file you can see that a class called **_myComponent_** has been added
 
 <!-- now look at the file `myComponent.jsx`:
 ```bash
