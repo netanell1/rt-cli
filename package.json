@@ -8,12 +8,16 @@
     "rt": "src/index.js"
   },
   "scripts": {},
-  "keywords": ["cli", "react", "vite"],
+  "keywords": [
+    "cli",
+    "react",
+    "vite"
+  ],
   "author": "Netanel Levi",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/netanell1/rt-cli"
+    "url": "git+https://github.com/netanell1/rt-cli.git"
   },
   "homepage": "https://github.com/netanell1/rt-cli#readme",
   "dependencies": {
