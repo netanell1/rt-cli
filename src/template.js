@@ -81,7 +81,6 @@ export default function  {{functionName}} ({}${fileExtension == "tsx" ? `: {{fun
   `}`;
 
 
-
     fs.writeFileSync('component-rt.template', indexContent.trim());
 
     const componentTemplateSize = fs.statSync(componentTemplatePath).size;

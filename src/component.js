@@ -127,12 +127,6 @@ export default function ${functionName} ({}${fileExtension == "tsx" ? `:${functi
 };
   `}`;
 
-    //     const styleContent = 
-    // .${componentName.toLowerCase()} {
-    //   /* Add your styles here */
-    // }
-    //   `;
-
     fs.writeFileSync(indexPath, indexContent.trim());
     fs.writeFileSync(stylePath, templateStyleFile);
 
