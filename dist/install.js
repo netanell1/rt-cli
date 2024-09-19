@@ -2,7 +2,6 @@ import inquirer from 'inquirer';
 import { exec } from 'child_process';
 import fs from 'fs';
 import { findPackageJsonFile } from './handler.js';
-
 const topics = {
     "Design & UI": [
         "bootstrap",
@@ -72,32 +71,26 @@ const topics = {
         "prettier" // For code formatting
     ]
 };
-
-
-
-
-
 // Function to get the installed packages from package.json
-function getInstalledPackages(): Set<string> {
+function getInstalledPackages() {
     const packageJsonPath = findPackageJsonFile(process.cwd());
     try {
         const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
         const dependencies = packageJson.dependencies || {};
         const devDependencies = packageJson.devDependencies || {};
         return new Set([...Object.keys(dependencies), ...Object.keys(devDependencies)]);
-    } catch (error) {
+    }
+    catch (error) {
         // console.error('Error reading package.json:', error);
         return new Set();
     }
 }
-
 // Function to check if a package is installed
-function isPackageInstalled(packageName: string, installedPackages: Set<string>): boolean {
+function isPackageInstalled(packageName, installedPackages) {
     return installedPackages.has(packageName);
 }
-
 // Function to install the selected package
-function installPackage(packageName: string, callback: () => void) {
+function installPackage(packageName, callback) {
     console.log(`Installing ${packageName}...`);
     exec(`npm install ${packageName}`, (err, stdout, stderr) => {
         if (err) {
@@ -109,9 +102,8 @@ function installPackage(packageName: string, callback: () => void) {
         callback(); // Return to the topic menu after installing
     });
 }
-
 // Function to show the package selection menu
-function showPackageMenu(topic: string) {
+function showPackageMenu(topic) {
     const installedPackages = getInstalledPackages();
     const packages = topics[topic].map(pkg => ({
         name: isPackageInstalled(pkg, installedPackages) ? `${pkg} (already installed)` : pkg,
@@ -125,18 +117,18 @@ function showPackageMenu(topic: string) {
             message: `Select a package to install from ${topic}:`,
             choices: [...packages, new inquirer.Separator(), 'Back to Main Menu', new inquirer.Separator(),], // Add a "Back to Main Menu" option
         },
-    ] as any
+    ];
     inquirer
         .prompt(questions)
         .then((answer) => {
-            if (answer.package === 'Back to Main Menu') {
-                returnToMainMenu();
-            } else {
-                installPackage(answer.package, () => showPackageMenu(topic)); // Return to the topic menu after installation
-            }
-        });
+        if (answer.package === 'Back to Main Menu') {
+            returnToMainMenu();
+        }
+        else {
+            installPackage(answer.package, () => showPackageMenu(topic)); // Return to the topic menu after installation
+        }
+    });
 }
-
 // Function to show the topic selection menu
 function showTopicMenu() {
     const questions = [
@@ -146,24 +138,23 @@ function showTopicMenu() {
             message: 'Select a topic:',
             choices: [...Object.keys(topics), new inquirer.Separator(), 'Exit', new inquirer.Separator()], // Add an Exit option
         },
-    ] as any
+    ];
     inquirer
         .prompt(questions)
         .then((answer) => {
-            if (answer.topic === 'Exit') {
-                console.log('Exiting...');
-                process.exit(0); // Exit the CLI
-            } else {
-                showPackageMenu(answer.topic);
-            }
-        });
+        if (answer.topic === 'Exit') {
+            console.log('Exiting...');
+            process.exit(0); // Exit the CLI
+        }
+        else {
+            showPackageMenu(answer.topic);
+        }
+    });
 }
-
 // Function to return to the main menu
 function returnToMainMenu() {
     console.log('Returning to main menu...');
     showTopicMenu();
 }
-
 // Export the function for use in your CLI tool
 export { showTopicMenu };

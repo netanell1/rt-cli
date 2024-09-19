@@ -1,8 +1,27 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { appendToGitignore } from './handler.js';
-export function initConfig(options) {
+import { appendToGitignore, findConfigFile } from './handler.js';
+import PromptSync from 'prompt-sync';
+export function handleInit(options) {
+    const prompt = PromptSync();
+    const configFilePath = findConfigFile(process.cwd());
+    if (configFilePath) {
+        const answer = prompt('rt.json already exists. Overwrite? (y/n): ')?.trim()?.toLowerCase();
+        if (answer === 'y' || answer === 'yes') {
+            fs.unlinkSync(configFilePath);
+            initConfig(options); // Create new rt.json file
+        }
+        else {
+            console.log(chalk.yellow('No changes made to rt.json.'));
+        }
+    }
+    else {
+        initConfig(options); // Create new rt.json file if it does not exist
+    }
+}
+;
+function initConfig(options) {
     const configPath = path.join(process.cwd(), 'rt.json');
     // Default configuration
     const defaultConfig = {

@@ -192,7 +192,7 @@ The **`rt.json`** file allows you to customize default behavior:
 
 ### Example Configuration:
 
-Here is an example `rt.json` configuration:
+Here is an example **`rt.json`** configuration:
 
 ```bash
 {
@@ -206,11 +206,27 @@ Here is an example `rt.json` configuration:
 }
 ```
 
+## Installing Customized Packages by Topic
+
+With the `rt install` command, you can easily add packages to your React project tailored to specific needs. This command presents a menu organized by topic, allowing you to select from a curated list of packages. Whether you're looking to enhance your UI, manage state, handle forms, or add routing and animations, you can choose packages relevant to your project.
+
+command:
+
+```bash
+rt install
+```
+
+or
+
+```bash
+rt i
+```
+
 ## Template files
 
 For those who like full control, there are two template files that can be edited:
 
-`component-rt.template`: content of the component file
+**`component-rt.template`**: content of the component file
 
 command to create:
 
@@ -224,7 +240,7 @@ or
 rt t c
 ```
 
-`style-rt.template`: content of the style file
+**`style-rt.template`**: content of the style file
 
 command to create:
 
@@ -238,7 +254,7 @@ or
 rt t s
 ```
 
-The detailed content of the template files will be created according to the settings in the `rt.json` file
+The detailed content of the template files will be created according to the settings in the **`rt.json`** file
 
 There are three variables to be aware of when editing such files:
 
@@ -256,9 +272,9 @@ By editing the template files you can define a custom template for the component
 
 **_This can be achieved in two ways:_**
 
-A. With `rt.json` set to keep the default configuration:
+A. With **`rt.json`** set to keep the default configuration:
 
-Configure `rt.json`:
+Configure **`rt.json`**:
 
 ```bash
 {
@@ -294,7 +310,7 @@ If the **components** folder does not exist, the program will create it. If it d
 
 **3. Editing template files using variables:**
 
-In `component-rt.template` file add in the _p_ tag a className of the component name:
+In **`component-rt.template`** file add in the _p_ tag a className of the component name:
 
 ```bash
 import './{{styleFileName}}.css';
@@ -308,7 +324,7 @@ export default function  {{functionName}} ({}) {
 };
 ```
 
-In `style-rt.template` file add a class of the component name - with a font size of 20 pixels:
+In **`style-rt.template`** file add a class of the component name - with a font size of 20 pixels:
 
 ```bash
 .{{componentName}}{

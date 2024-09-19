@@ -1,9 +1,46 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { appendToGitignore, findConfigFile } from './handler.js';
+import { appendToGitignore, findConfigFile, findTemplateFile } from './handler.js';
+import PromptSync from 'prompt-sync';
 
-export function createComponentTemplate(options: any) {
+
+export function handleTemplate(fileType: string, options: any) {
+    fileType = fileType == "c" ? 'component' : fileType == 's' ? 'style' : fileType;
+
+    const prompt = PromptSync();
+    const templateFilePath = findTemplateFile(fileType, process.cwd());
+
+    if (templateFilePath) {
+        const answer = prompt(`${fileType}-rt.template already exists. Overwrite? (y/n): `)?.trim()?.toLowerCase();
+        if (answer === 'y' || answer === 'yes') {
+            fs.unlinkSync(templateFilePath);
+            if (fileType == 'component' || fileType == 'c') {
+                createComponentTemplate(options);
+            }
+            else if (fileType == 'style' || fileType == 's') {
+                createStyleTemplate()
+            }
+
+        } else {
+            console.log(chalk.yellow(`No changes made to ${fileType}-rt.template.`));
+        }
+    } else {
+        // Create new template file if it does not exist
+        if (fileType == 'component' || fileType == 'c') {
+            createComponentTemplate(options);
+        }
+        else if (fileType == 'style' || fileType == 's') {
+            createStyleTemplate()
+        }
+
+    }
+};
+
+
+
+
+function createComponentTemplate(options: any) {
 
     const componentTemplatePath = path.join(process.cwd(), 'component-rt.template');
 
@@ -91,7 +128,7 @@ export default function  {{functionName}} ({}${fileExtension == "tsx" ? `: {{fun
 
 
 
-export function createStyleTemplate() {
+function createStyleTemplate() {
 
     const styleTemplatePath = path.join(process.cwd(), 'style-rt.template');
 

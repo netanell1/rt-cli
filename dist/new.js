@@ -3,6 +3,7 @@ import path from 'path';
 import { execSync } from 'child_process';
 import { findConfigFile, replaceSpecialCharacters } from './handler.js';
 import chalk from 'chalk';
+import PromptSync from 'prompt-sync';
 export function createReactApp(appName, options) {
     const appNameCorrect = replaceSpecialCharacters(appName, true, ["-"]);
     if (appNameCorrect != appName) {
@@ -75,5 +76,21 @@ export function createReactApp(appName, options) {
     }
     catch (error) {
         console.error(chalk.red('Error running rt init'), error);
+    }
+    handleInstallMore(appName);
+}
+function handleInstallMore(appName) {
+    const prompt = PromptSync();
+    const answer = prompt('Do you want to install more packages? (y/n): ')?.trim()?.toLowerCase();
+    if (answer === 'y' || answer === 'yes') {
+        const installCommand = `rt install`;
+        // Run 'rt init' command in the appName directory
+        const appDir = path.join(process.cwd(), appName);
+        try {
+            execSync(installCommand, { stdio: 'inherit', cwd: appDir });
+        }
+        catch (error) {
+            console.error(chalk.red('Error running rt install'), error);
+        }
     }
 }
