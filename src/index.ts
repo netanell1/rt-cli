@@ -3,11 +3,14 @@
 import { Command } from 'commander';
 import { createComponent } from './component.js';
 import chalk from 'chalk';
-import { handleInit, handleTemplate, printVersion } from './handler.js';;
+import { printVersion } from './handler.js';
 import { createReactApp } from './new.js';
 import updateCLI from './update.js';
 import { dev, build, lint, preview } from './viteCommand.js';
 import { createModel } from './model.js';
+import { showTopicMenu } from './install.js';
+import { handleInit } from './init.js';
+import { handleTemplate } from './template.js';
 
 const program = new Command();
 
@@ -28,6 +31,17 @@ program
       console.error(chalk.red(`Failed to create React app ${appName}.`), error.message);
     }
   });
+
+
+/********************************* */
+// Command to install packages
+program
+  .command('install').aliases(['i'])
+  .description('Install packages by topic')
+  .action(() => {
+    showTopicMenu(); // Open the menu when the install command is called
+  });
+
 
 /********************************* */
 

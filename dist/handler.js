@@ -3,58 +3,7 @@ import path from 'path';
 import chalk from 'chalk';
 import { fileURLToPath } from 'url';
 import figlet from 'figlet';
-import PromptSync from 'prompt-sync';
-import { initConfig } from './init.js';
 import { execSync } from 'child_process';
-import { createComponentTemplate, createStyleTemplate } from './template.js';
-export function handleInit(options) {
-    const prompt = PromptSync();
-    const configFilePath = findConfigFile(process.cwd());
-    if (configFilePath) {
-        const answer = prompt('rt.json already exists. Overwrite? (y/n): ')?.trim()?.toLowerCase();
-        if (answer === 'y' || answer === 'yes') {
-            fs.unlinkSync(configFilePath);
-            initConfig(options); // Create new rt.json file
-        }
-        else {
-            console.log(chalk.yellow('No changes made to rt.json.'));
-        }
-    }
-    else {
-        initConfig(options); // Create new rt.json file if it does not exist
-    }
-}
-;
-export function handleTemplate(fileType, options) {
-    fileType = fileType == "c" ? 'component' : fileType == 's' ? 'style' : fileType;
-    const prompt = PromptSync();
-    const templateFilePath = findTemplateFile(fileType, process.cwd());
-    if (templateFilePath) {
-        const answer = prompt(`${fileType}-rt.template already exists. Overwrite? (y/n): `)?.trim()?.toLowerCase();
-        if (answer === 'y' || answer === 'yes') {
-            fs.unlinkSync(templateFilePath);
-            if (fileType == 'component' || fileType == 'c') {
-                createComponentTemplate(options);
-            }
-            else if (fileType == 'style' || fileType == 's') {
-                createStyleTemplate();
-            }
-        }
-        else {
-            console.log(chalk.yellow(`No changes made to ${fileType}-rt.template.`));
-        }
-    }
-    else {
-        // Create new template file if it does not exist
-        if (fileType == 'component' || fileType == 'c') {
-            createComponentTemplate(options);
-        }
-        else if (fileType == 'style' || fileType == 's') {
-            createStyleTemplate();
-        }
-    }
-}
-;
 // print warning if ts not defined
 export function checkTypeScriptConfigured(startPath) {
     const configPath = findConfigFile(startPath);
