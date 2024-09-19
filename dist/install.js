@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import { exec } from 'child_process';
 import fs from 'fs';
-import path from 'path';
+import { findPackageJsonFile } from './handler.js';
 const topics = {
     "Design & UI": ["bootstrap", "react-bootstrap", "@mui/material", "antd", "chakra-ui/react", "semantic-ui-react"],
     "API": ["axios", "@tanstack/react-query", "swr", "@apollo/client"],
@@ -13,7 +13,7 @@ const topics = {
 };
 // Function to get the installed packages from package.json
 function getInstalledPackages() {
-    const packageJsonPath = path.resolve(process.cwd(), 'package.json');
+    const packageJsonPath = findPackageJsonFile(process.cwd());
     try {
         const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
         const dependencies = packageJson.dependencies || {};

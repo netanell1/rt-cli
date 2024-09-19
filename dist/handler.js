@@ -14,6 +14,17 @@ export function checkTypeScriptConfigured(startPath) {
         }
     }
 }
+export function findPackageJsonFile(startPath) {
+    let currentPath = startPath;
+    while (currentPath !== path.parse(currentPath).root) {
+        const configFilePath = path.join(currentPath, 'package.json');
+        if (fs.existsSync(configFilePath)) {
+            return configFilePath;
+        }
+        currentPath = path.dirname(currentPath); // Move up one directory level
+    }
+    return null; // Return null if not found
+}
 // Helper function to find rt.json in current or parent directories
 export function findConfigFile(startPath) {
     let currentPath = startPath;
