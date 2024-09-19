@@ -3,13 +3,73 @@ import { exec } from 'child_process';
 import fs from 'fs';
 import { findPackageJsonFile } from './handler.js';
 const topics = {
-    "Design & UI": ["bootstrap", "react-bootstrap", "@mui/material", "antd", "chakra-ui/react", "semantic-ui-react"],
-    "API": ["axios", "@tanstack/react-query", "swr", "@apollo/client"],
-    "State Management": ["@reduxjs/toolkit", "recoil", "mobx", "zustand"],
-    "Form Handling": ["formik", "react-hook-form", "final-form"],
-    "Styling": ["styled-components", "emotion", "css-modules", "sass"],
-    "Routing": ["react-router-dom", "next"],
-    "Animation": ["framer-motion", "react-spring", "react-transition-group", "gsap"],
+    "Design & UI": [
+        "bootstrap",
+        "react-bootstrap",
+        "@mui/material",
+        "antd",
+        "chakra-ui/react",
+        "semantic-ui-react",
+        "tailwindcss", // For utility-first CSS framework
+        "styled-components", // For styled-components CSS-in-JS library
+        "emotion" // For another CSS-in-JS library
+    ],
+    "API": [
+        "axios",
+        "@tanstack/react-query",
+        "swr",
+        "@apollo/client",
+        "graphql", // For working with GraphQL queries
+        "react-query-devtools" // For React Query DevTools
+    ],
+    "State Management": [
+        "@reduxjs/toolkit",
+        "recoil",
+        "mobx",
+        "zustand",
+        "xstate" // For state machines and statecharts
+    ],
+    "Form Handling": [
+        "formik",
+        "react-hook-form",
+        "final-form",
+        "yup" // For schema validation with Formik or React Hook Form
+    ],
+    "Styling": [
+        "styled-components",
+        "emotion",
+        "css-modules",
+        "sass",
+        "postcss", // For advanced CSS transformations and optimizations
+        "autoprefixer" // For adding vendor prefixes to CSS
+    ],
+    "Routing": [
+        "react-router-dom",
+        "next",
+        "react-router" // For routing in non-React apps or older versions
+    ],
+    "Animation": [
+        "framer-motion",
+        "react-spring",
+        "react-transition-group",
+        "gsap",
+        "animejs" // For lightweight animations
+    ],
+    "Utilities": [
+        "lodash", // For utility functions
+        "date-fns", // For date manipulation
+        "moment", // For date and time manipulation
+        "uuid" // For generating unique IDs
+    ],
+    "Testing": [
+        "jest", // For unit testing
+        "react-testing-library", // For testing React components
+        "cypress" // For end-to-end testing
+    ],
+    "Development": [
+        "eslint", // For linting JavaScript/TypeScript
+        "prettier" // For code formatting
+    ]
 };
 // Function to get the installed packages from package.json
 function getInstalledPackages() {
@@ -55,7 +115,7 @@ function showPackageMenu(topic) {
             type: 'list',
             name: 'package',
             message: `Select a package to install from ${topic}:`,
-            choices: [...packages, new inquirer.Separator(), 'Back to Main Menu'], // Add a "Back to Main Menu" option
+            choices: [...packages, new inquirer.Separator(), 'Back to Main Menu', new inquirer.Separator(),], // Add a "Back to Main Menu" option
         },
     ];
     inquirer
@@ -76,7 +136,7 @@ function showTopicMenu() {
             type: 'list',
             name: 'topic',
             message: 'Select a topic:',
-            choices: [...Object.keys(topics), new inquirer.Separator(), 'Exit'], // Add an Exit option
+            choices: [...Object.keys(topics), new inquirer.Separator(), 'Exit', new inquirer.Separator()], // Add an Exit option
         },
     ];
     inquirer

@@ -206,6 +206,22 @@ Here is an example `rt.json` configuration:
 }
 ```
 
+## Installing Customized Packages by Topic
+
+With the **`rt install`** command, you can easily add packages to your React project tailored to specific needs. This command presents a menu organized by topic, allowing you to select from a curated list of packages. Whether you're looking to enhance your UI, manage state, handle forms, or add routing and animations, you can choose packages relevant to your project.
+
+command:
+
+```bash
+rt install
+```
+
+or
+
+```bash
+rt i
+```
+
 ## Template files
 
 For those who like full control, there are two template files that can be edited:
@@ -238,7 +254,7 @@ or
 rt t s
 ```
 
-The detailed content of the template files will be created according to the settings in the `rt.json` file
+The detailed content of the template files will be created according to the settings in the **`rt.json`** file
 
 There are three variables to be aware of when editing such files:
 
