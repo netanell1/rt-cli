@@ -3,7 +3,7 @@ import path from 'path';
 import chalk from 'chalk';
 import { findConfigFile, findTemplateFile, replaceSpecialCharacters } from './handler.js';
 
-export function createComponent(componentFullName, options) {
+export function createComponent(componentFullName: string, options: any) {
 
     const folderArr = componentFullName.split('/');
     const folderPath = folderArr.join('/')
@@ -27,7 +27,7 @@ export function createComponent(componentFullName, options) {
     }
 
     // Determine file extensions based on options or config
-    const configPath = findConfigFile(componentDir);
+    const configPath = findConfigFile(componentDir) as string;
     let fileExtension = 'jsx';  // Default to JS if no options are specified
     let styleExtension = 'css'; // Default to CSS if no options are specified
     let styleModule = options.moduleStyle ? '.module' : ''; // Determine if style should be a module

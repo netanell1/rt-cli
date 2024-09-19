@@ -10,7 +10,7 @@ function updateCLI() {
         execSync('npm install -g react-cli-rt', { stdio: 'inherit' });
 
         console.log(chalk.green('Successfully updated react-cli-rt to the latest version!'));
-    } catch (error) {
+    } catch (error: any) {
         console.error(chalk.red('Failed to update react-cli-rt. Please try again.'));
         console.error(chalk.red(`Error: ${error.message}`));
     }

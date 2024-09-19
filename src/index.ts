@@ -3,7 +3,7 @@
 import { Command } from 'commander';
 import { createComponent } from './component.js';
 import chalk from 'chalk';
-import { checkTypeScriptConfigured, findTemplateFile, handleInit, handleTemplate, printVersion } from './handler.js';;
+import { handleInit, handleTemplate, printVersion } from './handler.js';;
 import { createReactApp } from './new.js';
 import updateCLI from './update.js';
 import { dev, build, lint, preview } from './viteCommand.js';
@@ -14,7 +14,6 @@ const program = new Command();
 
 
 /********************************* */
-
 // Command to create a new React application
 program
   .command('new <appName>')
@@ -25,7 +24,7 @@ program
     try {
       createReactApp(appName, options);
       console.log(chalk.green(`React app ${appName} created successfully.`));
-    } catch (error) {
+    } catch (error: any) {
       console.error(chalk.red(`Failed to create React app ${appName}.`), error.message);
     }
   });

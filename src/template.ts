@@ -3,7 +3,7 @@ import path from 'path';
 import chalk from 'chalk';
 import { appendToGitignore, findConfigFile } from './handler.js';
 
-export function createComponentTemplate(options) {
+export function createComponentTemplate(options: any) {
 
     const componentTemplatePath = path.join(process.cwd(), 'component-rt.template');
 
@@ -15,7 +15,7 @@ export function createComponentTemplate(options) {
 
 
     // Determine file extensions based on options or config
-    const configPath = findConfigFile(process.cwd());
+    const configPath = findConfigFile(process.cwd()) as string;
     let fileExtension = 'jsx';  // Default to JS if no options are specified
     let styleExtension = 'css'; // Default to CSS if no options are specified
     let styleModule = options.moduleStyle ? '.module' : ''; // Determine if style should be a module

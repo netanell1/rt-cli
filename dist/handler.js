@@ -7,32 +7,28 @@ import PromptSync from 'prompt-sync';
 import { initConfig } from './init.js';
 import { execSync } from 'child_process';
 import { createComponentTemplate, createStyleTemplate } from './template.js';
-
 export function handleInit(options) {
     const prompt = PromptSync();
     const configFilePath = findConfigFile(process.cwd());
-
     if (configFilePath) {
         const answer = prompt('rt.json already exists. Overwrite? (y/n): ')?.trim()?.toLowerCase();
-
         if (answer === 'y' || answer === 'yes') {
             fs.unlinkSync(configFilePath);
             initConfig(options); // Create new rt.json file
-        } else {
+        }
+        else {
             console.log(chalk.yellow('No changes made to rt.json.'));
         }
-    } else {
+    }
+    else {
         initConfig(options); // Create new rt.json file if it does not exist
     }
-};
-
-
+}
+;
 export function handleTemplate(fileType, options) {
     fileType = fileType == "c" ? 'component' : fileType == 's' ? 'style' : fileType;
-
     const prompt = PromptSync();
     const templateFilePath = findTemplateFile(fileType, process.cwd());
-
     if (templateFilePath) {
         const answer = prompt(`${fileType}-rt.template already exists. Overwrite? (y/n): `)?.trim()?.toLowerCase();
         if (answer === 'y' || answer === 'yes') {
@@ -41,29 +37,27 @@ export function handleTemplate(fileType, options) {
                 createComponentTemplate(options);
             }
             else if (fileType == 'style' || fileType == 's') {
-                createStyleTemplate()
+                createStyleTemplate();
             }
-
-        } else {
+        }
+        else {
             console.log(chalk.yellow(`No changes made to ${fileType}-rt.template.`));
         }
-    } else {
+    }
+    else {
         // Create new template file if it does not exist
         if (fileType == 'component' || fileType == 'c') {
             createComponentTemplate(options);
         }
         else if (fileType == 'style' || fileType == 's') {
-            createStyleTemplate()
+            createStyleTemplate();
         }
-
     }
-};
-
-
-
+}
+;
 // print warning if ts not defined
 export function checkTypeScriptConfigured(startPath) {
-    const configPath = findConfigFile(startPath)
+    const configPath = findConfigFile(startPath);
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
         if (config.language !== 'ts') {
@@ -71,12 +65,9 @@ export function checkTypeScriptConfigured(startPath) {
         }
     }
 }
-
-
 // Helper function to find rt.json in current or parent directories
 export function findConfigFile(startPath) {
     let currentPath = startPath;
-
     while (currentPath !== path.parse(currentPath).root) {
         const configFilePath = path.join(currentPath, 'rt.json');
         if (fs.existsSync(configFilePath)) {
@@ -84,14 +75,11 @@ export function findConfigFile(startPath) {
         }
         currentPath = path.dirname(currentPath); // Move up one directory level
     }
-
     return null; // Return null if not found
-};
-
-
+}
+;
 export function findTemplateFile(fileType, startPath) {
     let currentPath = startPath;
-
     while (currentPath !== path.parse(currentPath).root) {
         const templateFilePath = path.join(currentPath, `${fileType}-rt.template`);
         if (fs.existsSync(templateFilePath)) {
@@ -99,14 +87,13 @@ export function findTemplateFile(fileType, startPath) {
         }
         currentPath = path.dirname(currentPath); // Move up one directory level
     }
-
     return null; // Return null if not found
-};
-
+}
+;
 // Helper function to find .gitignore in current or parent directories
 export function appendToGitignore(startPath, entry) {
     let currentPath = startPath;
-    let pathFolder = ''
+    let pathFolder = '';
     while (currentPath !== path.parse(currentPath).root) {
         const gitignorePath = path.join(currentPath, '.gitignore');
         if (fs.existsSync(gitignorePath)) {
@@ -115,28 +102,25 @@ export function appendToGitignore(startPath, entry) {
                 fs.appendFileSync(gitignorePath, `\n${pathFolder}${entry}`);
                 console.log(chalk.green(`ADDED`), `'${entry}' to ${path.relative(process.cwd(), gitignorePath)}`);
             }
-            return
+            return;
         }
-        const foldersArr = currentPath.split('\\')
-        pathFolder += `${foldersArr[foldersArr.length - 1]}/`
+        const foldersArr = currentPath.split('\\');
+        pathFolder += `${foldersArr[foldersArr.length - 1]}/`;
         currentPath = path.dirname(currentPath); // Move up one directory level
     }
-
     return null; // Return null if not found
-};
-
+}
+;
 export function replaceSpecialCharacters(str, toLower, allowedChars = []) {
     // Escape any special regex characters in the allowed characters array
     const escapedAllowedChars = allowedChars.map(char => `\\${char}`).join('');
     // Build a regex pattern that excludes allowed characters
     const regex = new RegExp(`[^a-zA-Z0-9${escapedAllowedChars}]`, 'g');
-    let strReplace = str.replace(regex, '')
+    let strReplace = str.replace(regex, '');
     if (toLower)
-        strReplace = strReplace.toLowerCase()
+        strReplace = strReplace.toLowerCase();
     return strReplace;
 }
-
-
 // for rt version command
 export function printVersion() {
     const __filename = fileURLToPath(import.meta.url);
@@ -144,22 +128,19 @@ export function printVersion() {
     const packagePath = path.resolve(__dirname, '../package.json');
     const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
     const version = packageJson.version;
-
     // Display pretty react CLI
     console.log(chalk.cyan(`${figlet.textSync(' React CLI', { font: 'Star Wars' })}\n`));
-
     // Get Node.js version
     const nodeVersion = process.version;
-
     // Determine package manager and get its version
     let packageManager = 'npm';
     let packageManagerVersion;
     try {
         packageManagerVersion = execSync(`${packageManager} --version`, { encoding: 'utf-8' }).trim();
-    } catch (error) {
+    }
+    catch (error) {
         console.error(chalk.red(`Failed to get ${packageManager} version: ${error.message}`));
     }
-
     const os = `${process.platform} ${process.arch}`;
     // Display information
     console.log(chalk.cyan(`React CLI RT: ${version}`));

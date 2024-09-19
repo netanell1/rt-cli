@@ -2,7 +2,7 @@ import { execSync } from 'child_process';
 import chalk from 'chalk';
 
 // Function to run npm script
-function runNpmScript(scriptName) {
+function runNpmScript(scriptName: string) {
   try {
     console.log(chalk.blue(`Running npm ${scriptName}...`));
 
@@ -10,7 +10,7 @@ function runNpmScript(scriptName) {
     execSync(`npm run ${scriptName}`, { stdio: 'inherit' });
 
     console.log(chalk.green(`Successfully ran npm ${scriptName}!`));
-  } catch (error) {
+  } catch (error: any) {
     console.error(chalk.red(`Failed to run npm ${scriptName}. Please check if the script is defined in package.json.`));
     console.error(chalk.red(`Error: ${error.message}`));
   }

@@ -2,12 +2,14 @@
   "name": "react-cli-rt",
   "version": "2.1.6",
   "description": "A CLI tool for React app creation with vite.",
-  "main": "index.js",
+  "main": "dist/index.js",
   "type": "module",
   "bin": {
-    "rt": "src/index.js"
+    "rt": "dist/index.js"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "tsc"
+  },
   "keywords": [
     "cli",
     "react",
@@ -26,5 +28,10 @@
     "figlet": "^1.7.0",
     "inquirer": "^10.1.5",
     "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/figlet": "^1.5.8",
+    "@types/prompt-sync": "^4.2.3",
+    "typescript": "^5.6.2"
   }
 }
