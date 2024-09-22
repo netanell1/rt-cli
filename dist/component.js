@@ -9,14 +9,14 @@ export function createComponent(componentFullName, options) {
     const componentDir = path.join(process.cwd(), folderPath);
     const componentNameCorrect = replaceSpecialCharacters(componentName, false);
     if (componentNameCorrect != componentName) {
-        console.log(chalk.red(`Error: Invalid component name, try '${componentNameCorrect}' instead.`));
+        console.error(chalk.red(`Error: Invalid component name, try '${componentNameCorrect}' instead.`));
         process.exit(1);
     }
     if (!fs.existsSync(componentDir)) {
         fs.mkdirSync(componentDir, { recursive: true });
     }
     else {
-        console.log(chalk.red(`Error: Folder ${componentName} already exists.`));
+        console.error(chalk.red(`Error: Folder ${componentName} already exists.`));
         process.exit(1);
     }
     // Determine file extensions based on options or config

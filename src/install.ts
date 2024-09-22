@@ -2,6 +2,8 @@ import inquirer from 'inquirer';
 import { exec } from 'child_process';
 import fs from 'fs';
 import { findPackageJsonFile } from './handler.js';
+import ora from 'ora';
+import chalk from 'chalk';
 
 const topics = {
     "Design & UI": [
@@ -98,15 +100,18 @@ function isPackageInstalled(packageName: string, installedPackages: Set<string>)
 
 // Function to install the selected package
 function installPackage(packageName: string, callback: () => void) {
-    console.log(`Installing ${packageName}...`);
+    const spinner = ora(`Installing ${packageName}...`).start();
+
     exec(`npm install ${packageName}`, (err, stdout, stderr) => {
         if (err) {
-            console.error(`Error installing ${packageName}:`, stderr);
+            spinner.fail(`Error installing ${packageName}: ${stderr}`);
+            console.error(chalk.red(`Error installing ${packageName}:`, stderr));
             return;
         }
-        console.log(`${packageName} installed successfully!`);
-        console.log(stdout);
-        callback(); // Return to the topic menu after installing
+
+        spinner.succeed(`${packageName} successfully installed!`);
+        console.log(chalk.green(stdout));
+        callback(); // Return to the topic menu after installation
     });
 }
 

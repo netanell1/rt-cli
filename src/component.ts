@@ -13,7 +13,7 @@ export function createComponent(componentFullName: string, options: any) {
 
     const componentNameCorrect = replaceSpecialCharacters(componentName, false)
     if (componentNameCorrect != componentName) {
-        console.log(chalk.red(`Error: Invalid component name, try '${componentNameCorrect}' instead.`));
+        console.error(chalk.red(`Error: Invalid component name, try '${componentNameCorrect}' instead.`));
         process.exit(1);
     }
 
@@ -22,7 +22,7 @@ export function createComponent(componentFullName: string, options: any) {
         fs.mkdirSync(componentDir, { recursive: true });
     }
     else {
-        console.log(chalk.red(`Error: Folder ${componentName} already exists.`));
+        console.error(chalk.red(`Error: Folder ${componentName} already exists.`));
         process.exit(1);
     }
 
