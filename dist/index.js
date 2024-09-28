@@ -10,6 +10,8 @@ import { createModel } from './model.js';
 import { showTopicMenu } from './install.js';
 import { handleInit } from './init.js';
 import { handleTemplate } from './template.js';
+import { createHook } from './hook.js';
+import { createContext } from './context.js';
 const program = new Command();
 /********************************* */
 // Command to create a new React application
@@ -117,6 +119,12 @@ program
     }
     else if (type === 'interface' || type === "i") {
         createModel('interface', name, options, true);
+    }
+    else if (type === 'hook' || type === "h") {
+        createHook(name, options);
+    }
+    else if (type === 'context' || type === "co") {
+        createContext(name, options);
     }
     else {
         console.log(chalk.red('Error: Invalid type specified.'));
