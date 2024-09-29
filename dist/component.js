@@ -23,7 +23,7 @@ export function createComponent(componentFullName, options) {
     const configPath = findConfigFile(componentDir);
     let fileExtension = 'jsx'; // Default to JS if no options are specified
     let styleExtension = 'css'; // Default to CSS if no options are specified
-    let styleModule = options.moduleStyle ? '.module' : ''; // Determine if style should be a module
+    let styleModule = options.useModuleStyle ? '.module' : ''; // Determine if style should be a module
     let componentFileFormat = options.const ? 'const' : 'function'; // Determine component type
     let componentFileName = options.componentFileName || componentName; // Default component file name
     let styleFileName = options.styleFileName || componentName; // Default style file name
@@ -32,7 +32,7 @@ export function createComponent(componentFullName, options) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
         fileExtension = config.language === 'ts' ? 'tsx' : 'jsx';
         styleExtension = config.style || 'css'; // Default to CSS
-        styleModule = config.moduleStyle ? '.module' : ''; // Determine if style should be a module
+        styleModule = config.useModuleStyle ? '.module' : ''; // Determine if style should be a module
         componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
         componentFileName = config.componentFileName || componentName; // Check config for component file name
         styleFileName = config.styleFileName || componentName; // Check config for style file name
@@ -48,7 +48,7 @@ export function createComponent(componentFullName, options) {
     if (options.style) {
         styleExtension = options.style;
     }
-    if (options.moduleStyle) {
+    if (options.useModuleStyle) {
         styleModule = '.module';
     }
     if (options.function) {

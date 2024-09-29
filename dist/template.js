@@ -44,13 +44,13 @@ function createComponentTemplate(options) {
     const configPath = findConfigFile(process.cwd());
     let fileExtension = 'jsx'; // Default to JS if no options are specified
     let styleExtension = 'css'; // Default to CSS if no options are specified
-    let styleModule = options.moduleStyle ? '.module' : ''; // Determine if style should be a module
+    let styleModule = options.useModuleStyle ? '.module' : ''; // Determine if style should be a module
     let componentFileFormat = options.const ? 'const' : 'function'; // Determine component type
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
         fileExtension = config.language === 'ts' ? 'tsx' : 'jsx';
         styleExtension = config.style || 'css'; // Default to CSS
-        styleModule = config.moduleStyle ? '.module' : ''; // Determine if style should be a module
+        styleModule = config.useModuleStyle ? '.module' : ''; // Determine if style should be a module
         componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
     }
     // Override with command line options if provided
@@ -63,7 +63,7 @@ function createComponentTemplate(options) {
     if (options.style) {
         styleExtension = options.style;
     }
-    if (options.moduleStyle) {
+    if (options.useModuleStyle) {
         styleModule = '.module';
     }
     if (options.function) {
@@ -110,5 +110,5 @@ function createStyleTemplate() {
     fs.writeFileSync('style-rt.template', '');
     const styleTemplateSize = fs.statSync(styleTemplatePath).size;
     console.log(chalk.green(`CREATE`), `${path.relative(process.cwd(), styleTemplatePath)} (${styleTemplateSize} bytes)`);
-    appendToGitignore(process.cwd(), 'style-rt.template');
+    // appendToGitignore(process.cwd(), 'style-rt.template')
 }

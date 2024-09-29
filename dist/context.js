@@ -17,11 +17,11 @@ export function createContext(contextFullName, options) {
     }
     const configPath = findConfigFile(contextDir);
     let fileExtension = 'js';
-    let modelSuffix = "";
+    let useSuffix = "";
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
         fileExtension = config.language === 'ts' ? 'ts' : 'js';
-        modelSuffix = config.modelSuffix ? `.context` : "";
+        useSuffix = config.useSuffix ? `.context` : "";
     }
     if (options.js) {
         fileExtension = 'js';
@@ -29,10 +29,10 @@ export function createContext(contextFullName, options) {
     else if (options.ts) {
         fileExtension = 'ts';
     }
-    if (options.modelSuffix) {
-        modelSuffix = `.context`;
+    if (options.useSuffix) {
+        useSuffix = `.context`;
     }
-    const contextPath = path.join(contextDir, `${contextName}${modelSuffix}.${fileExtension}`);
+    const contextPath = path.join(contextDir, `${contextName}${useSuffix}.${fileExtension}`);
     if (fs.existsSync(contextPath)) {
         console.log(chalk.red(`Error: File ${contextName} already exists.`));
         process.exit(1);

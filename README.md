@@ -184,11 +184,11 @@ The **`rt.json`** file allows you to customize default behavior:
 
 - **language** : Choose between **js** or **ts** for JavaScript or TypeScript.
 - **style**: Choose between **css**, **scss**, or other styling languages.
-- **moduleStyle**: Boolean to determine if style files should be module-based.
+- **useModuleStyle**: Boolean to determine if style files should be module-based.
 - **componentFileFormat**: Choose between **function** or **const**.
 - **componentFileName**: Default name for component files (e.g., index), If the field is empty, the file name will be determined by the component name.
 - **styleFileName**: Default name for style files (e.g., style), If the field is empty, the file name will be determined by the component name.
-- **modelSuffix**: Boolean to add _.modelName_ to the model file name (e.g., **.interface** to interfaces file).
+- **useSuffix**: Boolean to add _.modelName_ to the model file name (e.g., **.interface** to interfaces file).
 
 ### Example Configuration:
 
@@ -198,11 +198,11 @@ Here is an example **`rt.json`** configuration:
 {
   "language": "js",
   "style": "css",
-  "moduleStyle": false,
+  "useModuleStyle": false,
   "componentFileFormat": "function",
   "componentFileName": "",
   "styleFileName": "",
-  "modelSuffix": false
+  "useSuffix": false
 }
 ```
 
@@ -280,7 +280,7 @@ Configure **`rt.json`**:
 {
   "language": "ts",
   "style": "scss",
-  "moduleStyle": true
+  "useModuleStyle": true
 }
 ```
 
@@ -295,7 +295,7 @@ B. With a command that will change the component configuration once:
 run:
 
 ```bash
-rt generate component myComponent --ts --style scss --moduleStyle
+rt generate component myComponent --ts --style scss --useModuleStyle
 ```
 
 **2. Generate a Component inside a new or existing folder:**

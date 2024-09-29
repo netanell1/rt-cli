@@ -25,11 +25,11 @@ export function createModel(modelType: string, modelFullName: string, options: a
 
     const configPath = findConfigFile(modelDir) as string;
     let fileExtension = 'js';
-    let modelSuffix = "";
+    let useSuffix = "";
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
         fileExtension = config.language === 'ts' ? 'ts' : 'js';
-        modelSuffix = config.modelSuffix ? `.${modelType}` : "";
+        useSuffix = config.useSuffix ? `.${modelType}` : "";
     }
 
     if (options.js) {
@@ -38,11 +38,11 @@ export function createModel(modelType: string, modelFullName: string, options: a
         fileExtension = 'ts';
     }
 
-    if (options.modelSuffix) {
-        modelSuffix = `.${modelType}`;
+    if (options.useSuffix) {
+        useSuffix = `.${modelType}`;
     }
 
-    const modelPath = path.join(modelDir, `${modelName}${modelSuffix}.${modelType == "class" ? fileExtension : 'ts'}`);
+    const modelPath = path.join(modelDir, `${modelName}${useSuffix}.${modelType == "class" ? fileExtension : 'ts'}`);
 
     if (fs.existsSync(modelPath)) {
         console.log(chalk.red(`Error: File ${modelName} already exists.`));
