@@ -29,9 +29,10 @@ function initConfig(options) {
         style: options.style || 'css', // Default to CSS
         moduleStyle: options.moduleStyle || false, // Default to false if not specified
         componentFileFormat: options.const ? 'const' : 'function', // Default to 'function'
-        componentFileName: options.componentFileName || '', // Default component file name
-        styleFileName: options.styleFileName || '', // Default style file name
-        modelSuffix: options.modelSuffix ? true : false,
+        componentFileName: options.componentFileName || null, // Default component file name as nul
+        styleFileName: options.styleFileName || null, // Default style file name as null
+        testLibrary: options.testLibrary || null, // Default test library as null
+        modelSuffix: options.modelSuffix ? true : false, // Default modelSuffix as false
     };
     // Check if configuration file already exists
     if (fs.existsSync(configPath)) {

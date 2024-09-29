@@ -127,9 +127,10 @@ program
   .option('--moduleStyle', 'Create a style file with .module extension')
   .option('--function', 'Create a function component')
   .option('--const', 'Create a constant component')
-  .option('--modelSuffix', 'Set suffix for the type file name as type')
   .option('--componentFileName <name>', 'Set the name for the component file')
   .option('--styleFileName <name>', 'Set the name for the style file')
+  .option('--testLibrary <name>', 'Set the test library for the component')
+  .option('--modelSuffix', 'Set suffix for the type file name as type')
   .action((type, name, options) => {
     if (type === 'component' || type === 'c') {
       createComponent(name, options);
