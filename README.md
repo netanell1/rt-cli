@@ -29,7 +29,7 @@ Create a new React component with the specified name.
 rt generate component button
 ```
 
-This command creates a folder named **button** with the component files inside it.
+This command creates a folder named **button** with the component files inside it (`tsx` or `jsx` file, a style ile and and a test file - based on your configuration in **`rt.json`**.).
 
 ### Generate Class
 
@@ -44,7 +44,7 @@ Create a new React component with the specified name.
 rt generate class car
 ```
 
-This command creates a class file named **car.ts** or **car.class.ts** based on your configuration in **`rt.json`**.
+This command creates a class file named **car.js** or **car.class.js** based on your configuration in **`rt.json`**.
 
 ### Generate Interface
 
@@ -74,7 +74,52 @@ Create a new React component with the specified name.
 rt generate enum direction
 ```
 
-This command creates a enum file named **direction.ts** or **direction.interface.ts** based on your configuration in **`rt.json`**.
+This command creates a enum file named **direction.ts** or **direction.enum.ts** based on your configuration in **`rt.json`**.
+
+### Generate Enum
+
+Create a new React component with the specified name.
+
+- #### Full Command: `rt generate enum <enumName>`
+- #### Abbreviated Command: `rt g e <enumName>`
+
+**example:**
+
+```bash
+rt generate enum direction
+```
+
+This command creates a enum file named **direction.ts** or **direction.enum.ts** based on your configuration in **`rt.json`**.
+
+### Generate Hook
+
+Create a new React hook with the specified name.
+
+- #### Full Command: `rt generate hook <hookName>`
+- #### Abbreviated Command: `rt g h <hookName>`
+
+**example:**
+
+```bash
+rt generate hook useFetch
+```
+
+This command creates a hook file named **useFetch.js** or **useFetch.hook.js** based on your configuration in **`rt.json`**.
+
+### Generate Context
+
+Create a new React context with the specified name.
+
+- #### Full Command: `rt generate context <contextName>`
+- #### Abbreviated Command: `rt g co <contextName>`
+
+**example:**
+
+```bash
+rt generate context ThemeContext
+```
+
+This command creates a context file named **ThemeContext.js** or **ThemeContext.context.js** based on your configuration in **`rt.json`**.
 
 ## Initialize Configuration
 
@@ -186,8 +231,10 @@ The **`rt.json`** file allows you to customize default behavior:
 - **style**: Choose between **css**, **scss**, or other styling languages.
 - **useModuleStyle**: Boolean to determine if style files should be module-based.
 - **componentFileFormat**: Choose between **function** or **const**.
-- **componentFileName**: Default name for component files (e.g., index), If the field is empty, the file name will be determined by the component name.
-- **styleFileName**: Default name for style files (e.g., style), If the field is empty, the file name will be determined by the component name.
+- **componentFileName**: Default name for component files (e.g., index), If the field is null, the file name will be determined by the component name.
+- **styleFileName**: Default name for style files (e.g., style), If the field is null, the file name will be determined by the component name.
+- **testLibrary**: Specify the testing library to use. Choose between **testing-library** or **cypress**
+  If the field is null, no test file will be created when creating the component.
 - **useSuffix**: Boolean to add _.modelName_ to the model file name (e.g., **.interface** to interfaces file).
 
 ### Example Configuration:
@@ -200,8 +247,9 @@ Here is an example **`rt.json`** configuration:
   "style": "css",
   "useModuleStyle": false,
   "componentFileFormat": "function",
-  "componentFileName": "",
-  "styleFileName": "",
+  "componentFileName": null,
+  "styleFileName": null,
+  "testLibrary": null,
   "useSuffix": false
 }
 ```
