@@ -1,76 +1,78 @@
 import inquirer from 'inquirer';
 import { exec } from 'child_process';
 import fs from 'fs';
-import { findPackageJsonFile } from './handler.js';
+import { findConfigFile, findPackageJsonFile } from './handler.js';
 import ora from 'ora';
 import chalk from 'chalk';
+// Organized package list with `isDev` key
 const topics = {
     "Design & UI": [
-        "bootstrap",
-        "react-bootstrap",
-        "@mui/material",
-        "antd",
-        "chakra-ui/react",
-        "semantic-ui-react",
-        "tailwindcss", // For utility-first CSS framework
-        "styled-components", // For styled-components CSS-in-JS library
-        "emotion" // For another CSS-in-JS library
+        { name: "bootstrap", isDev: false },
+        { name: "react-bootstrap", isDev: false },
+        { name: "@mui/material", isDev: false },
+        { name: "antd", isDev: false },
+        { name: "chakra-ui/react", isDev: false },
+        { name: "semantic-ui-react", isDev: false },
+        { name: "tailwindcss", isDev: false },
+        { name: "styled-components", isDev: false },
+        { name: "emotion", isDev: false },
+        { name: "react-icons", isDev: false }
     ],
     "API": [
-        "axios",
-        "@tanstack/react-query",
-        "swr",
-        "@apollo/client",
-        "graphql", // For working with GraphQL queries
-        "react-query-devtools" // For React Query DevTools
+        { name: "axios", isDev: false },
+        { name: "@tanstack/react-query", isDev: false },
+        { name: "swr", isDev: false },
+        { name: "@apollo/client", isDev: false },
+        { name: "graphql", isDev: false },
+        { name: "react-query-devtools", isDev: true } // DevTools for React Query
     ],
     "State Management": [
-        "@reduxjs/toolkit",
-        "recoil",
-        "mobx",
-        "zustand",
-        "xstate" // For state machines and statecharts
+        { name: "@reduxjs/toolkit", isDev: false },
+        { name: "recoil", isDev: false },
+        { name: "mobx", isDev: false },
+        { name: "zustand", isDev: false },
+        { name: "xstate", isDev: false }
     ],
     "Form Handling": [
-        "formik",
-        "react-hook-form",
-        "final-form",
-        "yup" // For schema validation with Formik or React Hook Form
+        { name: "formik", isDev: false },
+        { name: "react-hook-form", isDev: false },
+        { name: "final-form", isDev: false },
+        { name: "yup", isDev: false }
     ],
     "Styling": [
-        "styled-components",
-        "emotion",
-        "css-modules",
-        "sass",
-        "postcss", // For advanced CSS transformations and optimizations
-        "autoprefixer" // For adding vendor prefixes to CSS
+        { name: "styled-components", isDev: false },
+        { name: "emotion", isDev: false },
+        { name: "css-modules", isDev: false },
+        { name: "sass", isDev: true },
+        { name: "postcss", isDev: true },
+        { name: "autoprefixer", isDev: true }
     ],
     "Routing": [
-        "react-router-dom",
-        "next",
-        "react-router" // For routing in non-React apps or older versions
+        { name: "react-router-dom", isDev: false },
+        { name: "react-router", isDev: false }
     ],
     "Animation": [
-        "framer-motion",
-        "react-spring",
-        "react-transition-group",
-        "gsap",
-        "animejs" // For lightweight animations
+        { name: "framer-motion", isDev: false },
+        { name: "react-spring", isDev: false },
+        { name: "react-transition-group", isDev: false },
+        { name: "gsap", isDev: false },
+        { name: "animejs", isDev: false }
     ],
     "Utilities": [
-        "lodash", // For utility functions
-        "date-fns", // For date manipulation
-        "moment", // For date and time manipulation
-        "uuid" // For generating unique IDs
+        { name: "lodash", isDev: false },
+        { name: "date-fns", isDev: false },
+        { name: "moment", isDev: false },
+        { name: "uuid", isDev: false }
     ],
     "Testing": [
-        "jest", // For unit testing
-        "react-testing-library", // For testing React components
-        "cypress" // For end-to-end testing
+        { name: "jest", isDev: true },
+        { name: "react-testing-library", isDev: true },
+        { name: "cypress", isDev: false },
+        { name: "@testing-library/jest-dom", isDev: true }
     ],
     "Development": [
-        "eslint", // For linting JavaScript/TypeScript
-        "prettier" // For code formatting
+        { name: "eslint", isDev: true },
+        { name: "prettier", isDev: true }
     ]
 };
 // Function to get the installed packages from package.json
@@ -83,18 +85,24 @@ function getInstalledPackages() {
         return new Set([...Object.keys(dependencies), ...Object.keys(devDependencies)]);
     }
     catch (error) {
-        // console.error('Error reading package.json:', error);
         return new Set();
     }
+}
+const configPath = findConfigFile(process.cwd());
+let fileExtension = 'js';
+if (fs.existsSync(configPath)) {
+    const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+    fileExtension = config.language;
 }
 // Function to check if a package is installed
 function isPackageInstalled(packageName, installedPackages) {
     return installedPackages.has(packageName);
 }
 // Function to install the selected package
-function installPackage(packageName, callback) {
+function installPackage(packageName, isDev, callback) {
     const spinner = ora(`Installing ${packageName}...`).start();
-    exec(`npm install ${packageName}`, (err, stdout, stderr) => {
+    const command = isDev ? `npm install ${packageName} --save-dev` : `npm install ${packageName}`;
+    exec(command, (err, stdout, stderr) => {
         if (err) {
             spinner.fail(`Error installing ${packageName}: ${stderr}`);
             console.error(chalk.red(`Error installing ${packageName}:`, stderr));
@@ -109,16 +117,17 @@ function installPackage(packageName, callback) {
 function showPackageMenu(topic) {
     const installedPackages = getInstalledPackages();
     const packages = topics[topic].map(pkg => ({
-        name: isPackageInstalled(pkg, installedPackages) ? `${pkg} (already installed)` : pkg,
-        value: pkg,
-        disabled: isPackageInstalled(pkg, installedPackages) // Disable already installed packages
+        name: isPackageInstalled(pkg.name, installedPackages) ? `${pkg.name} (already installed)` : pkg.name,
+        value: pkg.name,
+        isDev: pkg.isDev,
+        disabled: isPackageInstalled(pkg.name, installedPackages) // Disable already installed packages
     }));
     const questions = [
         {
             type: 'list',
             name: 'package',
             message: `Select a package to install from ${topic}:`,
-            choices: [...packages, new inquirer.Separator(), 'Back to Main Menu', new inquirer.Separator(),], // Add a "Back to Main Menu" option
+            choices: [...packages, new inquirer.Separator(), 'Back to Main Menu', new inquirer.Separator()],
         },
     ];
     inquirer
@@ -128,7 +137,8 @@ function showPackageMenu(topic) {
             returnToMainMenu();
         }
         else {
-            installPackage(answer.package, () => showPackageMenu(topic)); // Return to the topic menu after installation
+            const selectedPackage = packages.find(pkg => pkg.value === answer.package);
+            installPackage(selectedPackage.value, selectedPackage.isDev, () => showPackageMenu(topic)); // Return to the topic menu after installation
         }
     });
 }
@@ -139,7 +149,7 @@ function showTopicMenu() {
             type: 'list',
             name: 'topic',
             message: 'Select a topic:',
-            choices: [...Object.keys(topics), new inquirer.Separator(), 'Exit', new inquirer.Separator()], // Add an Exit option
+            choices: [...Object.keys(topics), new inquirer.Separator(), 'Exit', new inquirer.Separator()],
         },
     ];
     inquirer

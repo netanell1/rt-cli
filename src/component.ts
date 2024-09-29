@@ -30,7 +30,7 @@ export function createComponent(componentFullName: string, options: any) {
   let componentFileFormat = options.const ? 'const' : 'function'; // Determine component type
   let componentFileName = options.componentFileName || componentName; // Default component file name
   let styleFileName = options.styleFileName || componentName; // Default style file name
-  let testLibrary = ''; // To hold the test library
+  let testLibrary = options.testLibrary || ''; // To hold the test library
 
   if (fs.existsSync(configPath)) {
     const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
@@ -70,6 +70,10 @@ export function createComponent(componentFullName: string, options: any) {
 
   if (options.styleFileName) {
     styleFileName = options.styleFileName;
+  }
+
+  if (options.testLibrary) {
+    testLibrary = options.testLibrary
   }
 
   const indexPath = path.join(componentDir, `${componentFileName}.${fileExtension}`);
