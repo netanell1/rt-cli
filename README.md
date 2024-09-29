@@ -116,7 +116,7 @@ Create a new React context with the specified name.
 **example:**
 
 ```bash
-rt generate context ThemeContext
+rt generate context themeContext
 ```
 
 This command creates a context file named **ThemeContext.js** or **ThemeContext.context.js** based on your configuration in **`rt.json`**.
