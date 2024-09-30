@@ -76,21 +76,6 @@ rt generate enum direction
 
 This command creates a enum file named **direction.ts** or **direction.enum.ts** based on your configuration in **`rt.json`**.
 
-### Generate Enum
-
-Create a new React component with the specified name.
-
-- #### Full Command: `rt generate enum <enumName>`
-- #### Abbreviated Command: `rt g e <enumName>`
-
-**example:**
-
-```bash
-rt generate enum direction
-```
-
-This command creates a enum file named **direction.ts** or **direction.enum.ts** based on your configuration in **`rt.json`**.
-
 ### Generate Hook
 
 Create a new React hook with the specified name.
@@ -116,10 +101,10 @@ Create a new React context with the specified name.
 **example:**
 
 ```bash
-rt generate context themeContext
+rt generate context theme
 ```
 
-This command creates a context file named **ThemeContext.js** or **ThemeContext.context.js** based on your configuration in **`rt.json`**.
+This command creates a context file named **theme.js** or **theme.context.js** based on your configuration in **`rt.json`**.
 
 ## Initialize Configuration
 

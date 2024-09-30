@@ -21,11 +21,11 @@ export function createHook(hookFullName, options) {
     }
     const configPath = findConfigFile(hookDir);
     let fileExtension = 'js';
-    let useSuffix = "";
+    let suffix = "";
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
         fileExtension = config.language === 'ts' ? 'ts' : 'js';
-        useSuffix = config.useSuffix ? `.hook` : "";
+        suffix = config.useSuffix ? `.hook` : "";
     }
     if (options.js) {
         fileExtension = 'js';
@@ -34,9 +34,9 @@ export function createHook(hookFullName, options) {
         fileExtension = 'ts';
     }
     if (options.useSuffix) {
-        useSuffix = `.hook`;
+        suffix = `.hook`;
     }
-    const hookPath = path.join(hookDir, `${hookName}${useSuffix}.${fileExtension}`);
+    const hookPath = path.join(hookDir, `${hookName}${suffix}.${fileExtension}`);
     if (fs.existsSync(hookPath)) {
         console.log(chalk.red(`Error: File ${hookName} already exists.`));
         process.exit(1);
