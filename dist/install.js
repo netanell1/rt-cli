@@ -67,6 +67,7 @@ const topics = {
     "Testing": [
         { name: "jest", isDev: true },
         { name: "react-testing-library", isDev: true },
+        { name: "@testing-library/dom", isDev: true },
         { name: "cypress", isDev: false },
         { name: "@testing-library/jest-dom", isDev: true }
     ],

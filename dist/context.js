@@ -20,7 +20,7 @@ export function createContext(contextFullName, options) {
     let suffix = "";
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-        fileExtension = config.language === 'ts' ? 'ts' : 'js';
+        fileExtension = config.language === 'ts' ? 'tsx' : 'jsx';
         suffix = config.useSuffix ? `.context` : "";
     }
     if (options.js) {
