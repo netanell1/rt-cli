@@ -27,6 +27,7 @@
     "commander": "^12.1.0",
     "figlet": "^1.7.0",
     "inquirer": "^10.1.5",
+    "ora": "^8.1.0",
     "prompt-sync": "^4.2.0"
   },
   "devDependencies": {

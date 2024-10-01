@@ -10,13 +10,23 @@ import { createModel } from './model.js';
 import { showTopicMenu } from './install.js';
 import { handleInit } from './init.js';
 import { handleTemplate } from './template.js';
+import { createHook } from './hook.js';
+import { createContext } from './context.js';
 const program = new Command();
 /********************************* */
 // Command to create a new React application
 program
     .command('new <appName>')
-    .option('--ts', 'Create a TS app explicitly')
+    .option('--js', 'Create a JS file explicitly')
+    .option('--ts', 'Create a TS file explicitly')
     .option('--style <styleType>', 'Create a styleType file explicitly')
+    .option('--useModuleStyle', 'Create a style file with .module extension')
+    .option('--function', 'Create a function component')
+    .option('--const', 'Create a constant component')
+    .option('--componentFileName <name>', 'Set the name for the component file')
+    .option('--styleFileName <name>', 'Set the name for the style file')
+    .option('--testLibrary <name>', 'Set the test library for the component')
+    .option('--useSuffix', 'Set suffix for the type file name as type')
     .description('Create a new React application using create-react-app')
     .action((appName, options) => {
     try {
@@ -40,14 +50,16 @@ program
 program
     .command('init')
     .description('Initialize configuration file for the CLI')
-    .option('--ts', 'Set TypeScript as the default language')
+    .option('--js', 'Create a JS file explicitly')
+    .option('--ts', 'Create a TS file explicitly')
     .option('--style <styleType>', 'Create a styleType file explicitly')
-    .option('--moduleStyle', 'Set default style files to use .module')
-    .option('--function', 'Set default component type to function')
-    .option('--const', 'Set default component type to const')
-    .option('--modelSuffix', 'Set suffix for the type file name as type')
-    .option('--componentFileName <name>', 'Set default name for the component file')
-    .option('--styleFileName <name>', 'Set default name for the style file')
+    .option('--useModuleStyle', 'Create a style file with .module extension')
+    .option('--function', 'Create a function component')
+    .option('--const', 'Create a constant component')
+    .option('--componentFileName <name>', 'Set the name for the component file')
+    .option('--styleFileName <name>', 'Set the name for the style file')
+    .option('--testLibrary <name>', 'Set the test library for the component')
+    .option('--useSuffix', 'Set suffix for the type file name as type')
     .action((options) => {
     handleInit(options);
 });
@@ -99,12 +111,13 @@ program
     .option('--js', 'Create a JS file explicitly')
     .option('--ts', 'Create a TS file explicitly')
     .option('--style <styleType>', 'Create a styleType file explicitly')
-    .option('--moduleStyle', 'Create a style file with .module extension')
+    .option('--useModuleStyle', 'Create a style file with .module extension')
     .option('--function', 'Create a function component')
     .option('--const', 'Create a constant component')
-    .option('--modelSuffix', 'Set suffix for the type file name as type')
     .option('--componentFileName <name>', 'Set the name for the component file')
     .option('--styleFileName <name>', 'Set the name for the style file')
+    .option('--testLibrary <name>', 'Set the test library for the component')
+    .option('--useSuffix', 'Set suffix for the type file name as type')
     .action((type, name, options) => {
     if (type === 'component' || type === 'c') {
         createComponent(name, options);
@@ -117,6 +130,12 @@ program
     }
     else if (type === 'interface' || type === "i") {
         createModel('interface', name, options, true);
+    }
+    else if (type === 'hook' || type === "h") {
+        createHook(name, options);
+    }
+    else if (type === 'context' || type === "co") {
+        createContext(name, options);
     }
     else {
         console.log(chalk.red('Error: Invalid type specified.'));
@@ -139,7 +158,7 @@ program
     .option('--js', 'Create a JS file explicitly')
     .option('--ts', 'Create a TS file explicitly')
     .option('--style <styleType>', 'Create a styleType file explicitly')
-    .option('--moduleStyle', 'Create a style file with .module extension')
+    .option('--useModuleStyle', 'Create a style file with .module extension')
     .option('--function', 'Create a function component')
     .option('--const', 'Create a constant component')
     .action((type, options) => {

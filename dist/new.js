@@ -12,18 +12,55 @@ export function createReactApp(appName, options) {
     }
     console.log(chalk.blue(`Creating a new React app: ${appName}`));
     const configPath = findConfigFile(process.cwd());
-    let language = "js";
-    let styleExtension = 'css';
+    let language = 'js'; // Default to JS if no options are specified
+    let styleExtension = 'css'; // Default to CSS if no options are specified
+    let useModuleStyle = options.useModuleStyle ?? false; // Determine if style should be a module
+    let componentFileFormat = options.const ? 'const' : 'function'; // Determine component type
+    let componentFileName = options.componentFileName || null; // Default component file name
+    let styleFileName = options.styleFileName || null; // Default style file name
+    let testLibrary = options.testLibrary || null; // To hold the test library
+    let useSuffix = options.useSuffix ?? false; // Default useSuffix as false
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-        language = config.language === "ts" ? "ts" : "js";
-        styleExtension = config.style || 'css';
+        language = config.language === 'ts' ? 'ts' : 'js';
+        styleExtension = config.style || 'css'; // Default to CSS
+        useModuleStyle = config.useModuleStyle ?? false; // Determine if style should be a module
+        componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
+        componentFileName = config.componentFileName || null; // Check config for component file name
+        styleFileName = config.styleFileName || null; // Check config for style file name
+        testLibrary = config.testLibrary || null; // Check config for test library
+        useSuffix = config.useSuffix ?? false; //  Check config for useSuffix
     }
-    if (options.ts) {
-        language = "ts";
+    // Override with command line options if provided
+    if (options.js) {
+        language = 'js';
+    }
+    else if (options.ts) {
+        language = 'ts';
     }
     if (options.style) {
         styleExtension = options.style;
+    }
+    if (options.useModuleStyle) {
+        useModuleStyle = true;
+    }
+    if (options.function) {
+        componentFileFormat = 'function';
+    }
+    else if (options.const) {
+        componentFileFormat = 'const';
+    }
+    if (options.componentFileName) {
+        componentFileName = options.componentFileName;
+    }
+    if (options.styleFileName) {
+        styleFileName = options.styleFileName;
+    }
+    if (options.testLibrary) {
+        testLibrary = options.testLibrary;
+    }
+    if (options.useSuffix) {
+        useSuffix = true;
     }
     const command = `npm create vite@latest ${appName} -- --template react${language === "ts" ? "-ts" : ""}`;
     execSync(command, { stdio: 'inherit' });
@@ -65,9 +102,21 @@ export function createReactApp(appName, options) {
         }
     }
     // Construct the rt init command with options
-    const rtOptions = Object.entries(options)
-        .map(([key, value]) => (typeof value === 'boolean' && value ? `--${key}` : `--${key}=${value}`))
-        .join(' ');
+    // const rtOptions = Object.entries(options)
+    //     .map(([key, value]) => (typeof value === 'boolean' && value ? `--${key}` : `--${key}=${value}`))
+    //     .join(' ');
+    let rtOptions = '';
+    // Add options to the string based on the user's input
+    rtOptions += language === 'ts' ? '--ts ' : '--js '; // Add either --js or --ts
+    rtOptions += `--style ${styleExtension} `; // Add the style type (e.g., css, scss, etc.)
+    rtOptions += useModuleStyle ? '--useModuleStyle ' : ''; // Add --useModuleStyle if true
+    rtOptions += componentFileFormat === 'const' ? '--const ' : '--function '; // Add --const or --function
+    rtOptions += componentFileName ? `--componentFileName ${componentFileName} ` : ''; // Add component file name option if provided
+    rtOptions += styleFileName ? `--styleFileName ${styleFileName} ` : ''; // Add style file name option if provided
+    rtOptions += testLibrary ? `--testLibrary ${testLibrary} ` : ''; // Add test library option if provided;
+    rtOptions += useSuffix ? '--useSuffix ' : ''; // Add suffix option if applicable
+    // Trim any trailing spaces
+    rtOptions = rtOptions.trim();
     const initCommand = `rt init ${rtOptions}`;
     // Run 'rt init' command in the appName directory
     const appDir = path.join(process.cwd(), appName);
