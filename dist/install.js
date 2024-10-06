@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import { exec } from 'child_process';
 import fs from 'fs';
-import { findConfigFile, findPackageJsonFile } from './handler.js';
+import { findPackageJsonFile } from './handler.js';
 import ora from 'ora';
 import chalk from 'chalk';
 // Organized package list with `isDev` key
@@ -88,12 +88,6 @@ function getInstalledPackages() {
     catch (error) {
         return new Set();
     }
-}
-const configPath = findConfigFile(process.cwd());
-let fileExtension = 'js';
-if (fs.existsSync(configPath)) {
-    const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-    fileExtension = config.language;
 }
 // Function to check if a package is installed
 function isPackageInstalled(packageName, installedPackages) {
