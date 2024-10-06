@@ -91,12 +91,6 @@ function getInstalledPackages(): Set<string> {
     }
 }
 
-const configPath = findConfigFile(process.cwd()) as string;
-let fileExtension = 'js';
-if (fs.existsSync(configPath)) {
-    const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-    fileExtension = config.language;
-}
 
 // Function to check if a package is installed
 function isPackageInstalled(packageName: string, installedPackages: Set<string>): boolean {

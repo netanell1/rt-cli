@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { appendToGitignore, findConfigFile } from './handler.js';
+import { findConfigFile } from './handler.js';
 import PromptSync from 'prompt-sync';
 
 

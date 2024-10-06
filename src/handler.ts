@@ -3,7 +3,6 @@ import path from 'path';
 import chalk from 'chalk';
 import { fileURLToPath } from 'url';
 import figlet from 'figlet';
-import PromptSync from 'prompt-sync';
 import { execSync } from 'child_process';
 
 // print warning if ts not defined

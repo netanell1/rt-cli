@@ -5,7 +5,7 @@ import chalk from 'chalk';
 import { printVersion } from './handler.js';
 import { createReactApp } from './new.js';
 import updateCLI from './update.js';
-import { dev, build, lint, preview } from './viteCommand.js';
+import { dev, build, lint, preview } from './viteCommands.js';
 import { createModel } from './model.js';
 import { showTopicMenu } from './install.js';
 import { handleInit } from './init.js';
