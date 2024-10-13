@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
-import { findConfigFile, replaceSpecialCharacters } from './handler.js';
+import { findConfigFile, replaceSpecialCharacters } from './helpers.js';
 import chalk from 'chalk';
 import PromptSync from 'prompt-sync';
 export function createReactApp(appName, options) {
