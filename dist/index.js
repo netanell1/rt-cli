@@ -2,7 +2,7 @@
 import { Command } from 'commander';
 import { createComponent } from './component.js';
 import chalk from 'chalk';
-import { printVersion } from './handler.js';
+import { printVersion } from './helpers.js';
 import { createReactApp } from './new.js';
 import updateCLI from './update.js';
 import { dev, build, lint, preview } from './viteCommands.js';

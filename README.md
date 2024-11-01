@@ -26,10 +26,10 @@ Create a new React component with the specified name.
 **example:**
 
 ```bash
-rt generate component button
+rt generate component card
 ```
 
-This command creates a folder named **button** with the component files inside it (`tsx` or `jsx` file, a style ile and and a test file - based on your configuration in **`rt.json`**.).
+This command creates a folder named **card** with the component files inside it (`tsx` or `jsx` file, a style ile and and a test file - based on your configuration in **`rt.json`**.).
 
 ### Generate Class
 

@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import { exec } from 'child_process';
 import fs from 'fs';
-import { findPackageJsonFile } from './handler.js';
+import { findPackageJsonFile } from './helpers.js';
 import ora from 'ora';
 import chalk from 'chalk';
 // Organized package list with `isDev` key

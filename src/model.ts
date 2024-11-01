@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } from './handler.js';
+import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } from './helpers.js';
 
 
 export function createModel(modelType: string, modelFullName: string, options: any, checkTypeScript?: boolean) {

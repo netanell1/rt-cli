@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile, replaceSpecialCharacters } from './handler.js';
+import { findConfigFile, replaceSpecialCharacters } from './helpers.js';
 
 
 export function createHook(hookFullName: string, options: any) {

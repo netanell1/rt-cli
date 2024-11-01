@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } from './handler.js';
+import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } from './helpers.js';
 export function createModel(modelType, modelFullName, options, checkTypeScript) {
     const folderArr = modelFullName.split('/');
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');

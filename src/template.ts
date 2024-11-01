@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { appendToGitignore, findConfigFile, findTemplateFile } from './handler.js';
+import { appendToGitignore, findConfigFile, findTemplateFile } from './helpers.js';
 import PromptSync from 'prompt-sync';
 
 
@@ -123,7 +123,7 @@ export default function  {{functionName}} ({}${fileExtension == "tsx" ? `: {{fun
     const componentTemplateSize = fs.statSync(componentTemplatePath).size;
 
     console.log(chalk.green(`CREATE`), `${path.relative(process.cwd(), componentTemplatePath)} (${componentTemplateSize} bytes)`);
-    appendToGitignore(process.cwd(), 'component-rt.template')
+    // appendToGitignore(process.cwd(), 'component-rt.template')
 }
 
 

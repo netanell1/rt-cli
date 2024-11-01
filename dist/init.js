@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile } from './handler.js';
+import { findConfigFile } from './helpers.js';
 import PromptSync from 'prompt-sync';
 export function handleInit(options) {
     const prompt = PromptSync();
