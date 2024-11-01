@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { appendToGitignore, findConfigFile, findTemplateFile } from './helpers.js';
+import { findConfigFile, findTemplateFile } from './helpers.js';
 import PromptSync from 'prompt-sync';
 export function handleTemplate(fileType, options) {
     fileType = fileType == "c" ? 'component' : fileType == 's' ? 'style' : fileType;
@@ -98,7 +98,7 @@ export default function  {{functionName}} ({}${fileExtension == "tsx" ? `: {{fun
     fs.writeFileSync('component-rt.template', indexContent.trim());
     const componentTemplateSize = fs.statSync(componentTemplatePath).size;
     console.log(chalk.green(`CREATE`), `${path.relative(process.cwd(), componentTemplatePath)} (${componentTemplateSize} bytes)`);
-    appendToGitignore(process.cwd(), 'component-rt.template');
+    // appendToGitignore(process.cwd(), 'component-rt.template')
 }
 function createStyleTemplate() {
     const styleTemplatePath = path.join(process.cwd(), 'style-rt.template');
