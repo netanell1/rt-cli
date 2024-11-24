@@ -13,6 +13,7 @@ import { handleInit } from './init.js';
 import { handleTemplate } from './template.js';
 import { createHook } from './hook.js';
 import { createContext } from './context.js';
+import { createRoute } from './route.js';
 
 const program = new Command();
 
@@ -161,6 +162,9 @@ program
     }
     else if (type === 'context' || type === "co") {
       createContext(name, options);
+    }
+    else if (type === 'route' || type === "r") {
+      createRoute(name, options);
     }
     else {
       console.log(chalk.red('Error: Invalid type specified.'));

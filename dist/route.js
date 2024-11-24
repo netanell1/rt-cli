@@ -38,13 +38,22 @@ export function createRoute(routeFullName, options) {
         process.exit(1);
     }
     const routeUpperName = routeNameCorrect[0].toUpperCase() + routeNameCorrect.slice(1, routeNameCorrect.length) + 'route';
-    const routeContent = `import { createroute } from 'react'
-${fileExtension == 'ts' ? `
-interface ${routeUpperName}Model {
- 
-}
-    ` : ''}
-export const ${routeUpperName} = createroute${fileExtension == 'ts' ? `<${routeUpperName}Model>` : ''}(null)
+    const routeContent = `
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <></>,
+  }
+]);
+
+const ${routeUpperName} = () => {
+  return <RouterProvider router={router} />;
+};
+
+export default ${routeUpperName};
     `;
     fs.writeFileSync(routePath, routeContent.trim());
     const routeSize = fs.statSync(routePath).size;

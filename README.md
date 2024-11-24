@@ -106,6 +106,21 @@ rt generate context theme
 
 This command creates a context file named **theme.js** or **theme.context.js** based on your configuration in **`rt.json`**.
 
+### Generate Route
+
+Create a new react-router-dom route with the specified name.
+
+- #### Full Command: `rt generate route <routeName>`
+- #### Abbreviated Command: `rt g r <routeName>`
+
+**example:**
+
+```bash
+rt generate route appRoute
+```
+
+This command creates a context file named **appRoute.js** or **appRoute.route.js** based on your configuration in **`rt.json`**.
+
 ## Initialize Configuration
 
 Initialize a configuration file (**`rt.json`**) in the current directory to set default options.
