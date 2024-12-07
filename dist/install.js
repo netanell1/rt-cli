@@ -7,16 +7,35 @@ import chalk from 'chalk';
 // Organized package list with `isDev` key
 const topics = {
     "Design & UI": [
-        { name: "bootstrap", isDev: false },
-        { name: "react-bootstrap", isDev: false },
         { name: "@mui/material", isDev: false },
+        { name: "react-bootstrap", isDev: false },
         { name: "antd", isDev: false },
         { name: "chakra-ui/react", isDev: false },
         { name: "semantic-ui-react", isDev: false },
+        { name: "react-icons", isDev: false }
+    ],
+    "Styling": [
         { name: "tailwindcss", isDev: false },
+        { name: "bootstrap", isDev: false },
+        { name: "sass", isDev: true },
         { name: "styled-components", isDev: false },
         { name: "emotion", isDev: false },
-        { name: "react-icons", isDev: false }
+        { name: "css-modules", isDev: false },
+        { name: "postcss", isDev: true },
+        { name: "autoprefixer", isDev: true }
+    ],
+    "State Management": [
+        { name: "@reduxjs/toolkit", isDev: false },
+        { name: "zustand", isDev: false },
+        { name: "recoil", isDev: false },
+        { name: "xstate", isDev: false },
+        { name: "mobx", isDev: false }
+    ],
+    "Form Handling": [
+        { name: "react-hook-form", isDev: false },
+        { name: "formik", isDev: false },
+        { name: "yup", isDev: false },
+        { name: "final-form", isDev: false }
     ],
     "API": [
         { name: "axios", isDev: false },
@@ -24,45 +43,18 @@ const topics = {
         { name: "swr", isDev: false },
         { name: "@apollo/client", isDev: false },
         { name: "graphql", isDev: false },
-        { name: "react-query-devtools", isDev: true } // DevTools for React Query
+        { name: "react-query-devtools", isDev: true }
     ],
-    "State Management": [
-        { name: "@reduxjs/toolkit", isDev: false },
-        { name: "recoil", isDev: false },
-        { name: "mobx", isDev: false },
-        { name: "zustand", isDev: false },
-        { name: "xstate", isDev: false }
-    ],
-    "Form Handling": [
-        { name: "formik", isDev: false },
-        { name: "react-hook-form", isDev: false },
-        { name: "final-form", isDev: false },
-        { name: "yup", isDev: false }
-    ],
-    "Styling": [
-        { name: "styled-components", isDev: false },
-        { name: "emotion", isDev: false },
-        { name: "css-modules", isDev: false },
-        { name: "sass", isDev: true },
-        { name: "postcss", isDev: true },
-        { name: "autoprefixer", isDev: true }
+    "Animation": [
+        { name: "framer-motion", isDev: false },
+        { name: "react-transition-group", isDev: false },
+        { name: "react-spring", isDev: false },
+        { name: "gsap", isDev: false },
+        { name: "animejs", isDev: false }
     ],
     "Routing": [
         { name: "react-router-dom", isDev: false },
         { name: "react-router", isDev: false }
-    ],
-    "Animation": [
-        { name: "framer-motion", isDev: false },
-        { name: "react-spring", isDev: false },
-        { name: "react-transition-group", isDev: false },
-        { name: "gsap", isDev: false },
-        { name: "animejs", isDev: false }
-    ],
-    "Utilities": [
-        { name: "lodash", isDev: false },
-        { name: "date-fns", isDev: false },
-        { name: "moment", isDev: false },
-        { name: "uuid", isDev: false }
     ],
     "Testing": [
         { name: "jest", isDev: true },
@@ -70,6 +62,12 @@ const topics = {
         { name: "@testing-library/dom", isDev: true },
         { name: "cypress", isDev: false },
         { name: "@testing-library/jest-dom", isDev: true }
+    ],
+    "Utilities": [
+        { name: "lodash", isDev: false },
+        { name: "uuid", isDev: false },
+        { name: "date-fns", isDev: false },
+        { name: "moment", isDev: false }
     ],
     "Development": [
         { name: "eslint", isDev: true },
