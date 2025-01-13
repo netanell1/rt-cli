@@ -5,7 +5,7 @@ import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } f
 
 
 export function createModel(modelType: string, modelFullName: string, options: any, checkTypeScript?: boolean) {
-    const folderArr = modelFullName.split('/');
+    const folderArr = modelFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
     const modelName = folderArr[folderArr.length - 1];
 

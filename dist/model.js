@@ -3,7 +3,7 @@ import path from 'path';
 import chalk from 'chalk';
 import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } from './helpers.js';
 export function createModel(modelType, modelFullName, options, checkTypeScript) {
-    const folderArr = modelFullName.split('/');
+    const folderArr = modelFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
     const modelName = folderArr[folderArr.length - 1];
     const modelNameCorrect = replaceSpecialCharacters(modelName, false);

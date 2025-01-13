@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import { findConfigFile, findTemplateFile, replaceSpecialCharacters } from './helpers.js';
 
 export function createComponent(componentFullName: string, options: any) {
-  const folderArr = componentFullName.split('/');
+  const folderArr = componentFullName.split(/[/\\]/);
   const folderPath = folderArr.join('/')
   const componentName = folderArr[folderArr.length - 1]
   const componentDir = path.join(process.cwd(), folderPath);

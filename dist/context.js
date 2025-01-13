@@ -3,7 +3,7 @@ import path from 'path';
 import chalk from 'chalk';
 import { findConfigFile, replaceSpecialCharacters } from './helpers.js';
 export function createContext(contextFullName, options) {
-    const folderArr = contextFullName.split('/');
+    const folderArr = contextFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
     const contextName = folderArr[folderArr.length - 1];
     const contextNameCorrect = replaceSpecialCharacters(contextName, false);

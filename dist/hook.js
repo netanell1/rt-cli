@@ -3,7 +3,7 @@ import path from 'path';
 import chalk from 'chalk';
 import { findConfigFile, replaceSpecialCharacters } from './helpers.js';
 export function createHook(hookFullName, options) {
-    const folderArr = hookFullName.split('/');
+    const folderArr = hookFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
     const hookName = folderArr[folderArr.length - 1];
     const hookNameCorrect = replaceSpecialCharacters(hookName, false);

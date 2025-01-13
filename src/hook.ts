@@ -5,7 +5,7 @@ import { findConfigFile, replaceSpecialCharacters } from './helpers.js';
 
 
 export function createHook(hookFullName: string, options: any) {
-    const folderArr = hookFullName.split('/');
+    const folderArr = hookFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
     const hookName = folderArr[folderArr.length - 1];
 

@@ -3,7 +3,7 @@ import path from 'path';
 import chalk from 'chalk';
 import { findConfigFile, replaceSpecialCharacters } from './helpers.js';
 export function createRoute(routeFullName, options) {
-    const folderArr = routeFullName.split('/');
+    const folderArr = routeFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
     const routeName = folderArr[folderArr.length - 1];
     const routeNameCorrect = replaceSpecialCharacters(routeName, false);
@@ -37,7 +37,7 @@ export function createRoute(routeFullName, options) {
         console.log(chalk.red(`Error: File ${routeName} already exists.`));
         process.exit(1);
     }
-    const routeUpperName = routeNameCorrect[0].toUpperCase() + routeNameCorrect.slice(1, routeNameCorrect.length) + 'route';
+    const routeUpperName = routeNameCorrect[0].toUpperCase() + routeNameCorrect.slice(1, routeNameCorrect.length) + 'Route';
     const routeContent = `
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
