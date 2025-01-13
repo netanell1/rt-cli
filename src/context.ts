@@ -17,7 +17,7 @@ export function createContext(contextFullName: string, options: any) {
     }
 
     let cwd = process.cwd()
-    cwd = cwd.includes('src') ? cwd : path.join(cwd, 'src')
+    cwd = cwd.includes('src') || folderPath.includes('src') ? cwd : path.join(cwd, 'src')
     const contextDir = path.join(cwd, folderPath);
 
     if (!fs.existsSync(contextDir)) {

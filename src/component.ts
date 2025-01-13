@@ -8,7 +8,7 @@ export function createComponent(componentFullName: string, options: any) {
   const folderPath = folderArr.join('/')
   const componentName = folderArr[folderArr.length - 1]
   let cwd = process.cwd()
-  cwd = cwd.includes('src') ? cwd : path.join(cwd, 'src')
+  cwd = cwd.includes('src') || folderPath.includes('src') ? cwd : path.join(cwd, 'src')
   const componentDir = path.join(cwd, folderPath);
 
   const componentNameCorrect = replaceSpecialCharacters(componentName, false)

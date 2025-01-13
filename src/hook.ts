@@ -20,7 +20,7 @@ export function createHook(hookFullName: string, options: any) {
         process.exit(1);
     }
     let cwd = process.cwd()
-    cwd = cwd.includes('src') ? cwd : path.join(cwd, 'src')
+    cwd = cwd.includes('src') || folderPath.includes('src') ? cwd : path.join(cwd, 'src')
     const hookDir = path.join(cwd, folderPath);
 
     if (!fs.existsSync(hookDir)) {

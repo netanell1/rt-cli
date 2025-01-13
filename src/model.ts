@@ -16,7 +16,7 @@ export function createModel(modelType: string, modelFullName: string, options: a
         process.exit(1);
     }
     let cwd = process.cwd()
-    cwd = cwd.includes('src') ? cwd : path.join(cwd, 'src')
+    cwd = cwd.includes('src') || folderPath.includes('src') ? cwd : path.join(cwd, 'src')
     const modelDir = path.join(cwd, folderPath);
 
     if (!fs.existsSync(modelDir)) {
