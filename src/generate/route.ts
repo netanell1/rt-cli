@@ -1,11 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile, replaceSpecialCharacters } from './helpers.js';
+import { findConfigFile, replaceSpecialCharacters } from '../helpers.js';
 
 
 export function createRoute(routeFullName: string, options: any) {
-    const folderArr = routeFullName.split('/');
+    const folderArr = routeFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
     const routeName = folderArr[folderArr.length - 1];
 
@@ -16,7 +16,9 @@ export function createRoute(routeFullName: string, options: any) {
         process.exit(1);
     }
 
-    const routeDir = path.join(process.cwd(), folderPath);
+    let cwd = process.cwd()
+    cwd = cwd.includes('src') || folderPath.includes('src') ? cwd : path.join(cwd, 'src')
+    const routeDir = path.join(cwd, folderPath);
 
     if (!fs.existsSync(routeDir)) {
         fs.mkdirSync(routeDir, { recursive: true });
@@ -49,7 +51,7 @@ export function createRoute(routeFullName: string, options: any) {
         process.exit(1);
     }
 
-    const routeUpperName = routeNameCorrect[0].toUpperCase() + routeNameCorrect.slice(1, routeNameCorrect.length) + 'route'
+    const routeUpperName = routeNameCorrect[0].toUpperCase() + routeNameCorrect.slice(1, routeNameCorrect.length) + 'Route'
 
     const routeContent = `
 import { createBrowserRouter, RouterProvider } from "react-router-dom";

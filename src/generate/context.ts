@@ -1,11 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile, replaceSpecialCharacters } from './helpers.js';
+import { findConfigFile, replaceSpecialCharacters } from '../helpers.js';
 
 
 export function createContext(contextFullName: string, options: any) {
-    const folderArr = contextFullName.split('/');
+    const folderArr = contextFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
     const contextName = folderArr[folderArr.length - 1];
 
@@ -16,7 +16,9 @@ export function createContext(contextFullName: string, options: any) {
         process.exit(1);
     }
 
-    const contextDir = path.join(process.cwd(), folderPath);
+    let cwd = process.cwd()
+    cwd = cwd.includes('src') || folderPath.includes('src') ? cwd : path.join(cwd, 'src')
+    const contextDir = path.join(cwd, folderPath);
 
     if (!fs.existsSync(contextDir)) {
         fs.mkdirSync(contextDir, { recursive: true });

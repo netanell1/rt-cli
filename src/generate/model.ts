@@ -1,11 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } from './helpers.js';
+import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } from '../helpers.js';
 
 
 export function createModel(modelType: string, modelFullName: string, options: any, checkTypeScript?: boolean) {
-    const folderArr = modelFullName.split('/');
+    const folderArr = modelFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
     const modelName = folderArr[folderArr.length - 1];
 
@@ -15,13 +15,13 @@ export function createModel(modelType: string, modelFullName: string, options: a
         console.log(chalk.red(`Error: Invalid ${modelType} name, try '${modelNameCorrect}' instead.`));
         process.exit(1);
     }
-
-    const modelDir = path.join(process.cwd(), folderPath);
+    let cwd = process.cwd()
+    cwd = cwd.includes('src') || folderPath.includes('src') ? cwd : path.join(cwd, 'src')
+    const modelDir = path.join(cwd, folderPath);
 
     if (!fs.existsSync(modelDir)) {
         fs.mkdirSync(modelDir, { recursive: true });
     }
-
 
     const configPath = findConfigFile(modelDir) as string;
     let fileExtension = 'js';

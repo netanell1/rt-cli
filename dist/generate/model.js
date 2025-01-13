@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } from './helpers.js';
+import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } from '../helpers.js';
 export function createModel(modelType, modelFullName, options, checkTypeScript) {
     const folderArr = modelFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
@@ -12,7 +12,7 @@ export function createModel(modelType, modelFullName, options, checkTypeScript) 
         process.exit(1);
     }
     let cwd = process.cwd();
-    cwd = cwd.includes('src') ? cwd : path.join(cwd, 'src');
+    cwd = cwd.includes('src') || folderPath.includes('src') ? cwd : path.join(cwd, 'src');
     const modelDir = path.join(cwd, folderPath);
     if (!fs.existsSync(modelDir)) {
         fs.mkdirSync(modelDir, { recursive: true });

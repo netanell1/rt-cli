@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile, replaceSpecialCharacters } from './helpers.js';
+import { findConfigFile, replaceSpecialCharacters } from '../helpers.js';
 export function createRoute(routeFullName, options) {
     const folderArr = routeFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
@@ -12,7 +12,7 @@ export function createRoute(routeFullName, options) {
         process.exit(1);
     }
     let cwd = process.cwd();
-    cwd = cwd.includes('src') ? cwd : path.join(cwd, 'src');
+    cwd = cwd.includes('src') || folderPath.includes('src') ? cwd : path.join(cwd, 'src');
     const routeDir = path.join(cwd, folderPath);
     if (!fs.existsSync(routeDir)) {
         fs.mkdirSync(routeDir, { recursive: true });

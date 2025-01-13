@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile, findTemplateFile, replaceSpecialCharacters } from './helpers.js';
+import { findConfigFile, findTemplateFile, replaceSpecialCharacters } from '../helpers.js';
 export function createComponent(componentFullName, options) {
     const folderArr = componentFullName.split(/[/\\]/);
     const folderPath = folderArr.join('/');
