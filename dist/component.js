@@ -6,7 +6,9 @@ export function createComponent(componentFullName, options) {
     const folderArr = componentFullName.split(/[/\\]/);
     const folderPath = folderArr.join('/');
     const componentName = folderArr[folderArr.length - 1];
-    const componentDir = path.join(process.cwd(), folderPath);
+    let cwd = process.cwd();
+    cwd = cwd.includes('src') ? cwd : path.join(cwd, 'src');
+    const componentDir = path.join(cwd, folderPath);
     const componentNameCorrect = replaceSpecialCharacters(componentName, false);
     if (componentNameCorrect != componentName) {
         console.error(chalk.red(`Error: Invalid component name, try '${componentNameCorrect}' instead.`));

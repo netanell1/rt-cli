@@ -11,7 +11,9 @@ export function createRoute(routeFullName, options) {
         console.log(chalk.red(`Error: Invalid route name, try '${routeNameCorrect}' instead.`));
         process.exit(1);
     }
-    const routeDir = path.join(process.cwd(), folderPath);
+    let cwd = process.cwd();
+    cwd = cwd.includes('src') ? cwd : path.join(cwd, 'src');
+    const routeDir = path.join(cwd, folderPath);
     if (!fs.existsSync(routeDir)) {
         fs.mkdirSync(routeDir, { recursive: true });
     }

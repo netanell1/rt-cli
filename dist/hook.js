@@ -15,7 +15,9 @@ export function createHook(hookFullName, options) {
         console.log(chalk.red(`Error: Invalid hook name, try '${hookNameCorrect}' instead.`));
         process.exit(1);
     }
-    const hookDir = path.join(process.cwd(), folderPath);
+    let cwd = process.cwd();
+    cwd = cwd.includes('src') ? cwd : path.join(cwd, 'src');
+    const hookDir = path.join(cwd, folderPath);
     if (!fs.existsSync(hookDir)) {
         fs.mkdirSync(hookDir, { recursive: true });
     }

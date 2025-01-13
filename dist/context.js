@@ -11,7 +11,9 @@ export function createContext(contextFullName, options) {
         console.log(chalk.red(`Error: Invalid context name, try '${contextNameCorrect}' instead.`));
         process.exit(1);
     }
-    const contextDir = path.join(process.cwd(), folderPath);
+    let cwd = process.cwd();
+    cwd = cwd.includes('src') ? cwd : path.join(cwd, 'src');
+    const contextDir = path.join(cwd, folderPath);
     if (!fs.existsSync(contextDir)) {
         fs.mkdirSync(contextDir, { recursive: true });
     }

@@ -11,7 +11,9 @@ export function createModel(modelType, modelFullName, options, checkTypeScript) 
         console.log(chalk.red(`Error: Invalid ${modelType} name, try '${modelNameCorrect}' instead.`));
         process.exit(1);
     }
-    const modelDir = path.join(process.cwd(), folderPath);
+    let cwd = process.cwd();
+    cwd = cwd.includes('src') ? cwd : path.join(cwd, 'src');
+    const modelDir = path.join(cwd, folderPath);
     if (!fs.existsSync(modelDir)) {
         fs.mkdirSync(modelDir, { recursive: true });
     }
