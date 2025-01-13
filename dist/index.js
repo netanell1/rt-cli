@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 import { Command } from 'commander';
-import { createComponent } from './component.js';
+import { createComponent } from './generate/component.js';
 import chalk from 'chalk';
 import { printVersion } from './helpers.js';
 import { createReactApp } from './new.js';
 import updateCLI from './update.js';
 import { dev, build, lint, preview } from './viteCommands.js';
-import { createModel } from './model.js';
+import { createModel } from './generate/model.js';
 import { showTopicMenu } from './install.js';
 import { handleInit } from './init.js';
 import { handleTemplate } from './template.js';
-import { createHook } from './hook.js';
-import { createContext } from './context.js';
-import { createRoute } from './route.js';
+import { createHook } from './generate/hook.js';
+import { createContext } from './generate/context.js';
+import { createRoute } from './generate/route.js';
 const program = new Command();
 /********************************* */
 // Command to create a new React application

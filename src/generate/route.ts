@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile, replaceSpecialCharacters } from './helpers.js';
+import { findConfigFile, replaceSpecialCharacters } from '../helpers.js';
 
 
 export function createRoute(routeFullName: string, options: any) {
