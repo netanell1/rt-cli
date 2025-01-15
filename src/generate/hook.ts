@@ -30,10 +30,12 @@ export function createHook(hookFullName: string, options: any) {
 
     const configPath = findConfigFile(hookDir) as string;
     let fileExtension = 'js';
+    let componentFileFormat = 'function';
     let suffix = "";
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
         fileExtension = config.language === 'ts' ? 'ts' : 'js';
+        componentFileFormat = config.componentFileFormat || 'function';
         suffix = config.useSuffix ? `.hook` : "";
     }
 
@@ -47,6 +49,12 @@ export function createHook(hookFullName: string, options: any) {
         suffix = `.hook`;
     }
 
+    if (options.function) {
+        componentFileFormat = 'function';
+    } else if (options.const) {
+        componentFileFormat = 'const';
+    }
+
     const hookPath = path.join(hookDir, `${hookName}${suffix}.${fileExtension}`);
 
     if (fs.existsSync(hookPath)) {
@@ -57,17 +65,29 @@ export function createHook(hookFullName: string, options: any) {
 
     const hookContent = `import { useState, useEffect } from 'react';
 
-    export function ${hookName}(initialValue) {
+${componentFileFormat == 'const' ? `
+const  ${hookName} = (initialValue) => {
+  const [value, setValue] = useState(initialValue);
 
-        const [value, setValue] = useState(initialValue);
+  useEffect(() => {
+    console.log('Value changed:', value);
+  }, [value]);
+
+  return [value, setValue];
+};
+
+export default ${hookName};
+` : `
+export function ${hookName} (initialValue) {
     
-        useEffect(() => {
-            console.log('Value changed:', value);
-        }, [value]);
-    
-        return [value, setValue];
-    }
-    `;
+  const [value, setValue] = useState(initialValue);
+
+  useEffect(() => {
+    console.log('Value changed:', value);
+  }, [value]);
+
+  return [value, setValue];
+    }`}`;
 
     fs.writeFileSync(hookPath, hookContent.trim());
 

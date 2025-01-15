@@ -28,9 +28,11 @@ export function createRoute(routeFullName: string, options: any) {
     const configPath = findConfigFile(routeDir) as string;
     let fileExtension = 'js';
     let suffix = "";
+    let componentFileFormat = 'function';
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
         fileExtension = config.language === 'ts' ? 'tsx' : 'jsx';
+        componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
         suffix = config.useSuffix ? `.route` : "";
     }
 
@@ -44,6 +46,12 @@ export function createRoute(routeFullName: string, options: any) {
         suffix = `.route`;
     }
 
+    if (options.function) {
+        componentFileFormat = 'function';
+    } else if (options.const) {
+        componentFileFormat = 'const';
+    }
+
     const routePath = path.join(routeDir, `${routeName}${suffix}.${fileExtension}`);
 
     if (fs.existsSync(routePath)) {
@@ -54,22 +62,26 @@ export function createRoute(routeFullName: string, options: any) {
     const routeUpperName = routeNameCorrect[0].toUpperCase() + routeNameCorrect.slice(1, routeNameCorrect.length) + 'Route'
 
     const routeContent = `
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <></>,
-  }
-]);
-
-const ${routeUpperName} = () => {
-  return <RouterProvider router={router} />;
+${componentFileFormat == 'const' ? `
+const  ${routeUpperName} = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<>home</>} />
+    </Routes>
+  )
 };
 
 export default ${routeUpperName};
-    `;
+` : `
+export default function ${routeUpperName} () {
+    return (
+      <Routes>
+        <Route path="/" element={<>home</>} />
+      </Routes>
+    )
+  };`}`;
 
     fs.writeFileSync(routePath, routeContent.trim());
 

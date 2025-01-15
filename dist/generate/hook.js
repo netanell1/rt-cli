@@ -23,10 +23,12 @@ export function createHook(hookFullName, options) {
     }
     const configPath = findConfigFile(hookDir);
     let fileExtension = 'js';
+    let componentFileFormat = 'function';
     let suffix = "";
     if (fs.existsSync(configPath)) {
         const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
         fileExtension = config.language === 'ts' ? 'ts' : 'js';
+        componentFileFormat = config.componentFileFormat || 'function';
         suffix = config.useSuffix ? `.hook` : "";
     }
     if (options.js) {
@@ -38,6 +40,12 @@ export function createHook(hookFullName, options) {
     if (options.useSuffix) {
         suffix = `.hook`;
     }
+    if (options.function) {
+        componentFileFormat = 'function';
+    }
+    else if (options.const) {
+        componentFileFormat = 'const';
+    }
     const hookPath = path.join(hookDir, `${hookName}${suffix}.${fileExtension}`);
     if (fs.existsSync(hookPath)) {
         console.log(chalk.red(`Error: File ${hookName} already exists.`));
@@ -45,17 +53,29 @@ export function createHook(hookFullName, options) {
     }
     const hookContent = `import { useState, useEffect } from 'react';
 
-    export function ${hookName}(initialValue) {
+${componentFileFormat == 'const' ? `
+const  ${hookName} = (initialValue) => {
+  const [value, setValue] = useState(initialValue);
 
-        const [value, setValue] = useState(initialValue);
+  useEffect(() => {
+    console.log('Value changed:', value);
+  }, [value]);
+
+  return [value, setValue];
+};
+
+export default ${hookName};
+` : `
+export function ${hookName} (initialValue) {
     
-        useEffect(() => {
-            console.log('Value changed:', value);
-        }, [value]);
-    
-        return [value, setValue];
-    }
-    `;
+  const [value, setValue] = useState(initialValue);
+
+  useEffect(() => {
+    console.log('Value changed:', value);
+  }, [value]);
+
+  return [value, setValue];
+    }`}`;
     fs.writeFileSync(hookPath, hookContent.trim());
     const hookSize = fs.statSync(hookPath).size;
     console.log(chalk.green(`CREATE`), `${path.relative(process.cwd(), hookPath)} (${hookSize} bytes)`);
