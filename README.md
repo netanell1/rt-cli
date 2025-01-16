@@ -116,7 +116,7 @@ Create a new react-router-dom route with the specified name.
 **example:**
 
 ```bash
-rt generate route appRoute
+rt generate route app
 ```
 
 This command creates a context file named **appRoute.js** or **appRoute.route.js** based on your configuration in **`rt.json`**.

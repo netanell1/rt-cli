@@ -4,7 +4,6 @@ import chalk from 'chalk';
 import { findConfigFile, findTemplateFile } from './helpers.js';
 import PromptSync from 'prompt-sync';
 export function handleTemplate(fileType, options) {
-    fileType = fileType == "c" ? 'component' : fileType == 's' ? 'style' : fileType;
     const prompt = PromptSync();
     const templateFilePath = findTemplateFile(fileType, process.cwd());
     if (templateFilePath) {

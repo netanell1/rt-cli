@@ -1,13 +1,11 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { appendToGitignore, findConfigFile, findTemplateFile } from './helpers.js';
+import { findConfigFile, findTemplateFile } from './helpers.js';
 import PromptSync from 'prompt-sync';
 
 
 export function handleTemplate(fileType: string, options: any) {
-    fileType = fileType == "c" ? 'component' : fileType == 's' ? 'style' : fileType;
-
     const prompt = PromptSync();
     const templateFilePath = findTemplateFile(fileType, process.cwd());
 
