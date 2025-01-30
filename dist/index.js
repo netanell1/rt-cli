@@ -17,25 +17,29 @@ const program = new Command();
 /********************************* */
 // Command to create a new React application
 program
-    .command('new <appName>')
+    .command('new [appName]')
     .option('--js', 'Create a JS file explicitly')
     .option('--ts', 'Create a TS file explicitly')
-    .option('--style <styleType>', 'Create a styleType file explicitly')
+    .option('--style [styleType]', 'Create a styleType file explicitly')
     .option('--useModuleStyle', 'Create a style file with .module extension')
     .option('--function', 'Create a function component')
     .option('--const', 'Create a constant component')
-    .option('--componentFileName <name>', 'Set the name for the component file')
-    .option('--styleFileName <name>', 'Set the name for the style file')
-    .option('--testLibrary <name>', 'Set the test library for the component')
+    .option('--componentFileName [name]', 'Set the name for the component file')
+    .option('--styleFileName [name]', 'Set the name for the style file')
+    .option('--testLibrary [name]', 'Set the test library for the component')
     .option('--useSuffix', 'Set suffix for the type file name as type')
     .description('Create a new React application using create-react-app')
     .action((appName, options) => {
+    if (!appName) {
+        console.error(chalk.red(`Error: appName missing. please try again`));
+        process.exit(1);
+    }
     try {
         createReactApp(appName, options);
         console.log(chalk.green(`React app ${appName} created successfully.`));
     }
     catch (error) {
-        console.error(chalk.red(`Failed to create React app ${appName}.`), error.message);
+        console.error(chalk.red(`Error: Failed to create React app ${appName ?? ""}.`));
     }
 });
 /********************************* */
@@ -53,13 +57,13 @@ program
     .description('Initialize configuration file for the CLI')
     .option('--js', 'Create a JS file explicitly')
     .option('--ts', 'Create a TS file explicitly')
-    .option('--style <styleType>', 'Create a styleType file explicitly')
+    .option('--style [styleType]', 'Create a styleType file explicitly')
     .option('--useModuleStyle', 'Create a style file with .module extension')
     .option('--function', 'Create a function component')
     .option('--const', 'Create a constant component')
-    .option('--componentFileName <name>', 'Set the name for the component file')
-    .option('--styleFileName <name>', 'Set the name for the style file')
-    .option('--testLibrary <name>', 'Set the test library for the component')
+    .option('--componentFileName [name]', 'Set the name for the component file')
+    .option('--styleFileName [name]', 'Set the name for the style file')
+    .option('--testLibrary [name]', 'Set the test library for the component')
     .option('--useSuffix', 'Set suffix for the type file name as type')
     .action((options) => {
     handleInit(options);
@@ -107,17 +111,17 @@ program
 /********************************* */
 // Command to generate a new file
 program
-    .command('generate <type> <name>').aliases(['g'])
+    .command('generate [type] [name]').aliases(['g'])
     .description('Generate a new file of a specified type')
     .option('--js', 'Create a JS file explicitly')
     .option('--ts', 'Create a TS file explicitly')
-    .option('--style <styleType>', 'Create a styleType file explicitly')
+    .option('--style [styleType]', 'Create a styleType file explicitly')
     .option('--useModuleStyle', 'Create a style file with .module extension')
     .option('--function', 'Create a function component')
     .option('--const', 'Create a constant component')
-    .option('--componentFileName <name>', 'Set the name for the component file')
-    .option('--styleFileName <name>', 'Set the name for the style file')
-    .option('--testLibrary <name>', 'Set the test library for the component')
+    .option('--componentFileName [name]', 'Set the name for the component file')
+    .option('--styleFileName [name]', 'Set the name for the style file')
+    .option('--testLibrary [name]', 'Set the test library for the component')
     .option('--useSuffix', 'Set suffix for the type file name as type')
     .action((type, name, options) => {
     if (type === 'component' || type === 'c') {
@@ -157,15 +161,20 @@ program
 /********************************* */
 // Command to create template file
 program
-    .command('template <type>').aliases(['t'])
+    .command('template [type]').aliases(['t'])
     .description('Generate a new file of a template type')
     .option('--js', 'Create a JS file explicitly')
     .option('--ts', 'Create a TS file explicitly')
-    .option('--style <styleType>', 'Create a styleType file explicitly')
+    .option('--style [styleType]', 'Create a styleType file explicitly')
     .option('--useModuleStyle', 'Create a style file with .module extension')
     .option('--function', 'Create a function component')
     .option('--const', 'Create a constant component')
     .action((type, options) => {
-    handleTemplate(type, options);
+    try {
+        handleTemplate(type, options);
+    }
+    catch (error) {
+        console.log(chalk.red('Error: Failed to create template file ', error.message));
+    }
 });
 program.parse(process.argv);

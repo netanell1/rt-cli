@@ -17,10 +17,8 @@ function runNpmScript(scriptName) {
         console.log(chalk.green(`Successfully ran npm ${scriptName}!`));
     }
     catch (error) {
-        console.error(chalk.red(`Error: This command is not available when running the React CLI RT outside a workspace of React & Vite.`));
+        console.error(chalk.red(`Error: Failed to run npm ${scriptName}.`));
         process.exit(0);
-        // console.error(chalk.red(`Failed to run npm ${scriptName}. Please check if the script is defined in package.json.`));
-        console.error(chalk.red(`Error: ${error.message}`));
     }
 }
 export function dev() {
