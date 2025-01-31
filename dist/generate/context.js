@@ -31,7 +31,10 @@ export function createContext(contextFullName, options) {
     else if (options.ts) {
         fileExtension = 'ts';
     }
-    if (options.useSuffix) {
+    if ("useSuffix" in options && options.useSuffix == false) {
+        suffix = ``;
+    }
+    else if (options.useSuffix) {
         suffix = `.context`;
     }
     const contextPath = path.join(contextDir, `${contextName}${suffix}.${fileExtension}`);

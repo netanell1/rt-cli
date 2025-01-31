@@ -38,7 +38,10 @@ export function createModel(modelType: string, modelFullName: string, options: a
         fileExtension = 'ts';
     }
 
-    if (options.useSuffix) {
+    if ("useSuffix" in options && options.useSuffix == false) {
+        suffix = ``;
+    }
+    else if (options.useSuffix) {
         suffix = `.${modelType}`;
     }
 

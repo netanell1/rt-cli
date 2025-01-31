@@ -33,7 +33,10 @@ export function createRoute(routeFullName, options) {
     else if (options.ts) {
         fileExtension = 'tsx';
     }
-    if (options.useSuffix) {
+    if ("useSuffix" in options && options.useSuffix == false) {
+        suffix = ``;
+    }
+    else if (options.useSuffix) {
         suffix = `.route`;
     }
     if (options.function) {

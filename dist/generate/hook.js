@@ -37,7 +37,10 @@ export function createHook(hookFullName, options) {
     else if (options.ts) {
         fileExtension = 'ts';
     }
-    if (options.useSuffix) {
+    if ("useSuffix" in options && options.useSuffix == false) {
+        suffix = ``;
+    }
+    else if (options.useSuffix) {
         suffix = `.hook`;
     }
     if (options.function) {

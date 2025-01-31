@@ -56,7 +56,10 @@ export function createComponent(componentFullName: string, options: any) {
     styleExtension = options.style;
   }
 
-  if (options.useModuleStyle) {
+  if ("useModuleStyle" in options && options.useModuleStyle == false) {
+    styleModule = '';
+  }
+  else if (options.useModuleStyle) {
     styleModule = '.module';
   }
 

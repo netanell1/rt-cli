@@ -50,7 +50,10 @@ export function createComponent(componentFullName, options) {
     if (options.style) {
         styleExtension = options.style;
     }
-    if (options.useModuleStyle) {
+    if ("useModuleStyle" in options && options.useModuleStyle == false) {
+        styleModule = '';
+    }
+    else if (options.useModuleStyle) {
         styleModule = '.module';
     }
     if (options.function) {

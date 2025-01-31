@@ -41,7 +41,10 @@ export function createReactApp(appName, options) {
     if (options.style) {
         styleExtension = options.style;
     }
-    if (options.useModuleStyle) {
+    if ("useModuleStyle" in options && options.useModuleStyle == false) {
+        useModuleStyle = false;
+    }
+    else if (options.useModuleStyle) {
         useModuleStyle = true;
     }
     if (options.function) {
@@ -59,7 +62,10 @@ export function createReactApp(appName, options) {
     if (options.testLibrary) {
         testLibrary = options.testLibrary;
     }
-    if (options.useSuffix) {
+    if ("useSuffix" in options && options.useSuffix == false) {
+        useSuffix = false;
+    }
+    else if (options.useSuffix) {
         useSuffix = true;
     }
     const command = `npm create vite@latest ${appName} -- --template react${language === "ts" ? "-ts" : ""}`;

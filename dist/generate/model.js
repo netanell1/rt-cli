@@ -31,7 +31,10 @@ export function createModel(modelType, modelFullName, options, checkTypeScript) 
     else if (options.ts) {
         fileExtension = 'ts';
     }
-    if (options.useSuffix) {
+    if ("useSuffix" in options && options.useSuffix == false) {
+        suffix = ``;
+    }
+    else if (options.useSuffix) {
         suffix = `.${modelType}`;
     }
     const modelPath = path.join(modelDir, `${modelName}${suffix}.${modelType == "class" ? fileExtension : 'ts'}`);

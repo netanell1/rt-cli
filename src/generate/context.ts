@@ -40,9 +40,13 @@ export function createContext(contextFullName: string, options: any) {
         fileExtension = 'ts';
     }
 
-    if (options.useSuffix) {
+    if ("useSuffix" in options && options.useSuffix == false) {
+        suffix = ``;
+    }
+    else if (options.useSuffix) {
         suffix = `.context`;
     }
+
 
     const contextPath = path.join(contextDir, `${contextName}${suffix}.${fileExtension}`);
 

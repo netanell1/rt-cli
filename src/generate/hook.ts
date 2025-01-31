@@ -45,9 +45,13 @@ export function createHook(hookFullName: string, options: any) {
         fileExtension = 'ts';
     }
 
-    if (options.useSuffix) {
+    if ("useSuffix" in options && options.useSuffix == false) {
+        suffix = ``;
+    }
+    else if (options.useSuffix) {
         suffix = `.hook`;
     }
+
 
     if (options.function) {
         componentFileFormat = 'function';

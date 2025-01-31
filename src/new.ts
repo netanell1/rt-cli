@@ -48,9 +48,13 @@ export function createReactApp(appName: string, options: any) {
         styleExtension = options.style;
     }
 
-    if (options.useModuleStyle) {
+    if ("useModuleStyle" in options && options.useModuleStyle == false) {
+        useModuleStyle = false;
+    }
+    else if (options.useModuleStyle) {
         useModuleStyle = true;
     }
+
 
     if (options.function) {
         componentFileFormat = 'function';
@@ -70,9 +74,14 @@ export function createReactApp(appName: string, options: any) {
         testLibrary = options.testLibrary
     }
 
-    if (options.useSuffix) {
+    if ("useSuffix" in options && options.useSuffix == false) {
+        useSuffix = false;
+    }
+    else if (options.useSuffix) {
         useSuffix = true;
     }
+
+
 
 
 
