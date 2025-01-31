@@ -22,10 +22,15 @@ export function createRoute(routeFullName, options) {
     let suffix = "";
     let componentFileFormat = 'function';
     if (fs.existsSync(configPath)) {
-        const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-        fileExtension = config.language === 'ts' ? 'tsx' : 'jsx';
-        componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
-        suffix = config.useSuffix ? `.route` : "";
+        try {
+            const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+            fileExtension = config.language === 'ts' ? 'tsx' : 'jsx';
+            componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
+            suffix = config.useSuffix ? `.route` : "";
+        }
+        catch (error) {
+            console.warn(chalk.yellow("Warning: rt.json is broken."));
+        }
     }
     if (options.js) {
         fileExtension = 'jsx';

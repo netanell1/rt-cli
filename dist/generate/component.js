@@ -31,14 +31,19 @@ export function createComponent(componentFullName, options) {
     let styleFileName = options.styleFileName || componentName; // Default style file name
     let testLibrary = options.testLibrary || ''; // To hold the test library
     if (fs.existsSync(configPath)) {
-        const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-        fileExtension = config.language === 'ts' ? 'tsx' : 'jsx';
-        styleExtension = config.style || 'css'; // Default to CSS
-        styleModule = config.useModuleStyle ? '.module' : ''; // Determine if style should be a module
-        componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
-        componentFileName = config.componentFileName || componentName; // Check config for component file name
-        styleFileName = config.styleFileName || componentName; // Check config for style file name
-        testLibrary = config.testLibrary || ''; // Check config for test library
+        try {
+            const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+            fileExtension = config.language === 'ts' ? 'tsx' : 'jsx';
+            styleExtension = config.style || 'css'; // Default to CSS
+            styleModule = config.useModuleStyle ? '.module' : ''; // Determine if style should be a module
+            componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
+            componentFileName = config.componentFileName || componentName; // Check config for component file name
+            styleFileName = config.styleFileName || componentName; // Check config for style file name
+            testLibrary = config.testLibrary || ''; // Check config for test library
+        }
+        catch (error) {
+            console.warn(chalk.yellow("Warning: rt.json is broken."));
+        }
     }
     // Override with command line options if provided
     if (options.js) {

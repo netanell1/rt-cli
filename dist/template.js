@@ -46,11 +46,16 @@ function createComponentTemplate(options) {
     let styleModule = options.useModuleStyle ? '.module' : ''; // Determine if style should be a module
     let componentFileFormat = options.const ? 'const' : 'function'; // Determine component type
     if (fs.existsSync(configPath)) {
-        const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-        fileExtension = config.language === 'ts' ? 'tsx' : 'jsx';
-        styleExtension = config.style || 'css'; // Default to CSS
-        styleModule = config.useModuleStyle ? '.module' : ''; // Determine if style should be a module
-        componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
+        try {
+            const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+            fileExtension = config.language === 'ts' ? 'tsx' : 'jsx';
+            styleExtension = config.style || 'css'; // Default to CSS
+            styleModule = config.useModuleStyle ? '.module' : ''; // Determine if style should be a module
+            componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
+        }
+        catch (error) {
+            console.warn(chalk.yellow("Warning: rt.json is broken."));
+        }
     }
     // Override with command line options if provided
     if (options.js) {

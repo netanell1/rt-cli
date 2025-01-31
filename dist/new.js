@@ -21,15 +21,20 @@ export function createReactApp(appName, options) {
     let testLibrary = options.testLibrary || null; // To hold the test library
     let useSuffix = options.useSuffix ?? false; // Default useSuffix as false
     if (fs.existsSync(configPath)) {
-        const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-        language = config.language === 'ts' ? 'ts' : 'js';
-        styleExtension = config.style || 'css'; // Default to CSS
-        useModuleStyle = config.useModuleStyle ?? false; // Determine if style should be a module
-        componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
-        componentFileName = config.componentFileName || null; // Check config for component file name
-        styleFileName = config.styleFileName || null; // Check config for style file name
-        testLibrary = config.testLibrary || null; // Check config for test library
-        useSuffix = config.useSuffix ?? false; //  Check config for useSuffix
+        try {
+            const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+            language = config.language === 'ts' ? 'ts' : 'js';
+            styleExtension = config.style || 'css'; // Default to CSS
+            useModuleStyle = config.useModuleStyle ?? false; // Determine if style should be a module
+            componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
+            componentFileName = config.componentFileName || null; // Check config for component file name
+            styleFileName = config.styleFileName || null; // Check config for style file name
+            testLibrary = config.testLibrary || null; // Check config for test library
+            useSuffix = config.useSuffix ?? false; //  Check config for useSuffix
+        }
+        catch (error) {
+            console.warn(chalk.yellow("Warning: rt.json is broken."));
+        }
     }
     // Override with command line options if provided
     if (options.js) {

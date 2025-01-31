@@ -90,7 +90,12 @@ program
   .command('update').aliases(['u'])
   .description('Update the react-cli-rt to the latest version')
   .action(() => {
-    updateCLI();
+    try {
+      updateCLI();
+    } catch (error) {
+      console.error(chalk.red("Error: Update failed."));
+    }
+
   });
 
 
@@ -246,7 +251,7 @@ program
     try {
       handleTemplate(type, options);
     } catch (error) {
-      console.log(chalk.red('Error: Failed to create template file ', error.message));
+      console.log(chalk.red('Error: Failed to create template file.'));
     }
 
   })

@@ -33,10 +33,14 @@ export function createHook(hookFullName: string, options: any) {
     let componentFileFormat = 'function';
     let suffix = "";
     if (fs.existsSync(configPath)) {
-        const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-        fileExtension = config.language === 'ts' ? 'ts' : 'js';
-        componentFileFormat = config.componentFileFormat || 'function';
-        suffix = config.useSuffix ? `.hook` : "";
+        try {
+            const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+            fileExtension = config.language === 'ts' ? 'ts' : 'js';
+            componentFileFormat = config.componentFileFormat || 'function';
+            suffix = config.useSuffix ? `.hook` : "";
+        } catch (error) {
+            console.warn(chalk.yellow("Warning: rt.json is broken."))
+        }
     }
 
     if (options.js) {

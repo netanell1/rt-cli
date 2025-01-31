@@ -29,9 +29,13 @@ export function createContext(contextFullName: string, options: any) {
     let fileExtension = 'js';
     let suffix = "";
     if (fs.existsSync(configPath)) {
-        const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-        fileExtension = config.language === 'ts' ? 'ts' : 'js';
-        suffix = config.useSuffix ? `.context` : "";
+        try {
+            const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+            fileExtension = config.language === 'ts' ? 'ts' : 'js';
+            suffix = config.useSuffix ? `.context` : "";
+        } catch (error) {
+            console.warn(chalk.yellow("Warning: rt.json is broken."))
+        }
     }
 
     if (options.js) {
