@@ -151,12 +151,12 @@ export function createReactApp(appName: string, options: any) {
     // Add options to the string based on the user's input
     rtOptions += language === 'ts' ? '--ts ' : '--js '; // Add either --js or --ts
     rtOptions += `--style ${styleExtension} `;// Add the style type (e.g., css, scss, etc.)
-    rtOptions += useModuleStyle ? '--useModuleStyle ' : ''; // Add --useModuleStyle if true
+    rtOptions += useModuleStyle ? '--use-module-style ' : ''; // Add --useModuleStyle if true
     rtOptions += componentFileFormat === 'const' ? '--const ' : '--function '; // Add --const or --function
-    rtOptions += componentFileName ? `--componentFileName ${componentFileName} ` : '' // Add component file name option if provided
-    rtOptions += styleFileName ? `--styleFileName ${styleFileName} ` : '';    // Add style file name option if provided
-    rtOptions += testLibrary ? `--testLibrary ${testLibrary} ` : ''     // Add test library option if provided;
-    rtOptions += useSuffix ? '--useSuffix ' : '';    // Add suffix option if applicable
+    rtOptions += componentFileName ? `--component-file-name ${componentFileName} ` : '' // Add component file name option if provided
+    rtOptions += styleFileName ? `--style-file-name ${styleFileName} ` : '';    // Add style file name option if provided
+    rtOptions += testLibrary ? `--test-library ${testLibrary} ` : ''     // Add test library option if provided;
+    rtOptions += useSuffix ? '--use-suffix ' : '';    // Add suffix option if applicable
     // Trim any trailing spaces
     rtOptions = rtOptions.trim();
 

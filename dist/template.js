@@ -65,7 +65,7 @@ function createComponentTemplate(options) {
     if ("useModuleStyle" in options && options.useModuleStyle == false) {
         styleModule = '.module';
     }
-    if (options.useModuleStyle) {
+    else if (options.useModuleStyle) {
         styleModule = '.module';
     }
     if (options.function) {

@@ -131,25 +131,67 @@ program
     .option('--no-use-suffix', 'Disable adding a suffix to the file name based on its type')
     .action((type, name, options) => {
     if (type === 'component' || type === 'c') {
-        createComponent(name, options);
+        try {
+            createComponent(name, options);
+        }
+        catch (error) {
+            console.log(chalk.red('Error: Failed to generate the component.'));
+            process.exit(1);
+        }
     }
     else if (type === 'class' || type === 'cl') {
-        createModel('class', name, options);
+        try {
+            createModel('class', name, options);
+        }
+        catch (error) {
+            console.log(chalk.red('Error: Failed to generate the class.'));
+            process.exit(1);
+        }
     }
     else if (type === 'enum' || type === 'e') {
-        createModel('enum', name, options, true);
+        try {
+            createModel('enum', name, options, true);
+        }
+        catch (error) {
+            console.log(chalk.red('Error: Failed to generate the enum.'));
+            process.exit(1);
+        }
     }
     else if (type === 'interface' || type === "i") {
-        createModel('interface', name, options, true);
+        try {
+            createModel('interface', name, options, true);
+        }
+        catch (error) {
+            console.log(chalk.red('Error: Failed to generate the interface.'));
+            process.exit(1);
+        }
     }
     else if (type === 'hook' || type === "h") {
-        createHook(name, options);
+        try {
+            createHook(name, options);
+        }
+        catch (error) {
+            console.log(chalk.red('Error: Failed to generate the hook.'));
+            process.exit(1);
+        }
     }
     else if (type === 'context' || type === "co") {
-        createContext(name, options);
+        try {
+            createContext(name, options);
+        }
+        catch (error) {
+            console.log(chalk.red('Error: Failed to generate the context.'));
+            process.exit(1);
+        }
     }
     else if (type === 'route' || type === "r") {
-        createRoute(name, options);
+        try {
+            createRoute(name, options);
+        }
+        catch (error) {
+            console.log(chalk.red('Error: Failed to generate the route.'));
+            process.exit(1);
+        }
     }
     else {
         console.log(chalk.red('Error: Invalid type specified.'));

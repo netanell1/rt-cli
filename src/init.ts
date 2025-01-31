@@ -31,12 +31,12 @@ function initConfig(options: any) {
     const defaultConfig = {
         language: options.ts ? 'ts' : 'js',    // Set default language based on options
         style: options.style || 'css', // Default to CSS
-        useModuleStyle: options.useModuleStyle, // Default to false if not specified
+        useModuleStyle: options.useModuleStyle ?? false, // Default to false if not specified
         componentFileFormat: options.const ? 'const' : 'function', // Default to 'function'
         componentFileName: options.componentFileName || null, // Default component file name as nul
         styleFileName: options.styleFileName || null, // Default style file name as null
         testLibrary: options.testLibrary || null, // Default test library as null
-        useSuffix: options.useSuffix, // Default useSuffix as false
+        useSuffix: options.useSuffix ?? false, // Default useSuffix as false
     };
 
     // Check if configuration file already exists
