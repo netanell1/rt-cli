@@ -21,13 +21,13 @@ program
     .option('--js', 'Create a JS file explicitly')
     .option('--ts', 'Create a TS file explicitly')
     .option('--style [styleType]', 'Create a styleType file explicitly')
-    .option('--useModuleStyle', 'Create a style file with .module extension')
+    .option('--use-module-style', 'Create a style file with .module extension')
     .option('--function', 'Create a function component')
     .option('--const', 'Create a constant component')
-    .option('--componentFileName [name]', 'Set the name for the component file')
-    .option('--styleFileName [name]', 'Set the name for the style file')
-    .option('--testLibrary [name]', 'Set the test library for the component')
-    .option('--useSuffix', 'Set suffix for the type file name as type')
+    .option('--component-file-name [name]', 'Set the name for the component file')
+    .option('--style-file-name [name]', 'Set the name for the style file')
+    .option('--test-library [name]', 'Set the test library for the component')
+    .option('--use-suffix', 'Set suffix for the type file name as type')
     .description('Create a new React application using create-react-app')
     .action((appName, options) => {
     if (!appName) {
@@ -58,13 +58,13 @@ program
     .option('--js', 'Create a JS file explicitly')
     .option('--ts', 'Create a TS file explicitly')
     .option('--style [styleType]', 'Create a styleType file explicitly')
-    .option('--useModuleStyle', 'Create a style file with .module extension')
+    .option('--use-module-style', 'Create a style file with .module extension')
     .option('--function', 'Create a function component')
     .option('--const', 'Create a constant component')
-    .option('--componentFileName [name]', 'Set the name for the component file')
-    .option('--styleFileName [name]', 'Set the name for the style file')
-    .option('--testLibrary [name]', 'Set the test library for the component')
-    .option('--useSuffix', 'Set suffix for the type file name as type')
+    .option('--component-file-name [name]', 'Set the name for the component file')
+    .option('--style-file-name [name]', 'Set the name for the style file')
+    .option('--test-library [name]', 'Set the test library for the component')
+    .option('--use-suffix', 'Set suffix for the type file name as type')
     .action((options) => {
     handleInit(options);
 });
@@ -116,13 +116,13 @@ program
     .option('--js', 'Create a JS file explicitly')
     .option('--ts', 'Create a TS file explicitly')
     .option('--style [styleType]', 'Create a styleType file explicitly')
-    .option('--useModuleStyle', 'Create a style file with .module extension')
+    .option('--use-module-style', 'Create a style file with .module extension')
     .option('--function', 'Create a function component')
     .option('--const', 'Create a constant component')
-    .option('--componentFileName [name]', 'Set the name for the component file')
-    .option('--styleFileName [name]', 'Set the name for the style file')
-    .option('--testLibrary [name]', 'Set the test library for the component')
-    .option('--useSuffix', 'Set suffix for the type file name as type')
+    .option('--component-file-name [name]', 'Set the name for the component file')
+    .option('--style-file-name [name]', 'Set the name for the style file')
+    .option('--test-library [name]', 'Set the test library for the component')
+    .option('--use-suffix', 'Set suffix for the type file name as type')
     .action((type, name, options) => {
     if (type === 'component' || type === 'c') {
         createComponent(name, options);
@@ -166,7 +166,7 @@ program
     .option('--js', 'Create a JS file explicitly')
     .option('--ts', 'Create a TS file explicitly')
     .option('--style [styleType]', 'Create a styleType file explicitly')
-    .option('--useModuleStyle', 'Create a style file with .module extension')
+    .option('--use-module-style', 'Create a style file with .module extension')
     .option('--function', 'Create a function component')
     .option('--const', 'Create a constant component')
     .action((type, options) => {

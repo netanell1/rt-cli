@@ -343,7 +343,7 @@ B. With a command that will change the component configuration once:
 run:
 
 ```bash
-rt generate component myComponent --ts --style scss --useModuleStyle
+rt generate component myComponent --ts --style scss --use-module-style
 ```
 
 **2. Generate a Component inside a new or existing folder:**
