@@ -153,21 +153,21 @@ program
             process.exit(1);
         }
     }
-    else if (type === 'enum' || type === 'e') {
-        try {
-            createModel('enum', name, options, true);
-        }
-        catch (error) {
-            console.log(chalk.red('Error: Failed to generate the enum.'));
-            process.exit(1);
-        }
-    }
     else if (type === 'interface' || type === "i") {
         try {
             createModel('interface', name, options, true);
         }
         catch (error) {
             console.log(chalk.red('Error: Failed to generate the interface.'));
+            process.exit(1);
+        }
+    }
+    else if (type === 'enum' || type === 'e') {
+        try {
+            createModel('enum', name, options, true);
+        }
+        catch (error) {
+            console.log(chalk.red('Error: Failed to generate the enum.'));
             process.exit(1);
         }
     }
