@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { handleInit } from '../init.js';
+import { handleInit } from '../actions/init.js';
 
 export const initCommand = () => {
     const command = new Command('init')

@@ -1,9 +1,9 @@
 import { Command } from 'commander';
-import { createComponent } from '../generate/component.js';
-import { createModel } from '../generate/model.js';
-import { createHook } from '../generate/hook.js';
-import { createContext } from '../generate/context.js';
-import { createRoute } from '../generate/route.js';
+import { createComponent } from '../actions/generate/component.js';
+import { createModel } from '../actions/generate/model.js';
+import { createHook } from '../actions/generate/hook.js';
+import { createContext } from '../actions/generate/context.js';
+import { createRoute } from '../actions/generate/route.js';
 import chalk from 'chalk';
 export const generateCommand = () => {
     const command = new Command('generate')

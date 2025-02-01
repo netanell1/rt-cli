@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { showTopicMenu } from '../install.js';
+import { showTopicMenu } from '../actions/install.js';
 export const installCommand = () => {
     const command = new Command('install')
         .aliases(['i'])

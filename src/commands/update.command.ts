@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import updateCLI from '../update.js';
+import updateCLI from '../actions/update.js';
 
 export const updateCommand = () => {
     const command = new Command('update')

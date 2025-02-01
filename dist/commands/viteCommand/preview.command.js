@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { preview } from '../../runNpmScript.js';
+import { preview } from '../../actions/runNpmScript.js';
 export const previewCommand = () => {
     const command = new Command('preview')
         .description('Run npm run preview')

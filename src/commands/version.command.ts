@@ -1,6 +1,5 @@
 import { Command } from 'commander';
-import { build } from '../runNpmScript.js';
-import { printVersion } from '../helpers.js';
+import { printVersion } from '../actions/helpers.js';
 
 export const versionCommand = () => {
     const command = new Command('version')

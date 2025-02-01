@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { lint } from '../../runNpmScript.js';
+import { lint } from '../../actions/runNpmScript.js';
 
 export const lintCommand = () => {
     const command = new Command('lint')

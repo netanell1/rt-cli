@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { handleTemplate } from '../template.js';
+import { handleTemplate } from '../actions/template.js';
 export const templateCommand = () => {
     const command = new Command('template')
         .aliases(['t'])

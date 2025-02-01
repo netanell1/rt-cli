@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { createReactApp } from '../new.js';
+import { createReactApp } from '../actions/new.js';
 export const newCommand = () => {
     const command = new Command('new')
         .description('Initialize configuration file for the CLI')

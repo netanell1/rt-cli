@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { dev } from '../../runNpmScript.js';
+import { dev } from '../../actions/runNpmScript.js';
 export const devCommand = () => {
     const command = new Command('dev')
         .description('Run npm run dev')
