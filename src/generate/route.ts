@@ -68,7 +68,8 @@ export function createRoute(routeFullName: string, options: any) {
     process.exit(1);
   }
 
-  const routeUpperName = routeNameCorrect[0].toUpperCase() + routeNameCorrect.slice(1, routeNameCorrect.length) + 'Route'
+  let routeUpperName = routeNameCorrect[0].toUpperCase() + routeNameCorrect.slice(1, routeNameCorrect.length)
+  routeUpperName = routeUpperName.toLowerCase().includes("route") ? routeUpperName : routeUpperName + "Route"
 
   const routeContent = `
 import { Route, Routes } from "react-router-dom";

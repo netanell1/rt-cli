@@ -55,7 +55,8 @@ export function createRoute(routeFullName, options) {
         console.log(chalk.red(`Error: File ${routeName} already exists.`));
         process.exit(1);
     }
-    const routeUpperName = routeNameCorrect[0].toUpperCase() + routeNameCorrect.slice(1, routeNameCorrect.length) + 'Route';
+    let routeUpperName = routeNameCorrect[0].toUpperCase() + routeNameCorrect.slice(1, routeNameCorrect.length);
+    routeUpperName = routeUpperName.toLowerCase().includes("route") ? routeUpperName : routeUpperName + "Route";
     const routeContent = `
 import { Route, Routes } from "react-router-dom";
 
