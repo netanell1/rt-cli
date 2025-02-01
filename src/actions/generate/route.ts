@@ -75,7 +75,7 @@ export function createRoute(routeFullName: string, options: any) {
 import { Route, Routes } from "react-router-dom";
 
 ${componentFileFormat == 'const' ? `
-const  ${routeUpperName} = () => {
+const ${routeUpperName} = () => {
   return (
     <Routes>
       <Route path="/" element={<>home</>} />

@@ -40,8 +40,6 @@ program.addCommand(devCommand())
 
 // Command to run build
 program.addCommand(buildCommand())
-program
-
 /********************************* */
 
 // Command to run lint
