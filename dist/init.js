@@ -43,6 +43,4 @@ function initConfig(options) {
     fs.writeFileSync(configPath, JSON.stringify(defaultConfig, null, 2));
     const configSize = fs.statSync(configPath).size;
     console.log(chalk.green(`CREATE CONFIGURATION`), `${path.relative(process.cwd(), configPath)} (${configSize} bytes)`);
-    // appendToGitignore(process.cwd(), 'rt.json')
-    // console.log(chalk.green('Configuration file rt.json created with default settings.'));
 }
