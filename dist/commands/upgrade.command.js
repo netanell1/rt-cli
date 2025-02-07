@@ -1,13 +1,13 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { updateDependencies } from '../actions/update.js';
-export const updateCommand = () => {
-    const command = new Command('update')
-        .aliases(['upd'])
+import { upgradeCLI } from '../actions/upgrade.js';
+export const upgradeCommand = () => {
+    const command = new Command('upgrade')
+        .aliases(['upg'])
         .description('Update the react-cli-rt to the latest version')
         .action(() => {
         try {
-            updateDependencies();
+            upgradeCLI();
         }
         catch (error) {
             console.error(chalk.red("Error: Update failed."));

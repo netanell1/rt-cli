@@ -1,16 +1,28 @@
-import { execSync } from 'child_process';
+import fs from 'fs';
+import { exec } from 'child_process';
 import chalk from 'chalk';
-// Function to update the CLI tool to the latest version
-function updateCLI() {
-    try {
-        console.log(chalk.blue('Updating react-cli-rt to the latest version...'));
-        // Execute the command to update the package globally
-        execSync('npm install -g react-cli-rt', { stdio: 'inherit' });
-        console.log(chalk.green('Successfully updated react-cli-rt to the latest version!'));
+import { findPackageJsonFile } from './helpers.js';
+import ora from 'ora';
+export function updateDependencies() {
+    const packageJsonPath = findPackageJsonFile(process.cwd());
+    if (fs.existsSync(packageJsonPath)) {
+        const spinner = ora(`updating dependencies....`).start();
+        exec('npm update --save', (error, stdout, stderr) => {
+            if (error) {
+                spinner.fail("Error updated dependencies");
+                console.error(chalk.red(`Error: Project update failed.`));
+                return;
+            }
+            if (stderr) {
+                spinner.fail("Error updated dependencies");
+                console.error(chalk.red(`Error: ${stderr}`));
+                return;
+            }
+            spinner.succeed(`successfully updated dependencies!`);
+            console.log(chalk.green(stdout));
+        });
     }
-    catch (error) {
-        console.error(chalk.red('Failed to update react-cli-rt. Please try again.'));
-        console.error(chalk.red(`Error: ${error.message}`));
+    else {
+        console.error(chalk.red('Error: No package.json found.'));
     }
 }
-export default updateCLI;

@@ -12,6 +12,7 @@ import { previewCommand } from './commands/viteCommand/preview.command.js';
 import { generateCommand } from './commands/generate.command.js';
 import { versionCommand } from './commands/version.command.js';
 import { templateCommand } from './commands/template.command.js';
+import { upgradeCommand } from './commands/upgrade.command.js';
 
 const program = new Command();
 
@@ -30,8 +31,12 @@ program.addCommand(initCommand())
 program.addCommand(installCommand())
 /********************************* */
 
-// Command to update rt-cli
+// Command to update dependencies 
 program.addCommand(updateCommand())
+/********************************* */
+
+// Command to upgrade CLI
+program.addCommand(upgradeCommand())
 /********************************* */
 
 // Command to run dev
