@@ -85,7 +85,7 @@ export function replaceSpecialCharacters(str, toLower, allowedChars = []) {
 export function printVersion() {
     const __filename = fileURLToPath(import.meta.url);
     const __dirname = path.dirname(__filename);
-    const packagePath = path.resolve(__dirname, '../package.json');
+    const packagePath = path.resolve(__dirname, '../../package.json');
     const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
     const version = packageJson.version;
     // Display pretty react CLI
