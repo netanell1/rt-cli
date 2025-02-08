@@ -3,6 +3,7 @@ import { handleInit } from '../actions/init.js';
 export const initCommand = () => {
     const command = new Command('init')
         .description('Initialize configuration file for the CLI')
+        .option('--js', 'Create a JS file explicitly')
         .option('--ts', 'Create a TS file explicitly')
         .option('--style [styleType]', 'Create a styleType file explicitly')
         .option('--use-module-style', 'Create a style file with .module extension')

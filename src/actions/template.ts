@@ -12,6 +12,8 @@ export function handleTemplate(fileType: string, options: any) {
     if (templateFilePath) {
         const answer = prompt(`${fileType}-rt.template already exists. Overwrite? (y/n): `)?.trim()?.toLowerCase();
         if (answer === 'y' || answer === 'yes') {
+            const templateFileSize = fs.statSync(templateFilePath).size;
+            console.log(chalk.gray(`DELETE File`), `${path.relative(process.cwd(), templateFilePath)} (${templateFileSize} bytes)`);
             fs.unlinkSync(templateFilePath);
             if (fileType == 'component' || fileType == 'c') {
                 createComponentTemplate(options);
@@ -123,7 +125,7 @@ export default function  {{functionName}} ({}${fileExtension == "tsx" ? `: {{fun
 
     const componentTemplateSize = fs.statSync(componentTemplatePath).size;
 
-    console.log(chalk.green(`CREATE`), `${path.relative(process.cwd(), componentTemplatePath)} (${componentTemplateSize} bytes)`);
+    console.log(chalk.green(`CREATE COMPONENT TEMPLATE`), `${path.relative(process.cwd(), componentTemplatePath)} (${componentTemplateSize} bytes)`);
     // appendToGitignore(process.cwd(), 'component-rt.template')
 }
 
@@ -145,7 +147,7 @@ function createStyleTemplate() {
 
     const styleTemplateSize = fs.statSync(styleTemplatePath).size;
 
-    console.log(chalk.green(`CREATE`), `${path.relative(process.cwd(), styleTemplatePath)} (${styleTemplateSize} bytes)`);
+    console.log(chalk.green(`CREATE STYLE TEMPLATE`), `${path.relative(process.cwd(), styleTemplatePath)} (${styleTemplateSize} bytes)`);
     // appendToGitignore(process.cwd(), 'style-rt.template')
 }
 

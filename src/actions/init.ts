@@ -13,6 +13,8 @@ export function handleInit(options: any) {
         const answer = prompt('rt.json already exists. Overwrite? (y/n): ')?.trim()?.toLowerCase();
 
         if (answer === 'y' || answer === 'yes') {
+            const configFileSize = fs.statSync(configFilePath).size;
+            console.log(chalk.gray(`DELETE File`), `${path.relative(process.cwd(), configFilePath)} (${configFileSize} bytes)`);
             fs.unlinkSync(configFilePath);
             initConfig(options); // Create new rt.json file
         } else {
