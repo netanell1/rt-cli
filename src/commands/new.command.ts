@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { createReactApp } from '../actions/new.js';
+import { createReactApp } from '../actions/new.action.js';
 
 export const newCommand = () => {
     const command = new Command('new')

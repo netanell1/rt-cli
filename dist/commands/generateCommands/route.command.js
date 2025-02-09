@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { createRoute } from '../../actions/generate/route.js';
+import { createRoute } from '../../actions/generate/route.action.js';
 export const generateRouteCommand = () => {
     return new Command('route')
         .aliases(["r"])

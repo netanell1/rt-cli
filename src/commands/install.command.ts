@@ -1,7 +1,7 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { createReactApp } from '../actions/new.js';
-import { showTopicMenu } from '../actions/install.js';
+import { createReactApp } from '../actions/new.action.js';
+import { showTopicMenu } from '../actions/install.action.js';
 
 export const installCommand = () => {
     const command = new Command('install')

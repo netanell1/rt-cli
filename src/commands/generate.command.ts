@@ -1,9 +1,9 @@
 import { Command } from 'commander';
-import { createComponent } from '../actions/generate/component.js';
-import { createModel } from '../actions/generate/model.js';
-import { createHook } from '../actions/generate/hook.js';
-import { createContext } from '../actions/generate/context.js';
-import { createRoute } from '../actions/generate/route.js';
+import { createComponent } from '../actions/generate/component.action.js';
+import { createModel } from '../actions/generate/model.action.js';
+import { createHook } from '../actions/generate/hook.action.js';
+import { createContext } from '../actions/generate/context.action.js';
+import { createRoute } from '../actions/generate/route.action.js';
 import chalk from 'chalk';
 import { generateComponentCommand } from './generateCommands/component.command.js';
 import { generateClassCommand } from './generateCommands/class.command.js';

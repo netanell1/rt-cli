@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { handleTemplate } from '../actions/template.js';
+import { handleTemplate } from '../actions/template.action.js';
 import { templateComponentCommand } from './templateCommands/component.command.js';
 import { templateStyleCommand } from './templateCommands/style.command.js';
 

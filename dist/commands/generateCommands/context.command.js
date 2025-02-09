@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { createContext } from '../../actions/generate/context.js';
+import { createContext } from '../../actions/generate/context.action.js';
 export const generateContextCommand = () => {
     return new Command('context')
         .aliases(["co"])

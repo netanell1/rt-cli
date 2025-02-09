@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { handleInit } from '../actions/init.js';
+import { handleInit } from '../actions/init.action.js';
 export const initCommand = () => {
     const command = new Command('init')
         .description('Initialize configuration file for the CLI')

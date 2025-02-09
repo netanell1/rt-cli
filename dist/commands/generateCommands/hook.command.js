@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { createHook } from '../../actions/generate/hook.js';
+import { createHook } from '../../actions/generate/hook.action.js';
 export const generateHookCommand = () => {
     return new Command('hook')
         .aliases(["h"])

@@ -1,6 +1,6 @@
 import { Command } from 'commander';
 import chalk from 'chalk';
-import { handleTemplate } from '../../actions/template.js';
+import { handleTemplate } from '../../actions/template.action.js';
 ;
 
 export const templateComponentCommand = () => {

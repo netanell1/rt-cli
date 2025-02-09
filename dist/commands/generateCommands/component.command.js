@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { createComponent } from '../../actions/generate/component.js';
+import { createComponent } from '../../actions/generate/component.action.js';
 import chalk from 'chalk';
 ;
 export const generateComponentCommand = () => {

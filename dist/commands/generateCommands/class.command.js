@@ -1,5 +1,5 @@
 import { Command } from 'commander';
-import { createModel } from '../../actions/generate/model.js';
+import { createModel } from '../../actions/generate/model.action.js';
 import chalk from 'chalk';
 export const generateClassCommand = () => {
     return new Command('class')
