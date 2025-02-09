@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile, replaceSpecialCharacters } from '../helpers.js';
+import { replaceSpecialCharacters } from '../utils/helpers.js';
+import { handleSettingOptions } from '../utils/handleSettingOptions.js';
 export function createHook(hookFullName, options) {
     const folderArr = hookFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
@@ -21,39 +22,7 @@ export function createHook(hookFullName, options) {
     if (!fs.existsSync(hookDir)) {
         fs.mkdirSync(hookDir, { recursive: true });
     }
-    const configPath = findConfigFile(hookDir);
-    let fileExtension = 'js';
-    let componentFileFormat = 'function';
-    let suffix = "";
-    if (fs.existsSync(configPath)) {
-        try {
-            const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-            fileExtension = config.language === 'ts' ? 'ts' : 'js';
-            componentFileFormat = config.componentFileFormat || 'function';
-            suffix = config.useSuffix ? `.hook` : "";
-        }
-        catch (error) {
-            console.warn(chalk.yellow("Warning: rt.json is broken."));
-        }
-    }
-    if (options.js) {
-        fileExtension = 'js';
-    }
-    else if (options.ts) {
-        fileExtension = 'ts';
-    }
-    if ("useSuffix" in options && options.useSuffix == false) {
-        suffix = ``;
-    }
-    else if (options.useSuffix) {
-        suffix = `.hook`;
-    }
-    if (options.function) {
-        componentFileFormat = 'function';
-    }
-    else if (options.const) {
-        componentFileFormat = 'const';
-    }
+    const { fileExtension, componentFileFormat, suffix } = handleSettingOptions(options, hookDir, ".hook");
     const hookPath = path.join(hookDir, `${hookName}${suffix}.${fileExtension}`);
     if (fs.existsSync(hookPath)) {
         console.log(chalk.red(`Error: File ${hookName} already exists.`));

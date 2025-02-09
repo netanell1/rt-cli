@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile, replaceSpecialCharacters } from '../helpers.js';
+import { replaceSpecialCharacters } from '../utils/helpers.js';
+import { handleSettingOptions } from '../utils/handleSettingOptions.js';
 export function createContext(contextFullName, options) {
     const folderArr = contextFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
@@ -17,31 +18,7 @@ export function createContext(contextFullName, options) {
     if (!fs.existsSync(contextDir)) {
         fs.mkdirSync(contextDir, { recursive: true });
     }
-    const configPath = findConfigFile(contextDir);
-    let fileExtension = 'js';
-    let suffix = "";
-    if (fs.existsSync(configPath)) {
-        try {
-            const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-            fileExtension = config.language === 'ts' ? 'ts' : 'js';
-            suffix = config.useSuffix ? `.context` : "";
-        }
-        catch (error) {
-            console.warn(chalk.yellow("Warning: rt.json is broken."));
-        }
-    }
-    if (options.js) {
-        fileExtension = 'js';
-    }
-    else if (options.ts) {
-        fileExtension = 'ts';
-    }
-    if ("useSuffix" in options && options.useSuffix == false) {
-        suffix = ``;
-    }
-    else if (options.useSuffix) {
-        suffix = `.context`;
-    }
+    const { fileExtension, suffix } = handleSettingOptions(options, contextDir, '.context');
     const contextPath = path.join(contextDir, `${contextName}${suffix}.${fileExtension}`);
     if (fs.existsSync(contextPath)) {
         console.log(chalk.red(`Error: File ${contextName} already exists.`));

@@ -1,7 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { findConfigFile, replaceSpecialCharacters } from '../helpers.js';
+import { replaceSpecialCharacters } from '../utils/helpers.js';
+import { handleSettingOptions } from '../utils/handleSettingOptions.js';
 export function createRoute(routeFullName, options) {
     const folderArr = routeFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
@@ -17,40 +18,8 @@ export function createRoute(routeFullName, options) {
     if (!fs.existsSync(routeDir)) {
         fs.mkdirSync(routeDir, { recursive: true });
     }
-    const configPath = findConfigFile(routeDir);
-    let fileExtension = 'js';
-    let suffix = "";
-    let componentFileFormat = 'function';
-    if (fs.existsSync(configPath)) {
-        try {
-            const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-            fileExtension = config.language === 'ts' ? 'tsx' : 'jsx';
-            componentFileFormat = config.componentFileFormat || 'function'; // Check config for component type
-            suffix = config.useSuffix ? `.route` : "";
-        }
-        catch (error) {
-            console.warn(chalk.yellow("Warning: rt.json is broken."));
-        }
-    }
-    if (options.js) {
-        fileExtension = 'jsx';
-    }
-    else if (options.ts) {
-        fileExtension = 'tsx';
-    }
-    if ("useSuffix" in options && options.useSuffix == false) {
-        suffix = ``;
-    }
-    else if (options.useSuffix) {
-        suffix = `.route`;
-    }
-    if (options.function) {
-        componentFileFormat = 'function';
-    }
-    else if (options.const) {
-        componentFileFormat = 'const';
-    }
-    const routePath = path.join(routeDir, `${routeName}${suffix}.${fileExtension}`);
+    const { fileExtension, componentFileFormat, suffix } = handleSettingOptions(options, routeDir, ".route");
+    const routePath = path.join(routeDir, `${routeName}${suffix}.${fileExtension + "x"}`);
     if (fs.existsSync(routePath)) {
         console.log(chalk.red(`Error: File ${routeName} already exists.`));
         process.exit(1);

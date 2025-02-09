@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import { exec } from 'child_process';
 import fs from 'fs';
-import { findConfigFile, findPackageJsonFile } from './helpers.js';
+import { findConfigFile, findPackageJsonFile } from './utils/helpers.js';
 import ora from 'ora';
 import chalk from 'chalk';
 

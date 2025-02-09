@@ -1,6 +1,6 @@
 import { execSync } from 'child_process';
 import chalk from 'chalk';
-import { findPackageJsonFile } from './helpers.js';
+import { findPackageJsonFile } from './utils/helpers.js';
 import fs from 'fs';
 
 // Function to run npm script

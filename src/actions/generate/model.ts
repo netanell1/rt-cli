@@ -1,10 +1,12 @@
 import fs from 'fs';
 import path from 'path';
 import chalk from 'chalk';
-import { checkTypeScriptConfigured, findConfigFile, replaceSpecialCharacters } from '../helpers.js';
+import { checkTypeScriptConfigured, replaceSpecialCharacters } from '../utils/helpers.js';
+import { handleSettingOptions } from '../utils/handleSettingOptions.js';
+import { OptionsModel } from '../../models/interfaces/options.interface.js';
 
 
-export function createModel(modelType: string, modelFullName: string, options: any, checkTypeScript?: boolean) {
+export function createModel(modelType: string, modelFullName: string, options: OptionsModel, checkTypeScript?: boolean) {
     const folderArr = modelFullName.split(/[/\\]/);
     const folderPath = folderArr.slice(0, folderArr.length - 1).join('/');
     const modelName = folderArr[folderArr.length - 1];
@@ -23,31 +25,7 @@ export function createModel(modelType: string, modelFullName: string, options: a
         fs.mkdirSync(modelDir, { recursive: true });
     }
 
-    const configPath = findConfigFile(modelDir) as string;
-    let fileExtension = 'js';
-    let suffix = "";
-    if (fs.existsSync(configPath)) {
-        try {
-            const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-            fileExtension = config.language === 'ts' ? 'ts' : 'js';
-            suffix = config.useSuffix ? `.${modelType}` : "";
-        } catch (error) {
-            console.warn(chalk.yellow("Warning: rt.json is broken."))
-        }
-    }
-
-    if (options.js) {
-        fileExtension = 'js';
-    } else if (options.ts) {
-        fileExtension = 'ts';
-    }
-
-    if ("useSuffix" in options && options.useSuffix == false) {
-        suffix = ``;
-    }
-    else if (options.useSuffix) {
-        suffix = `.${modelType}`;
-    }
+    const { fileExtension, suffix } = handleSettingOptions(options, modelDir, `.${modelType}`);
 
     const modelPath = path.join(modelDir, `${modelName}${suffix}.${modelType == "class" ? fileExtension : 'ts'}`);
 
