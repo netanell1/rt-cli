@@ -36,20 +36,38 @@ export function createComponent(componentFullName: string, options: OptionsModel
   let templateComponentFile = '';
   if (templateComponentPath) {
     templateComponentFile = fs.readFileSync(templateComponentPath, 'utf-8');
-    templateComponentFile = templateComponentFile
-      .replace(/{{functionName}}/g, functionName)
-      .replace(/{{styleFileName}}/g, styleFileName)
-      .replace(/{{componentName}}/g, componentName);
+    templateComponentFile = templateComponentFile.replace(/_\{\s*(functionName|styleFileName|componentName)\s*\}_/g,
+      (match, p1) => {
+        switch (p1) {
+          case 'functionName':
+            return functionName;
+          case 'styleFileName':
+            return styleFileName;
+          case 'componentName':
+            return componentName;
+          default:
+            return match;
+        }
+      });
   }
 
   const templateStylePath = findTemplateFile('style', process.cwd());
   let templateStyleFile = '';
   if (templateStylePath) {
     templateStyleFile = fs.readFileSync(templateStylePath, 'utf-8');
-    templateStyleFile = templateStyleFile
-      .replace(/{{functionName}}/g, functionName)
-      .replace(/{{styleFileName}}/g, styleFileName)
-      .replace(/{{componentName}}/g, componentName);
+    templateStyleFile = templateStyleFile.replace(/_\{\s*(functionName|styleFileName|componentName)\s*\}_/g,
+      (match, p1) => {
+        switch (p1) {
+          case 'functionName':
+            return functionName;
+          case 'styleFileName':
+            return styleFileName;
+          case 'componentName':
+            return componentName;
+          default:
+            return match;
+        }
+      });
   }
 
   const indexContent = templateComponentFile ? templateComponentFile :
@@ -57,13 +75,13 @@ export function createComponent(componentFullName: string, options: OptionsModel
 ${styleModule ? `import styles from './${styleFileName}.module.${styleExtension}'`
       : `import './${styleFileName}.${styleExtension}'`
     };
-${fileExtension == "tsx" ? `
+${fileExtension == "ts" ? `
 interface ${functionName}Props {
 
 } 
     ` : ''}
     ${componentFileFormat == 'const' ? `
-const ${functionName} = ({}${fileExtension == "tsx" ? `:${functionName}Props` : ''}) => {
+const ${functionName} = ({}${fileExtension == "ts" ? `:${functionName}Props` : ''}) => {
   return (
     <p> ${componentName} works!</p>
   )
@@ -71,7 +89,7 @@ const ${functionName} = ({}${fileExtension == "tsx" ? `:${functionName}Props` : 
 
 export default ${functionName};
 ` : `
-export default function ${functionName} ({}${fileExtension == "tsx" ? `:${functionName}Props` : ''}) {
+export default function ${functionName} ({}${fileExtension == "ts" ? `:${functionName}Props` : ''}) {
   return (
     <p> ${componentName} works!</p>
   )

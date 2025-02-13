@@ -82,25 +82,25 @@ function createComponentTemplate(options) {
         componentFileFormat = 'const';
     }
     const indexContent = `
-${styleModule ? `import styles from './{{styleFileName}}.module.${styleExtension}'`
-        : `import './{{styleFileName}}.${styleExtension}'`};
+${styleModule ? `import styles from './_{styleFileName}_.module.${styleExtension}'`
+        : `import './_{styleFileName}_.${styleExtension}'`};
 ${fileExtension == "tsx" ? `
-interface {{functionName}}Props {
+interface _{functionName}_Props {
     
 } 
     ` : ''}
     ${componentFileFormat == 'const' ? `
-const {{functionName}} = ({}${fileExtension == "tsx" ? `:{{functionName}}Props` : ''})=> {
+const _{functionName}_ = ({}${fileExtension == "tsx" ? `:_{functionName}_Props` : ''})=> {
   return (
-    <p> {{componentName}} works!</p>
+    <p> _{componentName}_ works!</p>
   )
 };
 
-export default  {{functionName}};
+export default  _{functionName}_;
 ` : `
-export default function  {{functionName}} ({}${fileExtension == "tsx" ? `: {{functionName}}Props` : ''}) {
+export default function  _{functionName}_ ({}${fileExtension == "tsx" ? `: _{functionName}_Props` : ''}) {
   return (
-    <p> {{componentName}} works!</p>
+    <p> _{componentName}_ works!</p>
   )
 };
   `}`;

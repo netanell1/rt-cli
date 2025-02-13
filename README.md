@@ -306,9 +306,9 @@ The detailed content of the template files will be created according to the sett
 
 There are three variables to be aware of when editing such files:
 
-- **{{styleFileName}}** - the name of the style file
-- **{{functionName}}** - the name of the component with a capital letter at the beginning
-- **{{componentName}}** - the name of the component
+- **`_{styleFileName}_`** - the name of the style file
+- **`_{functionName}_`** - the name of the component with a capital letter at the beginning
+- **`_{componentName}_`** - the name of the component
 
 The variables in the template file are identified by double curly brackets
 
@@ -361,13 +361,13 @@ If the **components** folder does not exist, the program will create it. If it d
 In **`component-rt.template`** file add in the _p_ tag a className of the component name:
 
 ```bash
-import './{{styleFileName}}.css';
+import './_{styleFileName}_.css';
 
 
 
-export default function  {{functionName}} ({}) {
+export default function  _{functionName}_ ({}) {
   return (
-    <p className='{{componentName}}'> {{componentName}} works!</p>
+    <p className='_{componentName}_'> _{componentName}_ works!</p>
   )
 };
 ```
@@ -375,7 +375,7 @@ export default function  {{functionName}} ({}) {
 In **`style-rt.template`** file add a class of the component name - with a font size of 20 pixels:
 
 ```bash
-.{{componentName}}{
+._{componentName}_{
     font-size: 20px;
 }
 ```

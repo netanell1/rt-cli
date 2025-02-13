@@ -9,10 +9,10 @@ export const templateComponentCommand = () => {
         .option('--js', 'Create a JS file explicitly')
         .option('--ts', 'Create a TS file explicitly')
         .option('--style [styleType]', 'Create a styleType file explicitly')
-        .option('--function', 'Create a function component')
-        .option('--const', 'Create a constant component')
         .option('--use-module-style', 'Create a style file with .module extension')
         .option('--no-use-module-style', 'Disable the use of .module extension for style files')
+        .option('--function', 'Create a function component')
+        .option('--const', 'Create a constant component')
         .action((options) => {
         try {
             handleTemplate("component", options);
