@@ -4,7 +4,7 @@ import { updateDependencies } from '../actions/update.js';
 
 export const updateCommand = () => {
     const command = new Command('update')
-        .aliases(['upd'])
+        // .aliases(['upd'])
         .description('Update the react-cli-rt to the latest version')
         .action(() => {
             try {

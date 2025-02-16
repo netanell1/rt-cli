@@ -365,7 +365,7 @@ import './_{styleFileName}_.css';
 
 
 
-export default function  _{functionName}_ ({}) {
+export default function  _{functionName}_ ({ }) {
   return (
     <p className='_{componentName}_'> _{componentName}_ works!</p>
   )
@@ -394,7 +394,7 @@ import './myComponent.css';
 
 
 
-export default function  MyComponent ({}) {
+export default function  MyComponent ({ }) {
   return (
     <p className='myComponent'> myComponent works!</p>
   )

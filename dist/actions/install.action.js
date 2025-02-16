@@ -12,7 +12,10 @@ const topics = {
         { name: "antd", isDev: false },
         { name: "chakra-ui/react", isDev: false },
         { name: "semantic-ui-react", isDev: false },
-        { name: "react-icons", isDev: false }
+        { name: "react-icons", isDev: false },
+        { name: "react-select", isDev: false },
+        { name: "headlessui/react", isDev: false },
+        { name: "@radix-ui/react-tooltip", isDev: false }
     ],
     "Styling": [
         { name: "tailwindcss", isDev: false },
@@ -22,20 +25,25 @@ const topics = {
         { name: "emotion", isDev: false },
         { name: "css-modules", isDev: false },
         { name: "postcss", isDev: true },
-        { name: "autoprefixer", isDev: true }
+        { name: "autoprefixer", isDev: true },
+        { name: "tailwind-variants", isDev: false },
+        { name: "vanilla-extract", isDev: false }
     ],
     "State Management": [
         { name: "@reduxjs/toolkit", isDev: false },
         { name: "zustand", isDev: false },
         { name: "recoil", isDev: false },
         { name: "xstate", isDev: false },
-        { name: "mobx", isDev: false }
+        { name: "mobx", isDev: false },
+        { name: "jotai", isDev: false },
+        { name: "valtio", isDev: false }
     ],
     "Form Handling": [
         { name: "react-hook-form", isDev: false },
         { name: "formik", isDev: false },
         { name: "yup", isDev: false },
-        { name: "final-form", isDev: false }
+        { name: "final-form", isDev: false },
+        { name: "zod", isDev: false }
     ],
     "API": [
         { name: "axios", isDev: false },
@@ -43,35 +51,69 @@ const topics = {
         { name: "swr", isDev: false },
         { name: "@apollo/client", isDev: false },
         { name: "graphql", isDev: false },
-        { name: "react-query-devtools", isDev: true }
+        { name: "react-query-devtools", isDev: true },
+        { name: "fetcher", isDev: false }
     ],
     "Animation": [
         { name: "framer-motion", isDev: false },
         { name: "react-transition-group", isDev: false },
         { name: "react-spring", isDev: false },
         { name: "gsap", isDev: false },
-        { name: "animejs", isDev: false }
+        { name: "animejs", isDev: false },
+        { name: "@motionone/react", isDev: false }
     ],
     "Routing": [
         { name: "react-router-dom", isDev: false },
-        { name: "react-router", isDev: false }
+        { name: "next", isDev: false }
     ],
     "Testing": [
         { name: "jest", isDev: true },
         { name: "react-testing-library", isDev: true },
         { name: "@testing-library/dom", isDev: true },
         { name: "cypress", isDev: false },
-        { name: "@testing-library/jest-dom", isDev: true }
+        { name: "@testing-library/jest-dom", isDev: true },
+        { name: "playwright", isDev: false }
     ],
     "Utilities": [
         { name: "lodash", isDev: false },
         { name: "uuid", isDev: false },
         { name: "date-fns", isDev: false },
-        { name: "moment", isDev: false }
+        { name: "ramda", isDev: false },
+        { name: "classnames", isDev: false },
+        { name: "fast-deep-equal", isDev: false }
     ],
     "Development": [
         { name: "eslint", isDev: true },
-        { name: "prettier", isDev: true }
+        { name: "prettier", isDev: true },
+        { name: "husky", isDev: true },
+        { name: "lint-staged", isDev: true },
+        { name: "babel", isDev: true }
+    ],
+    "Data Visualization": [
+        { name: "recharts", isDev: false },
+        { name: "victory", isDev: false },
+        { name: "chart.js", isDev: false }
+    ],
+    "Headless CMS & Content": [
+        { name: "contentful", isDev: false },
+        { name: "prismic-javascript", isDev: false },
+        { name: "sanity", isDev: false }
+    ],
+    "Accessibility (A11y)": [
+        { name: "react-aria", isDev: false },
+        { name: "@chakra-ui/a11y-utils", isDev: false }
+    ],
+    "Performance Optimization": [
+        { name: "react-lazyload", isDev: false },
+        { name: "react-virtualized", isDev: false }
+    ],
+    "File Handling": [
+        { name: "react-dropzone", isDev: false },
+        { name: "browser-image-compression", isDev: false }
+    ],
+    "Feature Flags & Experimentation": [
+        { name: "launchdarkly-react-client-sdk", isDev: false },
+        { name: "splitio", isDev: false }
     ]
 };
 // Function to get the installed packages from package.json

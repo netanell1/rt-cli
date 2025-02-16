@@ -105,7 +105,7 @@ interface _{functionName}_Props {
 } 
     `: ''}
     ${componentFileFormat == 'const' ? `
-const _{functionName}_ = ({}${fileExtension == "tsx" ? `:_{functionName}_Props` : ''})=> {
+const _{functionName}_ = ({ }${fileExtension == "tsx" ? `:_{functionName}_Props` : ''})=> {
   return (
     <p> _{componentName}_ works!</p>
   )
@@ -113,7 +113,7 @@ const _{functionName}_ = ({}${fileExtension == "tsx" ? `:_{functionName}_Props` 
 
 export default  _{functionName}_;
 `: `
-export default function  _{functionName}_ ({}${fileExtension == "tsx" ? `: _{functionName}_Props` : ''}) {
+export default function  _{functionName}_ ({ }${fileExtension == "tsx" ? `: _{functionName}_Props` : ''}) {
   return (
     <p> _{componentName}_ works!</p>
   )

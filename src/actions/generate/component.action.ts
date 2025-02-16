@@ -81,7 +81,7 @@ interface ${functionName}Props {
 } 
     ` : ''}
     ${componentFileFormat == 'const' ? `
-const ${functionName} = ({}${fileExtension == "ts" ? `:${functionName}Props` : ''}) => {
+const ${functionName} = ({ }${fileExtension == "ts" ? `:${functionName}Props` : ''}) => {
   return (
     <p> ${componentName} works!</p>
   )
@@ -89,7 +89,7 @@ const ${functionName} = ({}${fileExtension == "ts" ? `:${functionName}Props` : '
 
 export default ${functionName};
 ` : `
-export default function ${functionName} ({}${fileExtension == "ts" ? `:${functionName}Props` : ''}) {
+export default function ${functionName} ({ }${fileExtension == "ts" ? `:${functionName}Props` : ''}) {
   return (
     <p> ${componentName} works!</p>
   )
