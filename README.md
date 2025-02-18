@@ -13,7 +13,7 @@ npm install -g react-cli-rt
 Generate a React component:
 
 ```sh
-rt generate component MyComponent
+rt generate component [name]
 ```
 
 ## Documentation
