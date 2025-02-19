@@ -7,3 +7,4 @@ models/
 src/
 tsconfig.json
 *.ts
+old-README.md
