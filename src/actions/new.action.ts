@@ -95,7 +95,7 @@ export function createReactApp(appName: string, options: OptionsModel) {
         console.error(chalk.red('Error running rt init'), error);
     }
 
-    handleInstallMore(appName)
+    // handleInstallMore(appName)
 
 }
 
